@@ -20,7 +20,12 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     (response: AxiosResponse<HttpResponse>) => {
         const res = response;
-        return res;
+        console.log(res.data);
+        if (res.data?.statusCode === '100001') {
+            return res;
+        } else {
+            return Promise.reject(res);
+        }
     },
     (error) => {
         return Promise.reject(error);

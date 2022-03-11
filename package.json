@@ -13,6 +13,7 @@
         "pinia": "^2.0.9",
         "pinia-plugin-persist": "^0.0.92",
         "vue": "^3.2.25",
+        "vue-request": "^1.2.4",
         "vue-router": "4"
     },
     "devDependencies": {

@@ -26,11 +26,11 @@ export default defineConfig({
         cors: true, // 允许跨域
         // 设置代理
         proxy: {
-            // '/api/pstake': {
-            //     target: 'https://api.airdrop.pstake.finance/',
-            //     changeOrigin: true,
-            //     rewrite: (path) => path.replace(/^\/api\/pstake/, '')
-            // }
+            '/demoApi': {
+                target: 'https://api.apishop.net',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/demoApi/, '')
+            }
         }
     },
     build: {
