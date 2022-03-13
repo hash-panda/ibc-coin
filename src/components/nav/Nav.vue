@@ -1,26 +1,82 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+const menuList = ref([
+    { id: 'pair', name: 'Pairs', actived: true },
+    { id: 'subscribe', name: 'Subscribe', actived: false }
+]);
+onMounted(() => {});
+
+const changeMenu = (menuId: string) => {
+    menuList.value.forEach((v) => {
+        if (v.id === menuId) {
+            v.actived = true;
+        } else {
+            v.actived = false;
+        }
+    });
+};
+</script>
 <template>
-    <div>
-        <div
+    <!-- <div
             id="nav"
             class="flex justify-end items-center py-2 border-base-200 bg-base-100 text-base-content sticky inset-x-0 top-0 z-50 w-full transition duration-200 ease-in-out border-b"
         >
-            <div class="flex-0 ml-6">
-                <span class="text-primary font-bold text-xl lg:text-3xl"
-                    ><span>C</span
-                    ><span><img class="inline" width="20" src="../../assets/logo.png" /></span
-                    ><span>omos</span></span
-                ><span class="font-extrabold text-xl lg:text-3xl"> HAHAHA</span>
-                <div class="ml-2 badge badge-primary badge-outline">Beta</div>
+            <div class="flex items-center flex-0 ml-6">
+                <span class="text-primary text-2xl">COSMOS</span>
+                <span class="ml-2 font-extrabold text-xl">KLine</span>
+                <div class="ml-2 badge badge-sm badge-primary badge-outline">Beta</div>
             </div>
 
             <div class="flex-1"> </div>
 
             <div class="navbar max-w-none mr-2 hidden lg:mr-5 md:block"> </div>
+        </div> -->
+
+    <div
+        id="nav"
+        class="navbar flex justify-end items-center py-3 pr-5 border-base-200 bg-base-100 text-base-content sticky inset-x-0 top-0 z-50 w-full transition duration-200 ease-in-out border-b"
+    >
+        <div class="navbar-start">
+            <div class="dropdown dropdown-hover">
+                <label class="btn btn-ghost lg:hidden">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16"
+                        />
+                    </svg>
+                </label>
+                <ul
+                    tabindex="0"
+                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                    <li><a>Pairs</a></li>
+                    <li><a>Subscribe</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-ghost normal-case text-xl">
+                <span class="text-primary text-2xl">COSMOS</span>
+                <span class="ml-2 font-extrabold text-xl">KLine</span>
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal p-0">
+                <li v-for="menu in menuList" :key="menu.id" @click="changeMenu(menu.id)"
+                    ><a :class="menu.actived ? 'active' : ''">{{ menu.name }}</a></li
+                >
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <a class="btn btn-secondary normal-case">Connect Wallet</a>
         </div>
     </div>
 </template>
-<script setup lang="ts">
-import { onMounted } from 'vue';
-
-onMounted(() => {});
-</script>
