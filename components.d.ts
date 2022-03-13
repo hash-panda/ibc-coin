@@ -46,6 +46,7 @@ declare module 'vue' {
     PstakeInfo: typeof import('./src/components/projectInfo/PstakeInfo.vue')['default']
     RacoonInfo: typeof import('./src/components/projectInfo/RacoonInfo.vue')['default']
     SenatusInfo: typeof import('./src/components/projectInfo/SenatusInfo.vue')['default']
+    Subscribe: typeof import('./src/components/Subscribe/Subscribe.vue')['default']
   }
 }
 
