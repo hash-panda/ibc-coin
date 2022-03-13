@@ -1,42 +1,10 @@
-export interface Profile {
-    key: number;
+export interface CoinPair {
     name: string;
-    address: string[];
-    create?: number;
-    update?: number;
-}
-
-export interface ProjectBaseInfo {
-    key: string;
+    coinPair: string;
     icon: string;
-    name: string;
-    claimStatus: string;
-    claimStatusClass: string;
-    label: string[];
-    snapDate: string;
-    airdropDate: string;
-    description: string;
-    detail?: string;
-    twitter?: string;
-    discord?: string;
-    airdropClaim?: string;
-    airdropLink?: string;
-    officialWeb: string;
-    coin: string;
-    isCheckAccount: boolean;
-    checkAccount: Function;
-}
-
-export interface AirdropInfo {
-    address: string;
-    amount: number | string;
-    coin?: string;
-}
-
-export interface ProfileAllotted {
-    profileKey: number;
-    projectKey: string;
-    airdropTotalAmount: number;
-    checkTime?: number;
-    airdrop?: AirdropInfo[];
+    price: number | string;
+    priceUnit: string;
+    marketCap: number | string;
+    marketCapUnit: string;
+    h24: string;
 }

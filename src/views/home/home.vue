@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Nav from '@/components/nav/Nav.vue';
+import CoinPairs from '@/components/coinPairs/CoinPairs.vue';
 import { useRequest } from 'vue-request';
 import axios from 'axios';
 
@@ -26,5 +27,8 @@ const data = ref(0);
 <template>
     <div>
         <Nav />
+        <div class="w-full px-72 mt-10">
+            <CoinPairs />
+        </div>
     </div>
 </template>

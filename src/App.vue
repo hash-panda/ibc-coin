@@ -1,8 +1,22 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+import { ref } from 'vue';
+import { NConfigProvider, GlobalThemeOverrides, darkTheme } from 'naive-ui';
+
+const themeOverrides: GlobalThemeOverrides = {
+    Card: {
+        color: 'rgba(42, 48, 60, 1)'
+    },
+    Tabs: {
+        tabTextColorActiveLine: '#6419e6FF',
+        tabTextColorHoverLine: '#6419e6FF'
+    }
+};
+
+// ...
 </script>
 
 <template>
-    <router-view></router-view>
+    <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides">
+        <router-view></router-view>
+    </n-config-provider>
 </template>
