@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Nav from '@/components/nav/Nav.vue';
-import CoinPairs from '@/components/coinPairs/CoinPairs.vue';
 import { useRequest } from 'vue-request';
 import axios from 'axios';
+import { useMenuStore } from '@/store/menu';
+import Nav from '@/components/nav/Nav.vue';
+import CoinPairs from '@/components/coinPairs/CoinPairs.vue';
+import Subscribe from '@/components/Subscribe/Subscribe.vue';
 
+const menuStore = useMenuStore();
 const data = ref(0);
 // const getWeather = () => {
 //     return axios.post('/demoApi/common/weather/get15DaysWeatherByArea', {
@@ -27,8 +30,7 @@ const data = ref(0);
 <template>
     <div>
         <Nav />
-        <div class="w-full px-72 mt-10">
-            <CoinPairs />
-        </div>
+        <CoinPairs v-show="menuStore.currentMenuId === 'pair'" />
+        <Subscribe v-show="menuStore.currentMenuId === 'subscribe'" />
     </div>
 </template>

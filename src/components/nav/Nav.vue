@@ -1,45 +1,17 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useMenuStore } from '@/store/menu';
 
-const menuList = ref([
-    { id: 'pair', name: 'Pairs', actived: true },
-    { id: 'subscribe', name: 'Subscribe', actived: false }
-]);
-onMounted(() => {});
-
-const changeMenu = (menuId: string) => {
-    menuList.value.forEach((v) => {
-        if (v.id === menuId) {
-            v.actived = true;
-        } else {
-            v.actived = false;
-        }
-    });
-};
+const menuStore = useMenuStore();
 </script>
 <template>
-    <!-- <div
-            id="nav"
-            class="flex justify-end items-center py-2 border-base-200 bg-base-100 text-base-content sticky inset-x-0 top-0 z-50 w-full transition duration-200 ease-in-out border-b"
-        >
-            <div class="flex items-center flex-0 ml-6">
-                <span class="text-primary text-2xl">COSMOS</span>
-                <span class="ml-2 font-extrabold text-xl">KLine</span>
-                <div class="ml-2 badge badge-sm badge-primary badge-outline">Beta</div>
-            </div>
-
-            <div class="flex-1"> </div>
-
-            <div class="navbar max-w-none mr-2 hidden lg:mr-5 md:block"> </div>
-        </div> -->
-
     <div
         id="nav"
         class="navbar flex justify-end items-center py-3 pr-5 border-base-200 bg-base-100 text-base-content sticky inset-x-0 top-0 z-50 w-full transition duration-200 ease-in-out border-b"
     >
         <div class="navbar-start">
             <div class="dropdown dropdown-hover">
-                <label class="btn btn-ghost lg:hidden">
+                <label class="btn btn-ghost md:hidden">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
@@ -59,8 +31,12 @@ const changeMenu = (menuId: string) => {
                     tabindex="0"
                     class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                    <li><a>Pairs</a></li>
-                    <li><a>Subscribe</a></li>
+                    <li
+                        v-for="menu in menuStore.menuList"
+                        :key="menu.id"
+                        @click="menuStore.changeMenu(menu.id)"
+                        ><a :class="menu.actived ? 'active' : ''">{{ menu.name }}</a></li
+                    >
                 </ul>
             </div>
             <a class="btn btn-ghost normal-case text-xl">
@@ -68,9 +44,12 @@ const changeMenu = (menuId: string) => {
                 <span class="ml-2 font-extrabold text-xl">KLine</span>
             </a>
         </div>
-        <div class="navbar-center hidden lg:flex">
+        <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal p-0">
-                <li v-for="menu in menuList" :key="menu.id" @click="changeMenu(menu.id)"
+                <li
+                    v-for="menu in menuStore.menuList"
+                    :key="menu.id"
+                    @click="menuStore.changeMenu(menu.id)"
                     ><a :class="menu.actived ? 'active' : ''">{{ menu.name }}</a></li
                 >
             </ul>
