@@ -16,6 +16,7 @@ declare module 'vue' {
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     SubscribeSubscribe: typeof import('./src/components/subscribe/Subscribe.vue')['default']
+    SwapSwap: typeof import('./src/components/swap/Swap.vue')['default']
   }
 }
 

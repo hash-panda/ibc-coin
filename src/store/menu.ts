@@ -6,6 +6,7 @@ export const useMenuStore = defineStore({
             currentMenuId: 'pair',
             menuList: [
                 { id: 'pair', name: 'Pairs', actived: true },
+                { id: 'swap', name: 'Swap', actived: false },
                 { id: 'subscribe', name: 'Subscribe', actived: false }
             ]
         };

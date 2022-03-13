@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useMenuStore } from '@/store/menu';
 import Nav from '@/components/nav/Nav.vue';
 import CoinPairs from '@/components/coinPairs/CoinPairs.vue';
-import Subscribe from '@/components/Subscribe/Subscribe.vue';
+import Subscribe from '@/components/subscribe/Subscribe.vue';
+import Swap from '@/components/swap/Swap.vue';
 
 const menuStore = useMenuStore();
 const data = ref(0);
@@ -31,6 +32,7 @@ const data = ref(0);
     <div>
         <Nav />
         <CoinPairs v-show="menuStore.currentMenuId === 'pair'" />
+        <Swap v-show="menuStore.currentMenuId === 'swap'" />
         <Subscribe v-show="menuStore.currentMenuId === 'subscribe'" />
     </div>
 </template>
