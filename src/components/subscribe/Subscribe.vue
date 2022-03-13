@@ -12,13 +12,7 @@
                     <p></p>
                     <!-- ... -->
                 </article>
-                <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value="40"
-                    class="range range-primary mt-10"
-                />
+                <input type="range" min="0" max="100" value="40" class="range range-accent mt-10" />
                 <div class="mt-4">
                     <div class="form-control">
                         <label class="input-group">

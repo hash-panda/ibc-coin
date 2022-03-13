@@ -35,12 +35,12 @@ const menuStore = useMenuStore();
                         v-for="menu in menuStore.menuList"
                         :key="menu.id"
                         @click="menuStore.changeMenu(menu.id)"
-                        ><a :class="menu.actived ? 'active' : ''">{{ menu.name }}</a></li
+                        ><a :class="menu.actived ? 'active bg-accent' : ''">{{ menu.name }}</a></li
                     >
                 </ul>
             </div>
             <a class="btn btn-ghost normal-case text-xl">
-                <span class="text-primary text-2xl">COSMOS</span>
+                <span class="text-accent text-2xl">COSMOS</span>
                 <span class="ml-2 font-extrabold text-xl">KLine</span>
             </a>
         </div>
@@ -50,7 +50,7 @@ const menuStore = useMenuStore();
                     v-for="menu in menuStore.menuList"
                     :key="menu.id"
                     @click="menuStore.changeMenu(menu.id)"
-                    ><a :class="menu.actived ? 'active' : ''">{{ menu.name }}</a></li
+                    ><a :class="menu.actived ? 'active  bg-accent' : ''">{{ menu.name }}</a></li
                 >
             </ul>
         </div>

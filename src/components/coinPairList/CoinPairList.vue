@@ -39,7 +39,7 @@ const coinPairHeader = ref(['Coin Pair', 'Price', 'MarketCap', '24h', ' ']);
                         <td>{{ coin.marketCap }} {{ coin.marketCapUnit }}</td>
                         <td>{{ coin.h24 }}</td>
                         <th>
-                            <button class="btn btn-outline btn-secondary btn-sm">SWAP</button>
+                            <button class="btn btn-outline btn-accent btn-sm">SWAP</button>
                         </th>
                     </tr>
                 </tbody>
