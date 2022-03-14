@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { getAtomPriceApi, getMarketPricesApi } from '@/api';
 import { useRequest } from 'vue-request';
+import { getImageSrc } from '@/utils';
 
 const currencyInfo = ref([
     // {
@@ -74,7 +75,7 @@ run();
         <h1>你好，test</h1>
         <div v-for="item in (data as any)" :key="item.name">
             <span>{{ item.name }}</span>
-            <img :src="item.icon" />
+            <img :src="getImageSrc(item.icon)" />
             <p>{{ item.denom }}</p>
             <p>{{ item.prices?.[0]?.current_price }} {{ item.prices?.[0]?.currency }}</p>
             <p>{{ item.prices?.[0]?.total_volume }} {{ item.prices?.[0]?.currency }}</p>

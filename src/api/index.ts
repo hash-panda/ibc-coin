@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { COIN_LIST, DISPLAY_COIN_LIST } from '@/const/constant';
+import { DISPLAY_COIN_LIST } from '@/const/displayCoinList';
 import { useRequest } from 'vue-request';
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
