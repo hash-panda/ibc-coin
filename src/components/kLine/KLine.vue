@@ -12,8 +12,8 @@ onMounted(() => {
 
     try {
         const chart = createChart(chartRef.value, {
-            width: 900,
-            height: 500,
+            width: 930,
+            height: 350,
             rightPriceScale: {
                 scaleMargins: {
                     top: 0.3,

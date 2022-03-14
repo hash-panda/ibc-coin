@@ -4,67 +4,67 @@
 export const DISPLAY_COIN_LIST = {
     uatom: {
         name: 'ATOM',
-        coinPair: 'atom / usd',
+        coinPair: 'ATOM / USD',
         icon: 'atom-logo.svg'
     },
     ujuno: {
         name: 'JUNO',
-        coinPair: 'juno / usd',
+        coinPair: 'JUNO / USD',
         icon: 'juno-logo.svg'
     },
     uluna: {
         name: 'LUNA',
-        coinPair: 'luna / usd',
+        coinPair: 'LUNA / USD',
         icon: 'luna-logo.png'
     },
     uosmo: {
         name: 'OSMO',
-        coinPair: 'osmo / usd',
+        coinPair: 'OSMO / USD',
         icon: 'osmo-logo.svg'
     },
     // uscrt: {
     //     name: 'SCRT',
-    //     coinPair: 'scrt / usd',
+    //     coinPair: 'SCRT / USD',
     //     icon: 'scrt-logo.png'
     // },
     // ukava: {
     //     name: 'KAVA',
-    //     coinPair: 'kava / usd',
+    //     coinPair: 'KAVA / USD',
     //     icon: 'kava-logo.png'
     // },
     uxprt: {
         name: 'XPRT',
-        coinPair: 'xprt / usd',
+        coinPair: 'XPRT / USD',
         icon: 'xprt-logo.png'
     },
     uakt: {
         name: 'AKT',
-        coinPair: 'akt / usd',
+        coinPair: 'AKT / USD',
         icon: 'akt-logo.svg'
     },
     umed: {
         name: 'MED',
-        coinPair: 'med / usd',
+        coinPair: 'MED / USD',
         icon: 'med-logo.png'
     },
     uband: {
         name: 'BAND',
-        coinPair: 'band / usd',
+        coinPair: 'BAND / USD',
         icon: 'band-logo.svg'
     },
     uiris: {
         name: 'IRIS',
-        coinPair: 'iris / usd',
+        coinPair: 'IRIS / USD',
         icon: 'iris-logo.svg'
     },
     uion: {
         name: 'ION',
-        coinPair: 'ion / usd',
+        coinPair: 'ION / USD',
         icon: 'ion-logo.png'
     },
     neta: {
         name: 'NETA',
-        coinPair: 'neta / usd',
+        coinPair: 'NETA / USD',
         icon: 'neta-logo.svg'
     }
 };

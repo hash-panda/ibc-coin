@@ -6,7 +6,7 @@ import { getImageSrc } from '@/utils';
 const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
-const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', '24h', ' ']);
+const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', 'Change(24h)', ' ']);
 </script>
 <template>
     <div
@@ -37,10 +37,17 @@ const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', '24h', ' ']);
                             </div>
                         </td>
                         <td>
-                            <div>{{ coin.currentPrice }} {{ coin.currentPriceUnit }}</div>
+                            <div
+                                >{{ coin.currentPrice }}
+                                <span class="uppercase"> {{ coin.currentPriceUnit }}</span></div
+                            >
                         </td>
-                        <td>{{ coin.marketCap }} {{ coin.marketCapUnit }}</td>
                         <td
+                            >{{ coin.marketCap }}
+                            <span class="uppercase"> {{ coin.marketCapUnit }}</span></td
+                        >
+                        <td
+                            class="font-bold"
                             :class="
                                 coin.dailyPriceChangeInPercentage > 0
                                     ? 'text-success'
