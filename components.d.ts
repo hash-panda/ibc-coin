@@ -11,8 +11,6 @@ declare module 'vue' {
     FooterFooter: typeof import('./src/components/footer/Footer.vue')['default']
     KLineKLine: typeof import('./src/components/kLine/KLine.vue')['default']
     NavNav: typeof import('./src/components/nav/Nav.vue')['default']
-    NCard: typeof import('naive-ui')['NCard']
-    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     SubscribeSubscribe: typeof import('./src/components/subscribe/Subscribe.vue')['default']
