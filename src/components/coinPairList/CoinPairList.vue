@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
 import { CoinPair } from '@/types/types';
+import { getImageSrc } from '@/utils';
 
 const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
-const coinPairHeader = ref(['Coin Pair', 'Price', 'MarketCap', '24h', ' ']);
+const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', '24h', ' ']);
 </script>
 <template>
     <div
@@ -14,7 +15,9 @@ const coinPairHeader = ref(['Coin Pair', 'Price', 'MarketCap', '24h', ' ']);
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th v-for="item in coinPairHeader" :key="item">{{ item }}</th>
+                        <th class="normal-case" v-for="item in coinPairHeader" :key="item">{{
+                            item
+                        }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +27,7 @@ const coinPairHeader = ref(['Coin Pair', 'Price', 'MarketCap', '24h', ' ']);
                             <div class="flex items-center space-x-3">
                                 <div class="avatar">
                                     <div class="mask mask-squircle w-12 h-12">
-                                        <img height="20" :src="coin.icon" />
+                                        <img height="20" :src="getImageSrc(coin.icon)" />
                                     </div>
                                 </div>
                                 <div>
@@ -34,10 +37,22 @@ const coinPairHeader = ref(['Coin Pair', 'Price', 'MarketCap', '24h', ' ']);
                             </div>
                         </td>
                         <td>
-                            <div>{{ coin.price }} {{ coin.priceUnit }}</div>
+                            <div>{{ coin.currentPrice }} {{ coin.currentPriceUnit }}</div>
                         </td>
                         <td>{{ coin.marketCap }} {{ coin.marketCapUnit }}</td>
-                        <td>{{ coin.h24 }}</td>
+                        <td
+                            :class="
+                                coin.dailyPriceChangeInPercentage > 0
+                                    ? 'text-success'
+                                    : 'text-error'
+                            "
+                            >{{
+                                coin.dailyPriceChangeInPercentage > 0
+                                    ? '+' + coin.dailyPriceChangeInPercentage
+                                    : coin.dailyPriceChangeInPercentage
+                            }}
+                            %</td
+                        >
                         <th>
                             <button class="btn btn-outline btn-accent btn-sm">SWAP</button>
                         </th>

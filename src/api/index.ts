@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { DISPLAY_COIN_LIST } from '@/const/displayCoinList';
-import { useRequest } from 'vue-request';
+import { getFormatAmount } from '@/utils';
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
 export const getAtomPriceApi = () => {
@@ -25,7 +25,14 @@ export const getMarketPricesApi = () => {
                     });
                     const displayCoinList = coinList.map((v) => {
                         return {
-                            ...v,
+                            currentPrice: v.prices?.[0]?.current_price,
+                            currentPriceUnit: v.prices?.[0]?.currency,
+                            marketCap: getFormatAmount(v.prices?.[0]?.market_cap),
+                            marketCapUnit: v.prices?.[0]?.currency,
+                            dailyPriceChangeInPercentage: getFormatAmount(
+                                v.prices?.[0]?.daily_price_change_in_percentage
+                            ),
+                            lastUpdated: v.last_updated,
                             ...DISPLAY_COIN_LIST[v.denom]
                         };
                     });
