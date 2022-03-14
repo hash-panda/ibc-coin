@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRequest } from 'vue-request';
 import axios from 'axios';
 import { useMenuStore } from '@/store/menu';
@@ -10,6 +10,7 @@ import Swap from '@/components/swap/Swap.vue';
 
 const menuStore = useMenuStore();
 const data = ref(0);
+
 // const getWeather = () => {
 //     return axios.post('/demoApi/common/weather/get15DaysWeatherByArea', {
 //         apiKey: 'Ex2AFtn418512e0dd84329a443e14a881bfce3ef91cf6d8',
