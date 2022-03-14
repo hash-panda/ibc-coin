@@ -19,8 +19,7 @@ axios.interceptors.request.use(
 // add response interceptors
 axios.interceptors.response.use(
     (response: AxiosResponse<HttpResponse>) => {
-        const res = response;
-        console.log(res.data);
+        const res = response.data;
         return Promise.resolve(res);
     },
     (error) => {

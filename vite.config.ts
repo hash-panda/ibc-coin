@@ -27,10 +27,10 @@ export default defineConfig({
         cors: true, // 允许跨域
         // 设置代理
         proxy: {
-            '/demoApi': {
-                target: 'https://api.apishop.net',
+            '/backend/cosmostation': {
+                target: 'https://api-utility.cosmostation.io',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/demoApi/, '')
+                rewrite: (path) => path.replace(/^\/backend\/cosmostation/, '')
             }
         }
     },

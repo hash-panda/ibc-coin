@@ -1,3 +1,4 @@
+import { ExtractValue, SelectItem } from '@/types/types';
 import { accDiv } from './acc';
 
 export function getActualAmount(amount: string | number, presicion?: number) {
@@ -35,3 +36,27 @@ export function myFixed(num: string, digit: number): string {
         Math.round((numFloat + Number.EPSILON) * Math.pow(10, digit)) / Math.pow(10, digit)
     ).toFixed(digit);
 }
+
+export const genMapObject = <T extends Readonly<SelectItem[]>>(originData: T) => {
+    const o: {
+        [K in T[number]['value']]: ExtractValue<T[number], K>;
+    } = Object.create(null);
+    originData.forEach((item) => {
+        o[item.value as T[number]['value']] = item.label as ExtractValue<
+            T[number],
+            T[number]['value']
+        >;
+    });
+    return o;
+};
+
+/**
+ *
+ * @param name 图片名称
+ * @returns
+ */
+export const getSrc = (name: string) => {
+    const path = `/src/assets/images/${name}`;
+    const modules = import.meta.globEager('/src/assets/images/*');
+    return modules[path].default;
+};
