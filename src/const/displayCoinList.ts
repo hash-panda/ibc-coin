@@ -1,51 +1,57 @@
-import { getImageSrc } from '@/utils';
-
 /**
  * list of coin displays
  */
 export const DISPLAY_COIN_LIST = {
     uatom: {
         name: 'ATOM',
-        icon: 'atom-logo.png'
+        icon: 'atom-logo.svg'
     },
     ujuno: {
         name: 'JUNO',
-        icon: 'atom-logo.png'
+        icon: 'juno-logo.svg'
     },
     uluna: {
         name: 'LUNA',
-        icon: 'atom-logo.png'
+        icon: 'luna-logo.png'
     },
     uosmo: {
         name: 'OSMO',
-        icon: 'atom-logo.png'
+        icon: 'osmo-logo.svg'
     },
-    uscrt: {
-        name: 'SCRT',
-        icon: 'atom-logo.png'
-    },
-    ukava: {
-        name: 'KAVA',
-        icon: 'atom-logo.png'
-    },
+    // uscrt: {
+    //     name: 'SCRT',
+    //     icon: 'scrt-logo.png'
+    // },
+    // ukava: {
+    //     name: 'KAVA',
+    //     icon: 'kava-logo.png'
+    // },
     uxprt: {
         name: 'XPRT',
-        icon: 'atom-logo.png'
+        icon: 'xprt-logo.png'
     },
     uakt: {
         name: 'AKT',
-        icon: 'atom-logo.png'
+        icon: 'akt-logo.svg'
     },
     umed: {
         name: 'MED',
-        icon: 'atom-logo.png'
+        icon: 'med-logo.png'
     },
     uband: {
         name: 'BAND',
-        icon: 'atom-logo.png'
+        icon: 'band-logo.svg'
     },
     uiris: {
         name: 'IRIS',
-        icon: 'atom-logo.png'
+        icon: 'iris-logo.svg'
+    },
+    uion: {
+        name: 'ION',
+        icon: 'ion-logo.png'
+    },
+    neta: {
+        name: 'NETA',
+        icon: 'neta-logo.svg'
     }
 };

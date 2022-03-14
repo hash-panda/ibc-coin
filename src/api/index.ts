@@ -14,7 +14,6 @@ export const getMarketPricesApi = () => {
             .get('/backend/cosmostation/v1/market/prices')
             .then((res: any) => {
                 const coins = Object.keys(DISPLAY_COIN_LIST);
-                console.log('rrrrrrrrrrrres', coins);
                 if (res.length > 0) {
                     // 筛选出展示的 coin
                     const coinList = res.filter((v) => {
@@ -24,7 +23,6 @@ export const getMarketPricesApi = () => {
                     coinList.sort((a, b) => {
                         return coins.indexOf(a.denom) - coins.indexOf(b.denom);
                     });
-                    console.log('sort result', coinList);
                     const displayCoinList = coinList.map((v) => {
                         return {
                             ...v,
@@ -32,7 +30,6 @@ export const getMarketPricesApi = () => {
                         };
                     });
                     resolve(displayCoinList);
-                    console.log('merge result', displayCoinList);
                 } else {
                     reject(res);
                 }
@@ -41,20 +38,4 @@ export const getMarketPricesApi = () => {
                 reject(error);
             });
     });
-};
-
-const getMarketPrices = () => {
-    const { data, run } = useRequest(getAtomPriceApi, {
-        errorRetryCount: 5,
-        // pollingInterval: 1000 * 60,
-        pollingWhenHidden: false,
-        onError: (error) => {
-            console.log('(⊙︿⊙) something error', error);
-        },
-        onSuccess: () => {
-            console.log('✿✿ヽ(°▽°)ノ✿ success', data, data.value);
-            return data;
-        }
-    });
-    run();
 };
