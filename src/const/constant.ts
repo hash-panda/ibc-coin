@@ -1,6 +1,6 @@
 import { CoinItem } from '@/types/types';
 import atom from '@/assets/images/atom.png';
-import { getSrc } from '@/utils';
+import { getImageSrc } from '@/utils';
 
 /**
  * list of coin displays
@@ -69,46 +69,46 @@ export const COIN_LIST: CoinItem[] = [
 export const DISPLAY_COIN_LIST = {
     uatom: {
         name: 'ATOM',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     ujuno: {
         name: 'JUNO',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uluna: {
         name: 'LUNA',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uosmo: {
         name: 'OSMO',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uscrt: {
         name: 'SCRT',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     ukava: {
         name: 'KAVA',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uxprt: {
         name: 'XPRT',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uakt: {
         name: 'AKT',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     umed: {
         name: 'MED',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uband: {
         name: 'BAND',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     },
     uiris: {
         name: 'IRIS',
-        icon: getSrc('atom-logo.png')
+        icon: getImageSrc('atom-logo.png')
     }
 };

@@ -55,8 +55,9 @@ export const genMapObject = <T extends Readonly<SelectItem[]>>(originData: T) =>
  * @param name 图片名称
  * @returns
  */
-export const getSrc = (name: string) => {
-    const path = `/src/assets/images/${name}`;
-    const modules = import.meta.globEager('/src/assets/images/*');
-    return modules[path].default;
+export const getImageSrc = (name: string) => {
+    // const path = `/src/assets/images/${name}`;
+    // const modules = import.meta.globEager('/src/assets/images/*');
+    // return modules[path].default;
+    return new URL(`../assets/images/${name}`, import.meta.url).href;
 };
