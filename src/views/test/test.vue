@@ -72,7 +72,7 @@ run();
 <template>
     <div>
         <h1>你好，test</h1>
-        <div v-for="item in data" :key="item.name">
+        <div v-for="item in (data as any)" :key="item.name">
             <span>{{ item.name }}</span>
             <img :src="item.icon" />
             <p>{{ item.denom }}</p>
