@@ -25,13 +25,14 @@ const openTx = () => {
         <div class="flex flex-row m-4">
             <div class="basis-2/3"
                 ><KLine />
+                <!-- Swap -->
                 <div class="card w-content h-80 bg-base-200 mt-4 mr-2">
                     <div class="card-body flex justify-center">
                         <!-- <h2 class="card-title">Swap</h2> -->
                         <div class="flex items-center justify-center">
                             <n-icon :component="ArrowAutofitHeight20Filled" size="60" :depth="1" />
                             <div class="basis-1/2 mx-5">
-                                <n-space vertical>
+                                <n-space vertical :size="20">
                                     <n-card title="From" size="small">
                                         <n-input-number
                                             size="large"
@@ -53,31 +54,57 @@ const openTx = () => {
                                 </n-space>
                             </div>
                             <div class="basis-1/2 pl-10 pr-2">
-                                <div class="h-52">
-                                    <div class="flex justify-between items-center mb-2">
+                                <div class="h-62">
+                                    <div class="flex justify-between items-center mb-1">
                                         <span class="mr-4">Price: </span>
-                                        <span class="text-primary-content text-lg tracking-widest"
+                                        <span class="text-primary-content text-base tracking-widest"
                                             >26.66 USD</span
                                         >
                                     </div>
-                                    <div class="flex justify-between items-center mb-2">
+                                    <div class="flex justify-between items-center mb-1">
                                         <span class="mr-4">Min received: </span>
-                                        <span class="text-primary-content text-lg tracking-widest"
+                                        <span class="text-primary-content text-base tracking-widest"
                                             >88</span
                                         >
                                     </div>
-                                    <div class="flex justify-between items-center mb-2">
+                                    <div class="flex justify-between items-center mb-1">
                                         <span class="mr-4">Tx fee: </span>
-                                        <span class="text-primary-content text-lg tracking-widest"
+                                        <span class="text-primary-content text-base tracking-widest"
                                             >-</span
                                         >
                                     </div>
                                     <div class="flex justify-between items-center mb-2">
                                         <span class="mr-4">DEX used: </span>
-                                        <span class="text-primary-content text-lg tracking-widest"
+                                        <span class="text-primary-content text-base tracking-widest"
                                             >OSIMOS</span
                                         >
                                     </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="mr-4">Slippage: </span>
+                                        <span class="text-primary-content text-base tracking-widest"
+                                            ><div class="btn-group">
+                                                <input
+                                                    type="radio"
+                                                    name="options"
+                                                    data-title="0.5%"
+                                                    class="btn btn-xs"
+                                                />
+                                                <input
+                                                    type="radio"
+                                                    name="options"
+                                                    data-title="1%"
+                                                    class="btn btn-xs"
+                                                    checked
+                                                />
+                                                <input
+                                                    type="radio"
+                                                    name="options"
+                                                    data-title="4%"
+                                                    class="btn btn-xs"
+                                                /> </div
+                                        ></span>
+                                    </div>
+
                                     <button class="btn btn-block mt-5">Wallet Not Connected</button>
                                 </div>
                             </div>
@@ -85,28 +112,52 @@ const openTx = () => {
                     </div>
                 </div>
             </div>
+            <!-- Right -->
             <div class="basis-1/3 grid gap-2 grid-cols-1">
                 <div class="card w-full bg-base-300">
                     <div class="card-body">
-                        <h1 class="card-title text-primary-content tracking-widest">ATOM</h1>
-                        <span>Market Cap</span>
-                        <span class="text-primary-content text-lg tracking-widest"
-                            >312,212,212,000 USD</span
-                        >
-                        <span>Volume (24h)</span>
-                        <span class="text-primary-content text-lg tracking-widest"
-                            >212,212,000 USD</span
-                        >
-                        <div class="flex">
-                            <div class="mr-4">
-                                <div>Price</div>
-                                <div class="text-primary-content text-lg tracking-widest"
-                                    >26.66</div
+                        <div class="flex flex-row m-4">
+                            <div class="basis-5/6">
+                                <h1 class="card-title text-primary-content tracking-widest"
+                                    >ATOM</h1
                                 >
+                                <div class="mt-2">Market Cap</div>
+                                <div class="text-primary-content text-lg tracking-widest"
+                                    >312,212,212,000 USD</div
+                                >
+                                <div class="mt-2">Volume (24h)</div>
+                                <div class="text-primary-content text-lg tracking-widest"
+                                    >212,212,000 USD</div
+                                >
+                                <div class="flex mt-2">
+                                    <div class="mr-4">
+                                        <div>Price</div>
+                                        <div class="text-primary-content text-lg tracking-widest"
+                                            >26.66</div
+                                        >
+                                    </div>
+                                    <div>
+                                        <div>Change (24h)</div>
+                                        <div class="text-lg tracking-widest text-accent"
+                                            >+10.98%</div
+                                        >
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div>Change (24h)</div>
-                                <div class="text-lg tracking-widest text-accent">+10.98%</div>
+                            <div class="basis-1/6">
+                                <div class="flex flex-col shadow justify-end">
+                                    <div class="p-2">
+                                        <div class="text-2xl">Twitter</div>
+                                    </div>
+
+                                    <div class="p-2">
+                                        <div class="text-2xl">Discord</div>
+                                    </div>
+
+                                    <div class="p-2">
+                                        <div class="text-2xl">Telegram</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
