@@ -15,6 +15,7 @@ export const useMenuStore = defineStore({
     actions: {
         setCurrentMenuId(id: string) {
             this.currentMenuId = id;
+            this.changeMenu(id);
         },
         changeMenu(menuId: string) {
             this.menuList.forEach((v) => {

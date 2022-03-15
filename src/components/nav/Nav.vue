@@ -40,6 +40,11 @@ const menuStore = useMenuStore();
                 </ul>
             </div>
             <a class="btn btn-ghost normal-case text-xl">
+                <div class="avatar mr-2">
+                    <div class="w-12 rounded-full">
+                        <img src="@/assets/logo.png" />
+                    </div>
+                </div>
                 <span class="text-accent text-2xl">COSMOS</span>
                 <span class="ml-2 font-extrabold text-xl">KLine</span>
             </a>

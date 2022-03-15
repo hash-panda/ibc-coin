@@ -2,11 +2,17 @@
 import { ref, defineProps } from 'vue';
 import { CoinPair } from '@/types/types';
 import { getImageSrc } from '@/utils';
+import { useMenuStore } from '@/store/menu';
 
+const menuStore = useMenuStore();
 const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
 const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', 'Change(24h)', ' ']);
+
+const openSwap = () => {
+    menuStore.setCurrentMenuId('swap');
+};
 </script>
 <template>
     <div
@@ -61,7 +67,9 @@ const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', 'Change(24h)', '
                             %</td
                         >
                         <th>
-                            <button class="btn btn-outline btn-accent btn-sm">SWAP</button>
+                            <button class="btn btn-outline btn-accent btn-sm" @click="openSwap"
+                                >SWAP</button
+                            >
                         </th>
                     </tr>
                 </tbody>

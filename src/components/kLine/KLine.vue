@@ -16,13 +16,13 @@ onMounted(() => {
             height: 350,
             rightPriceScale: {
                 scaleMargins: {
-                    top: 0.3,
-                    bottom: 0.25
+                    top: 0.2,
+                    bottom: 0.4
                 },
                 borderVisible: false
             },
             layout: {
-                backgroundColor: '#242933',
+                backgroundColor: '#2a303c',
                 textColor: '#d1d4dc'
             },
             grid: {
@@ -48,8 +48,8 @@ onMounted(() => {
             },
             priceScaleId: '',
             scaleMargins: {
-                top: 0.8,
-                bottom: 0
+                top: 0.7,
+                bottom: 0.01
             }
         });
 
