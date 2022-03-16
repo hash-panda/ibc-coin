@@ -4,7 +4,7 @@ import { ref, watch } from 'vue';
 const cardClass = 'bg-gray-800 rounded-lg p-4 transition duration-100 scale-100 w-80 shadow-xl';
 /* 处理数据，当配置项最后一行为1个时，添加空的站位块 */
 let t = JSON.parse(JSON.stringify(constant.priceConfig));
-// t.length % 3 === 1 ? t.splice(t.length - 1, 0, { id: 'emptyBlock' }) : t;
+t.length % 3 === 1 ? t.splice(t.length - 1, 0, { id: 'emptyBlock' }) : t;
 /* 页面展示的配置项 */
 const priceConfig = ref(t);
 /* 值变化对应的名称 */
