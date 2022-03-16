@@ -24,7 +24,7 @@ const { data, run } = useRequest(getMarketPricesApi, {
 run();
 </script>
 <template>
-    <div class="w-full px-6 lg:px-36 xl:px-72 mt-10">
+    <div class="w-full px-2 lg:px-36 xl:px-72 mt-10">
         <n-tabs type="card">
             <n-tab-pane name="All" tab="All">
                 <CoinPairList key="osmo" :coin-pair-list="(data as any)" />

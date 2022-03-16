@@ -21,19 +21,25 @@ const openSwap = () => {
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th class="normal-case" v-for="item in coinPairHeader" :key="item">{{
-                            item
-                        }}</th>
+                        <th
+                            class="normal-case"
+                            :class="
+                                item === 'Change(24h)' || item === ' ' ? 'hidden sm:table-cell' : ''
+                            "
+                            v-for="item in coinPairHeader"
+                            :key="item"
+                            >{{ item }}</th
+                        >
                     </tr>
                 </thead>
                 <tbody>
                     <!-- row 1 -->
                     <tr v-for="coin in props.coinPairList" :key="coin.name" class="hover">
-                        <td>
-                            <div class="flex items-center space-x-3">
-                                <div class="avatar">
-                                    <div class="mask mask-squircle w-12 h-12">
-                                        <img height="20" :src="getImageSrc(coin.icon)" />
+                        <td class="p-2 md:p-4">
+                            <div class="flex items-center sm:space-x-3">
+                                <div class="avatar hidden sm:table-cell">
+                                    <div class="mask mask-squircle w-6 h-6 md:w-12 md:h-12">
+                                        <img :src="getImageSrc(coin.icon)" />
                                     </div>
                                 </div>
                                 <div>
@@ -42,18 +48,34 @@ const openSwap = () => {
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td class="p-2 md:p-4">
                             <div
                                 >{{ coin.currentPrice }}
                                 <span class="uppercase"> {{ coin.currentPriceUnit }}</span></div
                             >
+                            <div
+                                ><div
+                                    class="font-bold md:hidden"
+                                    :class="
+                                        coin.dailyPriceChangeInPercentage > 0
+                                            ? 'text-success'
+                                            : 'text-error'
+                                    "
+                                    >{{
+                                        coin.dailyPriceChangeInPercentage > 0
+                                            ? '+' + coin.dailyPriceChangeInPercentage
+                                            : coin.dailyPriceChangeInPercentage
+                                    }}
+                                    %</div
+                                ></div
+                            >
                         </td>
-                        <td
+                        <td class="p-2 md:p-4"
                             >{{ coin.marketCap }}
                             <span class="uppercase"> {{ coin.marketCapUnit }}</span></td
                         >
                         <td
-                            class="font-bold"
+                            class="p-2 md:p-4 font-bold hidden md:table-cell"
                             :class="
                                 coin.dailyPriceChangeInPercentage > 0
                                     ? 'text-success'
@@ -66,7 +88,7 @@ const openSwap = () => {
                             }}
                             %</td
                         >
-                        <th>
+                        <th class="hidden sm:table-cell">
                             <button class="btn btn-outline btn-accent btn-sm" @click="openSwap"
                                 >SWAP</button
                             >

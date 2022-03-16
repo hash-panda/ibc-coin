@@ -41,12 +41,12 @@ const menuStore = useMenuStore();
             </div>
             <a class="btn btn-ghost normal-case text-xl">
                 <div class="avatar mr-2">
-                    <div class="w-12 rounded-full">
+                    <div class="w-8 md:w-12 rounded-full">
                         <img src="@/assets/logo.png" />
                     </div>
                 </div>
-                <span class="text-accent text-2xl">COSMOS</span>
-                <span class="ml-2 font-extrabold text-xl">KLine</span>
+                <span class="text-accent text-base lg:text-2xl">COSMOS</span>
+                <span class="ml-2 font-extrabold text-base lg:text-xl">KLine</span>
             </a>
         </div>
         <div class="navbar-center hidden md:flex">
@@ -60,7 +60,7 @@ const menuStore = useMenuStore();
             </ul>
         </div>
         <div class="navbar-end">
-            <a class="btn btn-primary normal-case">Connect Wallet</a>
+            <a class="btn btn-primary normal-case btn-xs md:btn-md">Connect Wallet</a>
         </div>
     </div>
 </template>
