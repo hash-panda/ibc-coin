@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import KLine from '@/components/kLine/KLine.vue';
 import { ArrowAutofitHeight20Filled } from '@vicons/fluent';
+import { ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
 
 const tradeHistory = ref([] as any);
 const value = ref(0);
@@ -30,7 +31,12 @@ const openTx = () => {
                     <div class="card-body flex justify-center">
                         <!-- <h2 class="card-title">Swap</h2> -->
                         <div class="flex items-center justify-center">
-                            <n-icon :component="ArrowAutofitHeight20Filled" size="60" :depth="1" />
+                            <n-icon
+                                :component="ArrowAutofitHeight20Filled"
+                                class="hover:text-primary"
+                                size="60"
+                                :depth="2"
+                            />
                             <div class="basis-1/2 mx-5">
                                 <n-space vertical :size="20">
                                     <n-card title="From" size="small">
@@ -116,7 +122,7 @@ const openTx = () => {
             <div class="basis-1/3 grid gap-2 grid-cols-1">
                 <div class="card w-full bg-base-300">
                     <div class="card-body">
-                        <div class="flex flex-row m-4">
+                        <div class="flex flex-row">
                             <div class="basis-5/6">
                                 <h1 class="card-title text-primary-content tracking-widest"
                                     >ATOM</h1
@@ -144,18 +150,54 @@ const openTx = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="basis-1/6">
-                                <div class="flex flex-col shadow justify-end">
+                            <div class="basis-1/6 flex justify-end">
+                                <div class="flex flex-col justify-end">
                                     <div class="p-2">
-                                        <div class="text-2xl">Twitter</div>
+                                        <div class="text-2xl">
+                                            <div
+                                                class="tooltip tooltip-left"
+                                                data-tip="Official Web"
+                                            >
+                                                <n-icon
+                                                    class="hover:text-primary"
+                                                    :component="ShareSquare"
+                                                    size="30"
+                                                    :depth="3" /></div
+                                        ></div>
+                                    </div>
+                                    <div class="p-2">
+                                        <div class="text-2xl"
+                                            ><div class="tooltip tooltip-left" data-tip="Twitter"
+                                                ><n-icon
+                                                    class="hover:text-primary"
+                                                    :component="Twitter"
+                                                    size="30"
+                                                    :depth="3" /></div
+                                        ></div>
                                     </div>
 
                                     <div class="p-2">
-                                        <div class="text-2xl">Discord</div>
+                                        <div class="text-2xl">
+                                            <div class="tooltip tooltip-left" data-tip="Telegram"
+                                                ><n-icon
+                                                    class="hover:text-primary"
+                                                    :component="TelegramPlane"
+                                                    size="30"
+                                                    :depth="3"
+                                            /></div>
+                                        </div>
                                     </div>
 
                                     <div class="p-2">
-                                        <div class="text-2xl">Telegram</div>
+                                        <div class="text-2xl">
+                                            <div class="tooltip tooltip-left" data-tip="Discord"
+                                                ><n-icon
+                                                    class="hover:text-primary"
+                                                    :component="Discord"
+                                                    size="30"
+                                                    :depth="3"
+                                            /></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

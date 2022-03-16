@@ -60,7 +60,7 @@ const menuStore = useMenuStore();
             </ul>
         </div>
         <div class="navbar-end">
-            <a class="btn btn-secondary normal-case">Connect Wallet</a>
+            <a class="btn btn-primary normal-case">Connect Wallet</a>
         </div>
     </div>
 </template>
