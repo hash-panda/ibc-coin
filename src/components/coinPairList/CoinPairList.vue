@@ -43,7 +43,9 @@ const openSwap = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="font-bold">{{ coin.name }}</div>
+                                    <div class="font-bold link link-hover" @click="openSwap">{{
+                                        coin.name
+                                    }}</div>
                                     <div class="text-sm opacity-50">{{ coin.coinPair }}</div>
                                 </div>
                             </div>
@@ -51,8 +53,9 @@ const openSwap = () => {
                         <td class="p-2 md:p-4">
                             <div
                                 >{{ coin.currentPrice }}
-                                <span class="uppercase"> {{ coin.currentPriceUnit }}</span></div
-                            >
+                                <!-- <span class="uppercase"> {{ coin.currentPriceUnit }}</span> -->
+                                <span class="uppercase"> UST</span>
+                            </div>
                             <div
                                 ><div
                                     class="font-bold md:hidden"
@@ -72,8 +75,9 @@ const openSwap = () => {
                         </td>
                         <td class="p-2 md:p-4"
                             >{{ coin.marketCap }}
-                            <span class="uppercase"> {{ coin.marketCapUnit }}</span></td
-                        >
+                            <!-- <span class="uppercase"> {{ coin.marketCapUnit }}</span> -->
+                            <span class="uppercase"> UST</span>
+                        </td>
                         <td
                             class="p-2 md:p-4 font-bold hidden md:table-cell"
                             :class="

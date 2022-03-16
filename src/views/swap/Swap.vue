@@ -54,7 +54,7 @@ const openTx = () => {
                                             :show-button="false"
                                             v-model:value="value"
                                         >
-                                            <template #suffix> USD </template>
+                                            <template #suffix> UST </template>
                                         </n-input-number>
                                     </n-card>
                                 </n-space>
@@ -64,7 +64,7 @@ const openTx = () => {
                                     <div class="flex justify-between items-center mb-1">
                                         <span class="mr-4">Price: </span>
                                         <span class="text-primary-content text-base tracking-widest"
-                                            >26.66 USD</span
+                                            >26.66 UST</span
                                         >
                                     </div>
                                     <div class="flex justify-between items-center mb-1">
@@ -129,11 +129,11 @@ const openTx = () => {
                                 >
                                 <div class="mt-2">Market Cap</div>
                                 <div class="text-primary-content text-lg tracking-widest"
-                                    >312,212,212,000 USD</div
+                                    >312,212,212,000 UST</div
                                 >
                                 <div class="mt-2">Volume (24h)</div>
                                 <div class="text-primary-content text-lg tracking-widest"
-                                    >212,212,000 USD</div
+                                    >212,212,000 UST</div
                                 >
                                 <div class="flex mt-2">
                                     <div class="mr-4">
@@ -214,14 +214,14 @@ const openTx = () => {
                                     <tr class="sticky inset-x-0 top-0 z-50">
                                         <th class="normal-case">Date</th>
                                         <th class="normal-case">Coin Pair</th>
-                                        <th class="normal-case">Price(USD)</th>
+                                        <th class="normal-case">Price(UST)</th>
                                         <th class="normal-case">Trader | tx</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="item in 12" :key="item">
                                         <th class="text-xs">2022/2/22<br />14:00:99</th>
-                                        <td class="text-xs">ATOM 90.04<br />USD 10232</td>
+                                        <td class="text-xs">ATOM 90.04<br />UST 10232</td>
                                         <td class="text-xs">26.66</td>
                                         <td>
                                             <button

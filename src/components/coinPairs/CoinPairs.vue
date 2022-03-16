@@ -29,11 +29,14 @@ run();
             <n-tab-pane name="All" tab="All">
                 <CoinPairList key="osmo" :coin-pair-list="(data as any)" />
             </n-tab-pane>
-            <n-tab-pane name="OSMO" tab="OSMO">
-                <CoinPairList key="osmo" :coin-pair-list="osmoList" />
+            <n-tab-pane name="Osmosis" tab="Osmosis">
+                <CoinPairList key="Osmosis" :coin-pair-list="osmoList" />
             </n-tab-pane>
-            <n-tab-pane name="JUNO" tab="JUNO">
-                <CoinPairList key="juno" :coin-pair-list="junoList" />
+            <n-tab-pane name="Junoswap" tab="Junoswap">
+                <CoinPairList key="Junoswap" :coin-pair-list="junoList" />
+            </n-tab-pane>
+            <n-tab-pane name="Sifchain" tab="Sifchain">
+                <CoinPairList key="Sifchain" :coin-pair-list="junoList" />
             </n-tab-pane>
             <!-- <n-tab-pane name="SCRT" tab="SCRT">
                 <CoinPairList key="scrt" :coin-pair-list="scrtList" />
