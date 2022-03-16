@@ -11,7 +11,7 @@ const initCharts = () => {
     try {
         const chart = createChart(chartRef.value, {
             width: chartRef._value.offsetWidth,
-            height: 350,
+            height: chartRef._value.offsetHeight,
             rightPriceScale: {
                 scaleMargins: {
                     top: 0.2,
@@ -36,7 +36,10 @@ const initCharts = () => {
         // 页面大小发生变化时，图表跟着变化
         window.addEventListener('resize', resize, false);
         function resize() {
-            chart.applyOptions({ width: chartRef._value.offsetWidth, height: 350 });
+            chart.applyOptions({
+                width: chartRef._value.offsetWidth,
+                height: chartRef._value.offsetHeight
+            });
             setTimeout(() => chart.timeScale().fitContent(), 0);
         }
 
@@ -75,5 +78,5 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div ref="chartRef" class="w-full h-1/2"></div>
+    <div ref="chartRef" class="w-full h-2/3"></div>
 </template>

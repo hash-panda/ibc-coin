@@ -24,10 +24,10 @@ const openTx = () => {
 <template>
     <div>
         <div class="flex flex-row m-4">
-            <div class="basis-2/3"
+            <div class="basis-2/3 flex flex-col"
                 ><KLine />
                 <!-- Swap -->
-                <div class="card w-content h-80 bg-base-200 mt-4 mr-2">
+                <div class="card w-content h-72 bg-base-200 mt-4 mr-2">
                     <div class="card-body flex justify-center">
                         <!-- <h2 class="card-title">Swap</h2> -->
                         <div class="flex items-center justify-center">
@@ -205,10 +205,10 @@ const openTx = () => {
                     </div>
                 </div>
                 <!-- Trading Hisotry -->
-                <div class="card w-full bg-base-300">
-                    <div class="card-body">
+                <div class="card w-full bg-base-300 trade-history-height">
+                    <div class="card-body overflow-y-auto">
                         <h2 class="card-title">Trading History</h2>
-                        <div class="overflow-y-auto h-72">
+                        <div class="overflow-y-auto">
                             <table class="table table-compact w-full">
                                 <thead>
                                     <tr class="sticky inset-x-0 top-0 z-50">
@@ -219,7 +219,7 @@ const openTx = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in 12" :key="item">
+                                    <tr v-for="item in 20" :key="item">
                                         <th class="text-xs">2022/2/22<br />14:00:99</th>
                                         <td class="text-xs">ATOM 90.04<br />UST 10232</td>
                                         <td class="text-xs">26.66</td>
@@ -248,3 +248,8 @@ const openTx = () => {
         </div>
     </div>
 </template>
+<style scoped>
+.trade-history-height {
+    height: calc(100vh - 25.5rem);
+}
+</style>
