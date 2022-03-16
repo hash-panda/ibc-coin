@@ -6,13 +6,11 @@ import volumeSeriesData from './mock/volumeSeriesData';
 import candlestickSeriesData from './mock/candlestickSeriesData';
 
 const chartRef = ref(null);
-onMounted(() => {
-    // DOM元素将在初始渲染后分配给ref
-    console.log('chartRef.value', chartRef.value); // <div>这是根元素</div>
 
+const initCharts = () => {
     try {
         const chart = createChart(chartRef.value, {
-            width: 930,
+            width: chartRef._value.offsetWidth,
             height: 350,
             rightPriceScale: {
                 scaleMargins: {
@@ -34,6 +32,14 @@ onMounted(() => {
                 }
             }
         });
+        chart.timeScale().fitContent();
+        // 页面大小发生变化时，图表跟着变化
+        window.addEventListener('resize', resize, false);
+        function resize() {
+            chart.applyOptions({ width: chartRef._value.offsetWidth, height: 350 });
+            setTimeout(() => chart.timeScale().fitContent(), 0);
+        }
+
         const areaSeries = chart.addAreaSeries({
             topColor: 'rgba(38,198,218, 0.56)',
             bottomColor: 'rgba(38,198,218, 0.04)',
@@ -61,8 +67,13 @@ onMounted(() => {
     } catch (e) {
         console.log('e', e);
     }
+};
+onMounted(() => {
+    setTimeout(() => {
+        initCharts();
+    }, 2000);
 });
 </script>
 <template>
-    <div ref="chartRef"></div>
+    <div ref="chartRef" class="w-full h-1/2"></div>
 </template>
