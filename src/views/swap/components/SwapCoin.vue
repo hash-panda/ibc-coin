@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ArrowAutofitHeight20Filled } from '@vicons/fluent';
+
+const value = ref(0);
 </script>
 <template>
     <div class="card w-content h-72 bg-base-200 mt-4 mr-2">

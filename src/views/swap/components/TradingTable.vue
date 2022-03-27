@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 
 const tradeHistory = ref([] as any);
-const value = ref(0);
 tradeHistory.value = [];
 
 const openAccount = () => {

@@ -11,17 +11,10 @@ declare module 'vue' {
     FooterFooter: typeof import('./src/components/footer/Footer.vue')['default']
     KLineKLine: typeof import('./src/components/kLine/KLine.vue')['default']
     NavNav: typeof import('./src/components/nav/Nav.vue')['default']
-    NCard: typeof import('naive-ui')['NCard']
     NIcon: typeof import('naive-ui')['NIcon']
-    NInputNumber: typeof import('naive-ui')['NInputNumber']
-    NSpace: typeof import('naive-ui')['NSpace']
-    NTable: typeof import('naive-ui')['NTable']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     SubscribeSubscribe: typeof import('./src/components/subscribe/Subscribe.vue')['default']
-    SwapComponentsCoinInfo: typeof import('./src/components/swap/components/CoinInfo.vue')['default']
-    SwapComponentsTradingHistory: typeof import('./src/components/swap/components/TradingHistory.vue')['default']
-    SwapSwap: typeof import('./src/components/swap/Swap.vue')['default']
   }
 }
 

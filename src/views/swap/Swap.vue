@@ -4,23 +4,6 @@ import KLine from '@/components/kLine/KLine.vue';
 import TradingHistory from './components/TradingHistory.vue';
 import SwapCoin from './components/SwapCoin.vue';
 import CoinInfo from './components/CoinInfo.vue';
-
-const tradeHistory = ref([] as any);
-const value = ref(0);
-tradeHistory.value = [];
-
-const openAccount = () => {
-    window.open(
-        'https://finder.extraterrestrial.money/columbus-5/address/terra1y8r363ykn0p7x0p7krcrxzpthl07et9rp4vklf',
-        '_blank'
-    );
-};
-const openTx = () => {
-    window.open(
-        'https://finder.extraterrestrial.money/columbus-5/tx/B55E343A2E4223CFD65AA40A20EFF403496FFA1C223932DB34422DD3FAFD9EEB',
-        '_blank'
-    );
-};
 </script>
 <template>
     <div>
