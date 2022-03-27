@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import KLine from '@/components/kLine/KLine.vue';
-import { ArrowAutofitHeight20Filled } from '@vicons/fluent';
-import { ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
+import TradingHistory from './components/TradingHistory.vue';
+import SwapCoin from './components/SwapCoin.vue';
+import CoinInfo from './components/CoinInfo.vue';
 
 const tradeHistory = ref([] as any);
 const value = ref(0);
@@ -23,233 +24,24 @@ const openTx = () => {
 </script>
 <template>
     <div>
-        <div class="flex flex-row m-4">
-            <div class="basis-2/3 flex flex-col"
-                ><KLine />
-                <!-- Swap -->
-                <div class="card w-content h-72 bg-base-200 mt-4 mr-2">
-                    <div class="card-body flex justify-center">
-                        <!-- <h2 class="card-title">Swap</h2> -->
-                        <div class="flex items-center justify-center">
-                            <n-icon
-                                :component="ArrowAutofitHeight20Filled"
-                                class="hover:text-primary"
-                                size="60"
-                                :depth="2"
-                            />
-                            <div class="basis-1/2 mx-5">
-                                <n-space vertical :size="20">
-                                    <n-card title="From" size="small">
-                                        <n-input-number
-                                            size="large"
-                                            :show-button="false"
-                                            v-model:value="value"
-                                        >
-                                            <template #suffix> ATOM </template>
-                                        </n-input-number>
-                                    </n-card>
-                                    <n-card title="To" size="small">
-                                        <n-input-number
-                                            size="large"
-                                            :show-button="false"
-                                            v-model:value="value"
-                                        >
-                                            <template #suffix> UST </template>
-                                        </n-input-number>
-                                    </n-card>
-                                </n-space>
-                            </div>
-                            <div class="basis-1/2 pl-10 pr-2">
-                                <div class="h-62">
-                                    <div class="flex justify-between items-center mb-1">
-                                        <span class="mr-4">Price: </span>
-                                        <span class="text-primary-content text-base tracking-widest"
-                                            >26.66 UST</span
-                                        >
-                                    </div>
-                                    <div class="flex justify-between items-center mb-1">
-                                        <span class="mr-4">Min received: </span>
-                                        <span class="text-primary-content text-base tracking-widest"
-                                            >88</span
-                                        >
-                                    </div>
-                                    <div class="flex justify-between items-center mb-1">
-                                        <span class="mr-4">Tx fee: </span>
-                                        <span class="text-primary-content text-base tracking-widest"
-                                            >-</span
-                                        >
-                                    </div>
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span class="mr-4">DEX used: </span>
-                                        <span class="text-primary-content text-base tracking-widest"
-                                            >OSIMOS</span
-                                        >
-                                    </div>
-                                    <div class="flex justify-between items-center">
-                                        <span class="mr-4">Slippage: </span>
-                                        <span class="text-primary-content text-base tracking-widest"
-                                            ><div class="btn-group">
-                                                <input
-                                                    type="radio"
-                                                    name="options"
-                                                    data-title="0.5%"
-                                                    class="btn btn-xs"
-                                                />
-                                                <input
-                                                    type="radio"
-                                                    name="options"
-                                                    data-title="1%"
-                                                    class="btn btn-xs"
-                                                    checked
-                                                />
-                                                <input
-                                                    type="radio"
-                                                    name="options"
-                                                    data-title="4%"
-                                                    class="btn btn-xs"
-                                                /> </div
-                                        ></span>
-                                    </div>
-
-                                    <button class="btn btn-block mt-5">Wallet Not Connected</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="grid grid-cols-1 m-1 lg:flex lg:flex-row lg:m-4">
+            <div class="lg:basis-1/2 xl:basis-3/5 2xl:basis-3/5 flex flex-col">
+                <div class="mt-4 mr-4">
+                    <CoinInfo />
                 </div>
+                <div class="h-96 lg:h-full">
+                    <KLine />
+                </div>
+
+                <!-- Swap -->
+                <!-- <SwapCoin /> -->
             </div>
             <!-- Right -->
-            <div class="basis-1/3 grid gap-2 grid-cols-1">
-                <div class="card w-full bg-base-300">
-                    <div class="card-body">
-                        <div class="flex flex-row">
-                            <div class="basis-5/6">
-                                <h1 class="card-title text-primary-content tracking-widest"
-                                    >ATOM</h1
-                                >
-                                <div class="mt-2">Market Cap</div>
-                                <div class="text-primary-content text-lg tracking-widest"
-                                    >312,212,212,000 UST</div
-                                >
-                                <div class="mt-2">Volume (24h)</div>
-                                <div class="text-primary-content text-lg tracking-widest"
-                                    >212,212,000 UST</div
-                                >
-                                <div class="flex mt-2">
-                                    <div class="mr-4">
-                                        <div>Price</div>
-                                        <div class="text-primary-content text-lg tracking-widest"
-                                            >26.66</div
-                                        >
-                                    </div>
-                                    <div>
-                                        <div>Change (24h)</div>
-                                        <div class="text-lg tracking-widest text-accent"
-                                            >+10.98%</div
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="basis-1/6 flex justify-end">
-                                <div class="flex flex-col justify-end">
-                                    <div class="p-2">
-                                        <div class="text-2xl">
-                                            <div
-                                                class="tooltip tooltip-left"
-                                                data-tip="Official Web"
-                                            >
-                                                <n-icon
-                                                    class="hover:text-primary"
-                                                    :component="ShareSquare"
-                                                    size="30"
-                                                    :depth="3" /></div
-                                        ></div>
-                                    </div>
-                                    <div class="p-2">
-                                        <div class="text-2xl"
-                                            ><div class="tooltip tooltip-left" data-tip="Twitter"
-                                                ><n-icon
-                                                    class="hover:text-primary"
-                                                    :component="Twitter"
-                                                    size="30"
-                                                    :depth="3" /></div
-                                        ></div>
-                                    </div>
-
-                                    <div class="p-2">
-                                        <div class="text-2xl">
-                                            <div class="tooltip tooltip-left" data-tip="Telegram"
-                                                ><n-icon
-                                                    class="hover:text-primary"
-                                                    :component="TelegramPlane"
-                                                    size="30"
-                                                    :depth="3"
-                                            /></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2">
-                                        <div class="text-2xl">
-                                            <div class="tooltip tooltip-left" data-tip="Discord"
-                                                ><n-icon
-                                                    class="hover:text-primary"
-                                                    :component="Discord"
-                                                    size="30"
-                                                    :depth="3"
-                                            /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="lg:basis-1/2 xl:basis-2/5 2xl:basis-2/5 grid gap-2 grid-cols-1">
                 <!-- Trading Hisotry -->
-                <div class="card w-full bg-base-300 trade-history-height">
-                    <div class="card-body overflow-y-auto">
-                        <h2 class="card-title">Trading History</h2>
-                        <div class="overflow-y-auto">
-                            <table class="table table-compact w-full">
-                                <thead>
-                                    <tr class="sticky inset-x-0 top-0 z-50">
-                                        <th class="normal-case">Date</th>
-                                        <th class="normal-case">Coin Pair</th>
-                                        <th class="normal-case">Price(UST)</th>
-                                        <th class="normal-case">Trader | tx</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="item in 20" :key="item">
-                                        <th class="text-xs">2022/2/22<br />14:00:99</th>
-                                        <td class="text-xs">ATOM 90.04<br />UST 10232</td>
-                                        <td class="text-xs">26.66</td>
-                                        <td>
-                                            <button
-                                                @click="openAccount"
-                                                class="btn btn-xs btn-outline btn-accent normal-case mr-2"
-                                                >trader</button
-                                            >
-                                            <button
-                                                @click="openTx"
-                                                class="btn btn-outline btn-accent normal-case btn-xs"
-                                                >Tx</button
-                                            >
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- <div class="card-actions justify-end">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div> -->
-                    </div>
-                </div>
+                <TradingHistory />
             </div>
         </div>
     </div>
 </template>
-<style scoped>
-.trade-history-height {
-    height: calc(100vh - 25.5rem);
-}
-</style>
+<style scoped></style>

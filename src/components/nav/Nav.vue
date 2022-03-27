@@ -45,8 +45,8 @@ const menuStore = useMenuStore();
                         <img src="@/assets/logo.png" />
                     </div>
                 </div>
-                <span class="text-accent text-base lg:text-2xl">COSMOS</span>
-                <span class="ml-2 font-extrabold text-base lg:text-xl">KLine</span>
+                <span class="text-accent text-base lg:text-2xl">IBC</span>
+                <span class="ml-1 font-extrabold text-base lg:text-2xl">Coin</span>
             </a>
         </div>
         <div class="navbar-center hidden md:flex">
@@ -60,7 +60,7 @@ const menuStore = useMenuStore();
             </ul>
         </div>
         <div class="navbar-end">
-            <a class="btn btn-primary normal-case btn-xs md:btn-md">Connect Wallet</a>
+            <!-- <a class="btn btn-primary normal-case btn-xs md:btn-md">Connect Wallet</a> -->
         </div>
     </div>
 </template>

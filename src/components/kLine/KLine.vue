@@ -14,7 +14,7 @@ const initCharts = () => {
             height: chartRef._value.offsetHeight,
             rightPriceScale: {
                 scaleMargins: {
-                    top: 0.2,
+                    top: 0.05,
                     bottom: 0.4
                 },
                 borderVisible: false
@@ -40,7 +40,9 @@ const initCharts = () => {
                 width: chartRef._value.offsetWidth,
                 height: chartRef._value.offsetHeight
             });
-            setTimeout(() => chart.timeScale().fitContent(), 0);
+            setTimeout(() => {
+                chart.timeScale().fitContent();
+            }, 0);
         }
 
         const areaSeries = chart.addAreaSeries({
@@ -78,5 +80,5 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div ref="chartRef" class="w-full h-2/3"></div>
+    <div ref="chartRef" class="w-full h-full"></div>
 </template>

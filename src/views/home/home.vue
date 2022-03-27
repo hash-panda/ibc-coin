@@ -6,7 +6,7 @@ import { useMenuStore } from '@/store/menu';
 import Nav from '@/components/nav/Nav.vue';
 import CoinPairs from '@/components/coinPairs/CoinPairs.vue';
 import Subscribe from '@/components/subscribe/Subscribe.vue';
-import Swap from '@/views/swap/Swap.vue';
+import Swap from '@/views/swap/swap.vue';
 
 const menuStore = useMenuStore();
 const data = ref(0);
