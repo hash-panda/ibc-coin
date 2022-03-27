@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 </script>
 <template>
     <div class="card w-full bg-base-400">
@@ -45,14 +48,18 @@ import { ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
                         <div>
-                            <div class="text-sm lg:text-base mt-2">Market Cap</div>
+                            <div class="text-sm lg:text-base mt-2">{{
+                                t('swap.coinInfo.marketCap')
+                            }}</div>
                             <div
                                 class="text-primary-content text-sm md:text-base xl:text-lg tracking-widest"
                                 >312,212,212,000,000 UST</div
                             >
                         </div>
                         <div>
-                            <div class="text-sm lg:text-base mt-2">Volume (24h)</div>
+                            <div class="text-sm lg:text-base mt-2">{{
+                                t('swap.coinInfo.volume')
+                            }}</div>
                             <div
                                 class="text-primary-content text-sm md:text-base xl:text-lg tracking-widest"
                                 >212,212,000 UST</div
@@ -60,14 +67,18 @@ import { ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
                         </div>
                         <div class="flex mt-2">
                             <div class="mr-4">
-                                <div class="text-sm lg:text-base">Price</div>
+                                <div class="text-sm lg:text-base">{{
+                                    t('swap.coinInfo.price')
+                                }}</div>
                                 <div
                                     class="text-primary-content text-sm md:text-base xl:text-lg tracking-widest"
                                     >26.66</div
                                 >
                             </div>
                             <div>
-                                <div class="text-sm lg:text-base">Change (24h)</div>
+                                <div class="text-sm lg:text-base">{{
+                                    t('swap.coinInfo.change')
+                                }}</div>
                                 <div
                                     class="text-sm md:text-base xl:text-lg tracking-widest text-accent"
                                     >+10.98%</div

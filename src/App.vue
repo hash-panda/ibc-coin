@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { NConfigProvider, GlobalThemeOverrides, darkTheme } from 'naive-ui';
+import {
+    NConfigProvider,
+    GlobalThemeOverrides,
+    darkTheme,
+    zhCN,
+    dateZhCN,
+    enUS,
+    dateEnUS
+} from 'naive-ui';
+import Message from '@/components/message/Message.vue';
 
 const themeOverrides: GlobalThemeOverrides = {
     Card: {
@@ -11,12 +19,18 @@ const themeOverrides: GlobalThemeOverrides = {
         tabTextColorHoverLine: '#6419e6FF'
     }
 };
-
-// ...
 </script>
 
 <template>
-    <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides">
+    <n-config-provider
+        :locale="zhCN"
+        :date-locale="dateZhCN"
+        :theme="darkTheme"
+        :theme-overrides="themeOverrides"
+    >
         <router-view></router-view>
+        <n-message-provider>
+            <Message />
+        </n-message-provider>
     </n-config-provider>
 </template>

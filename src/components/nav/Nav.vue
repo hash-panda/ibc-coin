@@ -1,8 +1,21 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed } from 'vue';
 import { useMenuStore } from '@/store/menu';
+import { useAppStore } from '@/store/app';
+import { LOCALE_OPTIONS } from '@/locale';
+import useLocale from '@/hooks/locale';
 
 const menuStore = useMenuStore();
+const appStore = useAppStore();
+const { changeLocale } = useLocale();
+const locale = computed(() => {
+    const currentLocale = LOCALE_OPTIONS.find((item) => item.value === appStore.locale);
+    changeLocale(currentLocale.value);
+    return currentLocale;
+});
+const setLocale = () => {
+    appStore.setLocale();
+};
 </script>
 <template>
     <div
@@ -60,6 +73,7 @@ const menuStore = useMenuStore();
             </ul>
         </div>
         <div class="navbar-end">
+            <button class="btn btn-ghost normal-case" @click="setLocale">{{ locale.label }}</button>
             <!-- <a class="btn btn-primary normal-case btn-xs md:btn-md">Connect Wallet</a> -->
         </div>
     </div>

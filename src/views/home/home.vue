@@ -4,7 +4,7 @@ import { useRequest } from 'vue-request';
 import axios from 'axios';
 import { useMenuStore } from '@/store/menu';
 import Nav from '@/components/nav/Nav.vue';
-import CoinPairs from '@/components/coinPairs/CoinPairs.vue';
+import CoinPairs from '@/views/coinPairs/CoinPairs.vue';
 import Subscribe from '@/components/subscribe/Subscribe.vue';
 import Swap from '@/views/swap/Swap.vue';
 

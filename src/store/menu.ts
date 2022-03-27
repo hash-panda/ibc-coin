@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
 export const useMenuStore = defineStore({
-    id: 'profile',
+    id: 'menu',
     state: () => {
         return {
             currentMenuId: 'pair',

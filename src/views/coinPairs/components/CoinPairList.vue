@@ -3,12 +3,20 @@ import { ref, defineProps } from 'vue';
 import { CoinPair } from '@/types/types';
 import { getImageSrc } from '@/utils';
 import { useMenuStore } from '@/store/menu';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const menuStore = useMenuStore();
 const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
-const coinPairHeader = ref(['Coin Pair', 'Price', 'Market Cap', 'Change(24h)', ' ']);
+const coinPairHeader = ref([
+    t('coinPairs.table.header.coinPair'),
+    'Price',
+    'Market Cap',
+    'Change(24h)',
+    ' '
+]);
 
 const openSwap = () => {
     menuStore.setCurrentMenuId('swap');
@@ -21,15 +29,22 @@ const openSwap = () => {
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th
+                        <!-- <th
                             class="normal-case"
                             :class="
-                                item === 'Change(24h)' || item === ' ' ? 'hidden sm:table-cell' : ''
+                                item === t('coinPairs.table.header.change') || item === ' '
+                                    ? 'hidden sm:table-cell'
+                                    : ''
                             "
                             v-for="item in coinPairHeader"
                             :key="item"
-                            >{{ item }}</th
-                        >
+                            >{{ item }}
+                        </th> -->
+                        <th class="normal-case">{{ t('coinPairs.table.header.coinPair') }}</th>
+                        <th class="normal-case">{{ t('coinPairs.table.header.price') }}</th>
+                        <th class="normal-case">{{ t('coinPairs.table.header.marketCap') }}</th>
+                        <th class="normal-case">{{ t('coinPairs.table.header.change') }}</th>
+                        <th class="normal-case"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,8 +108,10 @@ const openSwap = () => {
                             %</td
                         >
                         <th class="hidden sm:table-cell">
-                            <button class="btn btn-outline btn-accent btn-sm" @click="openSwap"
-                                >SWAP</button
+                            <button
+                                class="btn btn-outline btn-accent btn-sm normal-case"
+                                @click="openSwap"
+                                >{{ t('coinPairs.table.btn.chart') }}</button
                             >
                         </th>
                     </tr>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const tradeHistory = ref([] as any);
 tradeHistory.value = [];
 
@@ -21,10 +23,10 @@ const openTx = () => {
     <table class="table table-compact w-full">
         <thead>
             <tr class="sticky inset-x-0 top-0 z-40">
-                <th class="normal-case">Date</th>
-                <th class="normal-case">Coin Pair</th>
-                <th class="normal-case">Price(UST)</th>
-                <th class="normal-case">Trader | tx</th>
+                <th class="normal-case">{{ t('swap.tradingHistory.table.date') }}</th>
+                <th class="normal-case">{{ t('swap.tradingHistory.table.coinPair') }}</th>
+                <th class="normal-case">{{ t('swap.tradingHistory.table.price') }}</th>
+                <th class="normal-case">{{ t('swap.tradingHistory.table.tradeInfo') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,11 +38,11 @@ const openTx = () => {
                     <button
                         @click="openAccount"
                         class="btn btn-xs btn-outline btn-accent normal-case mr-2"
-                        >trader</button
+                        >{{ t('swap.tradingHistory.btn.trader') }}</button
                     >
-                    <button @click="openTx" class="btn btn-outline btn-accent normal-case btn-xs"
-                        >Tx</button
-                    >
+                    <button @click="openTx" class="btn btn-outline btn-accent normal-case btn-xs">{{
+                        t('swap.tradingHistory.btn.tx')
+                    }}</button>
                 </td>
             </tr>
         </tbody>
