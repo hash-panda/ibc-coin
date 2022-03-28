@@ -10,13 +10,6 @@ const menuStore = useMenuStore();
 const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
-const coinPairHeader = ref([
-    t('coinPairs.table.header.coinPair'),
-    'Price',
-    'Market Cap',
-    'Change(24h)',
-    ' '
-]);
 
 const openSwap = () => {
     menuStore.setCurrentMenuId('swap');
@@ -29,22 +22,13 @@ const openSwap = () => {
                 <!-- head -->
                 <thead>
                     <tr>
-                        <!-- <th
-                            class="normal-case"
-                            :class="
-                                item === t('coinPairs.table.header.change') || item === ' '
-                                    ? 'hidden sm:table-cell'
-                                    : ''
-                            "
-                            v-for="item in coinPairHeader"
-                            :key="item"
-                            >{{ item }}
-                        </th> -->
                         <th class="normal-case">{{ t('coinPairs.table.header.coinPair') }}</th>
                         <th class="normal-case">{{ t('coinPairs.table.header.price') }}</th>
                         <th class="normal-case">{{ t('coinPairs.table.header.marketCap') }}</th>
-                        <th class="normal-case">{{ t('coinPairs.table.header.change') }}</th>
-                        <th class="normal-case"></th>
+                        <th class="normal-case hidden md:table-cell">{{
+                            t('coinPairs.table.header.change')
+                        }}</th>
+                        <th class="normal-case hidden md:table-cell"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,7 +93,7 @@ const openSwap = () => {
                         >
                         <th class="hidden sm:table-cell">
                             <button
-                                class="btn btn-outline btn-accent btn-sm normal-case"
+                                class="btn btn-outline btn-primary btn-sm normal-case"
                                 @click="openSwap"
                                 >{{ t('coinPairs.table.btn.chart') }}</button
                             >

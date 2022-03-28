@@ -48,7 +48,7 @@ watch(
                 </article>
                 <div class="relative">
                     <div
-                        class="absolute w-[7rem] py-1 rounded bg-accent bg-opacity-50 text-violet-200 text-xs text-center uppercase font-bold cursor-default"
+                        class="absolute w-[7rem] py-1 rounded bg-primary bg-opacity-50 text-violet-200 text-xs text-center uppercase font-bold cursor-default"
                         :style="`left: calc(${
                             stakeValue <= 1000 ? stakeValue / 10 : 100
                         }% - 3rem);`"
@@ -59,7 +59,7 @@ watch(
                         min="0"
                         max="1000"
                         :value="stakeValue"
-                        class="range range-accent mt-10"
+                        class="range range-primary mt-10"
                         @input="slideChange"
                     />
                 </div>
@@ -112,7 +112,7 @@ watch(
                         </div>
                         <div class="flex my-12">
                             <button
-                                class="flex-1 text-center bg-accent bg-accent-8 rounded text-violet-100 text-base sm:text-lg lg:text-xl font-bold p-2 transition duration-100"
+                                class="flex-1 text-center bg-primary bg-primary-8 rounded text-violet-100 text-base sm:text-lg lg:text-xl font-bold p-2 transition duration-100"
                                 >Stake Now</button
                             >
                         </div>
@@ -167,7 +167,7 @@ watch(
         skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
         scaleY(var(--tw-scale-y));
 }
-.bg-accent-8:hover {
+.bg-primary-8:hover {
     --tw-bg-opacity: 0.8;
     background-color: hsl(var(--a) / var(--tw-bg-opacity));
 }

@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, reactive, watch } from 'vue';
 import { useMenuStore } from '@/store/menu';
 import { useAppStore } from '@/store/app';
-import { LOCALE_OPTIONS } from '@/locale';
+import { LOCALE_OPTIONS } from '@/locales';
 import useLocale from '@/hooks/locale';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const menuStore = useMenuStore();
 const appStore = useAppStore();
 const { changeLocale } = useLocale();
+
 const locale = computed(() => {
     const currentLocale = LOCALE_OPTIONS.find((item) => item.value === appStore.locale);
     changeLocale(currentLocale.value);
     return currentLocale;
 });
+
+const changeMenu = (menuId: string) => {
+    menuStore.setCurrentMenuId(menuId);
+};
+
 const setLocale = () => {
     appStore.setLocale();
 };
@@ -44,12 +52,26 @@ const setLocale = () => {
                     tabindex="0"
                     class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                    <li
-                        v-for="menu in menuStore.menuList"
-                        :key="menu.id"
-                        @click="menuStore.changeMenu(menu.id)"
-                        ><a :class="menu.actived ? 'active bg-accent' : ''">{{ menu.name }}</a></li
-                    >
+                    <li @click="changeMenu('pair')">
+                        <a
+                            :class="menuStore.currentMenuId === 'pair' ? 'active  bg-primary' : ''"
+                            >{{ $t('navbar.menu.pairs') }}</a
+                        >
+                    </li>
+                    <li @click="changeMenu('swap')">
+                        <a
+                            :class="menuStore.currentMenuId === 'swap' ? 'active  bg-primary' : ''"
+                            >{{ $t('navbar.menu.swap') }}</a
+                        >
+                    </li>
+                    <li @click="changeMenu('subscribe')">
+                        <a
+                            :class="
+                                menuStore.currentMenuId === 'subscribe' ? 'active  bg-primary' : ''
+                            "
+                            >{{ $t('navbar.menu.subscribe') }}</a
+                        >
+                    </li>
                 </ul>
             </div>
             <a class="btn btn-ghost normal-case text-xl">
@@ -58,18 +80,28 @@ const setLocale = () => {
                         <img src="@/assets/logo.png" />
                     </div>
                 </div>
-                <span class="text-accent text-base lg:text-2xl">IBC</span>
+                <span class="text-primary text-base lg:text-2xl">IBC</span>
                 <span class="ml-1 font-extrabold text-base lg:text-2xl">Coin</span>
             </a>
         </div>
         <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal p-0">
-                <li
-                    v-for="menu in menuStore.menuList"
-                    :key="menu.id"
-                    @click="menuStore.changeMenu(menu.id)"
-                    ><a :class="menu.actived ? 'active  bg-accent' : ''">{{ menu.name }}</a></li
-                >
+                <li @click="changeMenu('pair')" class="mr-2">
+                    <a :class="menuStore.currentMenuId === 'pair' ? 'active  bg-primary' : ''">{{
+                        $t('navbar.menu.pairs')
+                    }}</a>
+                </li>
+                <li @click="changeMenu('swap')" class="mr-2">
+                    <a :class="menuStore.currentMenuId === 'swap' ? 'active  bg-primary' : ''">{{
+                        $t('navbar.menu.swap')
+                    }}</a>
+                </li>
+                <li @click="changeMenu('subscribe')">
+                    <a
+                        :class="menuStore.currentMenuId === 'subscribe' ? 'active  bg-primary' : ''"
+                        >{{ $t('navbar.menu.subscribe') }}</a
+                    >
+                </li>
             </ul>
         </div>
         <div class="navbar-end">

@@ -12,6 +12,7 @@ declare module 'vue' {
     KLineKLine: typeof import('./src/components/kLine/KLine.vue')['default']
     MessageMessage: typeof import('./src/components/message/Message.vue')['default']
     NavNav: typeof import('./src/components/nav/Nav.vue')['default']
+    NCountdown: typeof import('naive-ui')['NCountdown']
     NIcon: typeof import('naive-ui')['NIcon']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NTabPane: typeof import('naive-ui')['NTabPane']

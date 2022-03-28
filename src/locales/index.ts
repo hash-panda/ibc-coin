@@ -6,7 +6,8 @@ export const LOCALE_OPTIONS = [
     { label: '中文', value: 'zh-CN' },
     { label: 'English', value: 'en-US' }
 ];
-const defaultLocale = 'en-US';
+
+const defaultLocale = 'zh-CN';
 
 const i18n = createI18n({
     locale: defaultLocale,

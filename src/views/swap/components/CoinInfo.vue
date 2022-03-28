@@ -10,10 +10,12 @@ const { t } = useI18n();
             <div class="flex flex-row">
                 <div class="w-full">
                     <div class="card-title inline-block text-bottom">
-                        <span class="tx-xl lg:text-3xl tracking-widest text-primary-content"
+                        <span class="tx-xl lg:text-3xl tracking-widest text-base-content"
                             >ATOM</span
                         >
-                        <span class="tooltip tooltip-bottom ml-2" data-tip="open web"
+                        <span
+                            class="tooltip tooltip-bottom ml-2"
+                            :data-tip="t('swap.coinInfo.openWeb')"
                             ><n-icon
                                 class="hover:text-primary"
                                 :component="ShareSquare"
@@ -21,7 +23,10 @@ const { t } = useI18n();
                                 :depth="3"
                             />
                         </span>
-                        <span class="tooltip tooltip-bottom ml-2" data-tip="twitter">
+                        <span
+                            class="tooltip tooltip-bottom ml-2"
+                            :data-tip="t('swap.coinInfo.twitter')"
+                        >
                             <n-icon
                                 class="hover:text-primary"
                                 :component="Twitter"
@@ -29,58 +34,62 @@ const { t } = useI18n();
                                 :depth="3"
                             />
                         </span>
-                        <!-- <span class="tooltip tooltip-bottom ml-2" data-tip="telegram">
+                        <span
+                            class="tooltip tooltip-bottom ml-2"
+                            :data-tip="t('swap.coinInfo.telegram')"
+                        >
                             <n-icon
                                 class="hover:text-primary"
                                 :component="TelegramPlane"
                                 size="18"
                                 :depth="3"
                             />
-                        </span> -->
-                        <!-- <span class="tooltip tooltip-bottom ml-2" data-tip="discord">
+                        </span>
+                        <span
+                            class="tooltip tooltip-bottom ml-2"
+                            :data-tip="t('swap.coinInfo.discord')"
+                        >
                             <n-icon
                                 class="hover:text-primary"
                                 :component="Discord"
                                 size="18"
                                 :depth="3"
                             />
-                        </span> -->
+                        </span>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
                         <div>
-                            <div class="text-sm lg:text-base mt-2">{{
+                            <div class="text-sm lg:text-sm mt-2 text-neutral-content">{{
                                 t('swap.coinInfo.marketCap')
                             }}</div>
                             <div
-                                class="text-primary-content text-sm md:text-base xl:text-lg tracking-widest"
+                                class="text-base-content text-sm md:text-base xl:text-lg tracking-widest"
                                 >312,212,212,000,000 UST</div
                             >
                         </div>
                         <div>
-                            <div class="text-sm lg:text-base mt-2">{{
+                            <div class="text-sm lg:text-sm mt-2">{{
                                 t('swap.coinInfo.volume')
                             }}</div>
                             <div
-                                class="text-primary-content text-sm md:text-base xl:text-lg tracking-widest"
+                                class="text-base-content text-sm md:text-base xl:text-lg tracking-widest"
                                 >212,212,000 UST</div
                             >
                         </div>
                         <div class="flex mt-2">
                             <div class="mr-4">
-                                <div class="text-sm lg:text-base">{{
-                                    t('swap.coinInfo.price')
-                                }}</div>
+                                <div class="text-sm lg:text-sm">{{ t('swap.coinInfo.price') }}</div>
                                 <div
-                                    class="text-primary-content text-sm md:text-base xl:text-lg tracking-widest"
+                                    class="text-base-content text-sm md:text-base xl:text-lg tracking-widest"
                                     >26.66</div
                                 >
                             </div>
                             <div>
-                                <div class="text-sm lg:text-base">{{
+                                <div class="text-sm lg:text-sm">{{
                                     t('swap.coinInfo.change')
                                 }}</div>
                                 <div
-                                    class="text-sm md:text-base xl:text-lg tracking-widest text-accent"
+                                    class="text-sm md:text-base xl:text-lg tracking-widest text-primary"
                                     >+10.98%</div
                                 >
                             </div>

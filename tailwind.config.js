@@ -17,8 +17,8 @@ module.exports = {
         rtl: false,
         themes: [
             {
-                dark: {
-                    ...require('daisyui/src/colors/themes')['[data-theme=dark]'],
+                halloween: {
+                    ...require('daisyui/src/colors/themes')['[data-theme=halloween]'],
                     '--padding-card': '1.5rem'
                     // '--rounded-box': '1rem', // border radius rounded-box utility class, used in card and other large boxes
                     // '--rounded-btn': '0.5rem', // border radius rounded-btn utility class, used in buttons and similar element

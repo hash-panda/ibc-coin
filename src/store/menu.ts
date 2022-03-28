@@ -1,43 +1,19 @@
+import { computed } from 'vue';
 import { acceptHMRUpdate, defineStore } from 'pinia';
+
 export const useMenuStore = defineStore({
     id: 'menu',
     state: () => {
         return {
-            currentMenuId: 'pair',
-            menuList: [
-                { id: 'pair', name: 'Pairs', actived: true },
-                { id: 'swap', name: 'Swap', actived: false },
-                { id: 'subscribe', name: 'Subscribe', actived: false }
-            ]
+            currentMenuId: 'pair'
         };
     },
     getters: {},
     actions: {
         setCurrentMenuId(id: string) {
             this.currentMenuId = id;
-            this.changeMenu(id);
-        },
-        changeMenu(menuId: string) {
-            this.menuList.forEach((v) => {
-                if (v.id === menuId) {
-                    v.actived = true;
-                    this.currentMenuId = v.id;
-                } else {
-                    v.actived = false;
-                }
-            });
         }
     }
-    // persist: {
-    //     enabled: true,
-    //     strategies: [
-    //         {
-    //             key: 'kline_currentMenuIndex',
-    //             storage: localStorage,
-    //             paths: ['currentMenuIndex']
-    //         }
-    //     ]
-    // }
 });
 
 if (import.meta.hot) {

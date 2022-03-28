@@ -7,7 +7,7 @@ import CoinInfo from './components/CoinInfo.vue';
 </script>
 <template>
     <div>
-        <div class="grid grid-cols-1 m-1 lg:flex lg:flex-row lg:m-4">
+        <div class="grid grid-cols-1 m-2 lg:flex lg:flex-row lg:m-4">
             <div class="lg:basis-1/2 xl:basis-3/5 2xl:basis-3/5 flex flex-col">
                 <div class="mt-4 mr-4">
                     <CoinInfo />

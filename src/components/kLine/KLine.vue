@@ -20,7 +20,7 @@ const initCharts = () => {
                 borderVisible: false
             },
             layout: {
-                backgroundColor: '#2a303c',
+                backgroundColor: '#212121',
                 textColor: '#d1d4dc'
             },
             grid: {

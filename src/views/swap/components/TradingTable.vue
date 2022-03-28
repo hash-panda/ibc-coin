@@ -37,12 +37,14 @@ const openTx = () => {
                 <td>
                     <button
                         @click="openAccount"
-                        class="btn btn-xs btn-outline btn-accent normal-case mr-2"
+                        class="btn btn-xs btn-outline btn-primary normal-case mr-2"
                         >{{ t('swap.tradingHistory.btn.trader') }}</button
                     >
-                    <button @click="openTx" class="btn btn-outline btn-accent normal-case btn-xs">{{
-                        t('swap.tradingHistory.btn.tx')
-                    }}</button>
+                    <button
+                        @click="openTx"
+                        class="btn btn-outline btn-primary normal-case btn-xs"
+                        >{{ t('swap.tradingHistory.btn.tx') }}</button
+                    >
                 </td>
             </tr>
         </tbody>
