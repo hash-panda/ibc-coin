@@ -46,3 +46,65 @@ export const getMarketPricesApi = () => {
             });
     });
 };
+
+// 查询币信息列表
+export const queryTokenListByChain = (chain: string) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post('/backend/ibccoin/api/v1/model/tokens', {
+                page_size: 1000,
+                chain
+            })
+            .then((res: any) => {
+                if (res.code === 0) {
+                    const result = res.data?.items.map((v) => {
+                        return {
+                            chain: v.chain,
+                            icon: v.moniker,
+                            name: v.token_name,
+                            coinPair: `${v.token_name} / usd`
+                        };
+                    });
+                    resolve(result);
+                } else {
+                    reject(res);
+                }
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+interface KLineRequestParams {
+    token_id: number; // token在数据库中的id
+    k_line_interval: string; // k线级别，可选参数为 5s,30s,5m,30m,1h,1d
+    timestamp_start?: number; // 时间范围起点时间戳，单位s。如果不填写，则根据timestamp_end自动向前推一段时间
+    timestamp_end?: number; // 时间范围终点时间戳，单位s。如果不填，则默认为当前时间
+}
+
+// 查询 K 线图信息
+export const queryKLine = (requestParams: KLineRequestParams) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post('/backend/ibccoin/api/v1/kline/query_kline', requestParams)
+            .then((res: any) => {
+                if (res.code === 0) {
+                    const result = res.data?.items.map((v) => {
+                        return {
+                            chain: v.chain,
+                            icon: v.moniker,
+                            name: v.token_name,
+                            coinPair: `${v.token_name} / usd`
+                        };
+                    });
+                    resolve(result);
+                } else {
+                    reject(res);
+                }
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};

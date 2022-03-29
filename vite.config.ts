@@ -31,6 +31,11 @@ export default defineConfig({
                 target: 'https://api-utility.cosmostation.io',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/backend\/cosmostation/, '')
+            },
+            '/backend/ibccoin': {
+                target: 'http://127.0.0.1:4523/mock/767404',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/backend\/ibccoin/, '')
             }
         }
     },

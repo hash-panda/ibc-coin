@@ -59,7 +59,7 @@ const { t } = useI18n();
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
                         <div>
-                            <div class="text-sm lg:text-sm mt-2 text-neutral-content">{{
+                            <div class="text-sm lg:text-sm mt-2 text-neutral-content opacity-50">{{
                                 t('swap.coinInfo.marketCap')
                             }}</div>
                             <div
@@ -68,7 +68,7 @@ const { t } = useI18n();
                             >
                         </div>
                         <div>
-                            <div class="text-sm lg:text-sm mt-2">{{
+                            <div class="text-sm lg:text-sm mt-2 opacity-50">{{
                                 t('swap.coinInfo.volume')
                             }}</div>
                             <div
@@ -78,14 +78,16 @@ const { t } = useI18n();
                         </div>
                         <div class="flex mt-2">
                             <div class="mr-4">
-                                <div class="text-sm lg:text-sm">{{ t('swap.coinInfo.price') }}</div>
+                                <div class="text-sm lg:text-sm opacity-50">{{
+                                    t('swap.coinInfo.price')
+                                }}</div>
                                 <div
                                     class="text-base-content text-sm md:text-base xl:text-lg tracking-widest"
                                     >26.66</div
                                 >
                             </div>
                             <div>
-                                <div class="text-sm lg:text-sm">{{
+                                <div class="text-sm lg:text-sm opacity-50">{{
                                     t('swap.coinInfo.change')
                                 }}</div>
                                 <div

@@ -4,16 +4,17 @@ import CoinPairList from '@/views/coinPairs/components/CoinPairList.vue';
 import junoMock from './mock/junoList';
 import osmoMock from './mock/osmoList';
 import scrtMock from './mock/scrtList';
-import { getAtomPriceApi, getMarketPricesApi } from '@/api';
+import { getAtomPriceApi, getMarketPricesApi, queryTokenListByChain } from '@/api';
 import { useRequest } from 'vue-request';
 
-const osmoList = ref(osmoMock);
+// const osmoList = ref(osmoMock);
 const junoList = ref(junoMock);
 // const scrtList = ref(scrtMock);
-const { data, run } = useRequest(getMarketPricesApi, {
+const { data } = useRequest(getMarketPricesApi, {
     errorRetryCount: 5,
     pollingInterval: 1000 * 60,
     pollingWhenHidden: false,
+    manual: false,
     onError: (error) => {
         console.log('getMarketPrices (⊙︿⊙) something error', error);
     },
@@ -21,7 +22,19 @@ const { data, run } = useRequest(getMarketPricesApi, {
         console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value);
     }
 });
-run();
+const { data: osmoList } = useRequest(queryTokenListByChain, {
+    defaultParams: ['osmosis'],
+    errorRetryCount: 5,
+    pollingInterval: 1000 * 30,
+    pollingWhenHidden: false,
+    manual: false,
+    onError: (error) => {
+        console.log('queryTokenListByChain (⊙︿⊙) something error', error);
+    },
+    onSuccess: (res) => {
+        console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res);
+    }
+});
 </script>
 <template>
     <div class="w-full px-2 lg:px-36 xl:px-72 mt-10">
@@ -30,7 +43,7 @@ run();
                 <CoinPairList key="osmo" :coin-pair-list="(data as any)" />
             </n-tab-pane>
             <n-tab-pane name="Osmosis" tab="Osmosis">
-                <CoinPairList key="Osmosis" :coin-pair-list="osmoList" />
+                <CoinPairList key="Osmosis" :coin-pair-list="(osmoList as any)" />
             </n-tab-pane>
             <n-tab-pane name="Junoswap" tab="Junoswap">
                 <CoinPairList key="Junoswap" :coin-pair-list="junoList" />

@@ -3,12 +3,13 @@ export interface CoinPair {
     denom?: string;
     coinPair: string;
     icon: string;
-    currentPrice: number | string;
-    currentPriceUnit: string;
-    marketCap: number | string;
-    marketCapUnit: string;
-    dailyPriceChangeInPercentage: string | number;
+    currentPrice?: number | string;
+    currentPriceUnit?: string;
+    marketCap?: number | string;
+    marketCapUnit?: string;
+    dailyPriceChangeInPercentage?: string | number;
     lastUpdated?: string | number;
+    chain?: string;
 }
 
 export interface CoinItem {

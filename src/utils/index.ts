@@ -50,6 +50,12 @@ export const genMapObject = <T extends Readonly<SelectItem[]>>(originData: T) =>
     return o;
 };
 
+function isURL(url: string) {
+    var strRegex = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+    var re = new RegExp(strRegex);
+    return re.test(url);
+}
+
 /**
  *
  * @param name 图片名称
@@ -59,5 +65,9 @@ export const getImageSrc = (name: string) => {
     // const path = `/src/assets/images/${name}`;
     // const modules = import.meta.globEager('/src/assets/images/*');
     // return modules[path].default;
-    return new URL(`../assets/images/${name}`, import.meta.url).href;
+    if (isURL(name)) {
+        return name;
+    } else {
+        return new URL(`../assets/images/${name}`, import.meta.url).href;
+    }
 };

@@ -50,8 +50,4 @@ const openTx = () => {
         </tbody>
     </table>
 </template>
-<style scoped>
-.trade-history-height {
-    height: calc(100vh - 6.8rem);
-}
-</style>
+<style scoped></style>

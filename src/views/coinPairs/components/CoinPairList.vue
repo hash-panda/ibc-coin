@@ -42,10 +42,14 @@ const openSwap = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="font-bold link link-hover" @click="openSwap">{{
-                                        coin.name
+                                    <div
+                                        class="font-bold link link-hover uppercase"
+                                        @click="openSwap"
+                                        >{{ coin.name }}</div
+                                    >
+                                    <div class="text-sm opacity-50 uppercase">{{
+                                        coin.coinPair
                                     }}</div>
-                                    <div class="text-sm opacity-50">{{ coin.coinPair }}</div>
                                 </div>
                             </div>
                         </td>

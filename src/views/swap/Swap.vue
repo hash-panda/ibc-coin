@@ -4,16 +4,31 @@ import KLine from '@/components/kLine/KLine.vue';
 import TradingHistory from './components/TradingHistory.vue';
 import SwapCoin from './components/SwapCoin.vue';
 import CoinInfo from './components/CoinInfo.vue';
+import { useRequest } from 'vue-request';
+import { queryKLine } from '@/api';
+
+const { data } = useRequest(queryKLine, {
+    defaultParams: [{ token_id: 1, k_line_interval: '5m' }],
+    errorRetryCount: 5,
+    pollingWhenHidden: true,
+    manual: false,
+    onError: (error) => {
+        console.log('getMarketPrices (⊙︿⊙) something error', error);
+    },
+    onSuccess: (res) => {
+        console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value);
+    }
+});
 </script>
 <template>
     <div>
-        <div class="grid grid-cols-1 m-2 lg:flex lg:flex-row lg:m-4">
+        <div class="grid grid-cols-1 my-2 mx-6 lg:flex lg:flex-row lg:m-4">
             <div class="lg:basis-1/2 xl:basis-3/5 2xl:basis-3/5 flex flex-col">
-                <div class="mt-4 mr-4">
+                <div class="mt-4 mr-4 mb-4">
                     <CoinInfo />
                 </div>
                 <div class="h-96 lg:h-full">
-                    <KLine />
+                    <KLine :data="data" />
                 </div>
 
                 <!-- Swap -->

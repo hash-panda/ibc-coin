@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import { createChart } from 'lightweight-charts';
 import areaSeriesData from './mock/areaSeriesData';
 import volumeSeriesData from './mock/volumeSeriesData';
 import candlestickSeriesData from './mock/candlestickSeriesData';
 
+const props = defineProps<{
+    // coinPairList:;
+}>();
 const chartRef = ref(null);
-
 const initCharts = () => {
     try {
         const chart = createChart(chartRef.value, {
             width: chartRef._value.offsetWidth,
-            height: chartRef._value.offsetHeight,
+            height: chartRef._value.offsetHeight - 30,
             rightPriceScale: {
                 scaleMargins: {
                     top: 0.05,
@@ -38,7 +40,7 @@ const initCharts = () => {
         function resize() {
             chart.applyOptions({
                 width: chartRef._value.offsetWidth,
-                height: chartRef._value.offsetHeight
+                height: chartRef._value.offsetHeight - 30
             });
             setTimeout(() => {
                 chart.timeScale().fitContent();
@@ -76,9 +78,18 @@ const initCharts = () => {
 onMounted(() => {
     setTimeout(() => {
         initCharts();
-    }, 2000);
+    }, 1000);
 });
 </script>
 <template>
-    <div ref="chartRef" class="w-full h-full"></div>
+    <div class="w-full h-full">
+        <div class="btn-group ml-4">
+            <input type="radio" name="options" data-title="30 s" class="btn btn-sm" />
+            <input type="radio" name="options" data-title="5 min" class="btn btn-sm" checked />
+            <input type="radio" name="options" data-title="30 min" class="btn btn-sm" />
+            <input type="radio" name="options" data-title="1 h" class="btn btn-sm" />
+            <input type="radio" name="options" data-title="1 d" class="btn btn-sm" />
+        </div>
+        <div ref="chartRef" class="w-full h-full"></div>
+    </div>
 </template>

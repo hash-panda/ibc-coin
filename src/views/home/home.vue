@@ -33,7 +33,7 @@ const data = ref(0);
     <div>
         <Nav />
         <CoinPairs v-show="menuStore.currentMenuId === 'pair'" />
-        <Swap v-show="menuStore.currentMenuId === 'swap'" />
+        <Swap v-if="menuStore.currentMenuId === 'swap'" />
         <Subscribe v-show="menuStore.currentMenuId === 'subscribe'" />
     </div>
 </template>

@@ -37,13 +37,13 @@ const countdownFinish = () => {
             </div>
         </div>
         <div class="block lg:hidden">
-            <h2 class="my-4 text-lg font-bold">{{ $t('swap.tradingHistory.title') }}</h2>
+            <h2 class="my-4 ml-2 text-lg font-bold">{{ $t('swap.tradingHistory.title') }}</h2>
             <TradingTable />
         </div>
     </div>
 </template>
 <style scoped>
 .trade-history-height {
-    height: calc(100vh - 6.8rem);
+    height: calc(100vh - 7.8rem);
 }
 </style>
