@@ -7,6 +7,7 @@ import Nav from '@/components/nav/Nav.vue';
 import CoinPairs from '@/views/coinPairs/CoinPairs.vue';
 import Subscribe from '@/components/subscribe/Subscribe.vue';
 import Swap from '@/views/swap/Swap.vue';
+import About from '@/views/about/about.vue';
 
 const menuStore = useMenuStore();
 const data = ref(0);
@@ -35,5 +36,6 @@ const data = ref(0);
         <CoinPairs v-show="menuStore.currentMenuId === 'pair'" />
         <Swap v-if="menuStore.currentMenuId === 'swap'" />
         <Subscribe v-show="menuStore.currentMenuId === 'subscribe'" />
+        <About v-show="menuStore.currentMenuId === 'about'" />
     </div>
 </template>

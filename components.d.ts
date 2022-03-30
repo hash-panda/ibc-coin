@@ -13,6 +13,7 @@ declare module 'vue' {
     MessageMessage: typeof import('./src/components/message/Message.vue')['default']
     NavNav: typeof import('./src/components/nav/Nav.vue')['default']
     NCountdown: typeof import('naive-ui')['NCountdown']
+    NDataTable: typeof import('naive-ui')['NDataTable']
     NIcon: typeof import('naive-ui')['NIcon']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NTabPane: typeof import('naive-ui')['NTabPane']

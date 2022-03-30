@@ -15,8 +15,7 @@ const themeOverrides: GlobalThemeOverrides = {
         color: 'rgba(42, 48, 60, 1)'
     },
     Tabs: {
-        tabTextColorActiveLine: '#6419e6FF',
-        tabTextColorHoverLine: '#6419e6FF'
+        tabTextColorActiveCard: '#1eb853FF'
     }
 };
 </script>

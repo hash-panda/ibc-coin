@@ -7,5 +7,6 @@ export default {
     'navbar.menu.pairs': '行情',
     'navbar.menu.swap': '图表',
     'navbar.menu.subscribe': '订阅',
+    'navbar.menu.about': '关于',
     ...getLangFiles(zhCNFiles)
 };

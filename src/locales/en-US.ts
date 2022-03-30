@@ -7,5 +7,6 @@ export default {
     'navbar.menu.pairs': 'Pairs',
     'navbar.menu.swap': 'Swap',
     'navbar.menu.subscribe': 'Subscribe',
+    'navbar.menu.about': 'About',
     ...getLangFiles(enUSFiles)
 };

@@ -9,7 +9,7 @@ const renderCountdown: CountdownProps['render'] = ({ hours, minutes, seconds }) 
     return `${String(seconds)}s`;
 };
 const countdownFinish = () => {
-    countdownActive.value = false;
+    // countdownActive.value = false;
     countdownActive.value = true;
     countdownDuration.value = 5000;
     console.log('countdownDuration', countdownDuration);

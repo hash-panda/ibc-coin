@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { reactive, defineProps } from 'vue';
 import { CoinPair } from '@/types/types';
 import { getImageSrc } from '@/utils';
 import { useMenuStore } from '@/store/menu';
@@ -11,9 +11,31 @@ const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
 
+const columns = reactive([
+    {
+        title: 'Name',
+        key: 'name'
+    },
+    {
+        title: 'Age',
+        key: 'age'
+    },
+    {
+        title: 'Address',
+        key: 'address'
+    }
+]);
+
 const openSwap = () => {
     menuStore.setCurrentMenuId('swap');
 };
+
+const data = Array.apply(null, { length: 46 }).map((_, index) => ({
+    key: index,
+    name: `Edward King ${index}`,
+    age: 32,
+    address: `London, Park Lane no. ${index}`
+}));
 </script>
 <template>
     <div

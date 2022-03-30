@@ -72,9 +72,15 @@ const setLocale = () => {
                             >{{ $t('navbar.menu.subscribe') }}</a
                         >
                     </li>
+                    <li @click="changeMenu('about')">
+                        <a
+                            :class="menuStore.currentMenuId === 'about' ? 'active  bg-primary' : ''"
+                            >{{ $t('navbar.menu.about') }}</a
+                        >
+                    </li>
                 </ul>
             </div>
-            <a class="btn btn-ghost normal-case text-xl">
+            <a class="btn normal-case text-xl no-animation">
                 <div class="avatar mr-2">
                     <div class="w-8 md:w-12 rounded-full">
                         <img src="@/assets/logo.png" />
@@ -96,11 +102,16 @@ const setLocale = () => {
                         $t('navbar.menu.swap')
                     }}</a>
                 </li>
-                <li @click="changeMenu('subscribe')">
+                <li @click="changeMenu('subscribe')" class="mr-2">
                     <a
                         :class="menuStore.currentMenuId === 'subscribe' ? 'active  bg-primary' : ''"
                         >{{ $t('navbar.menu.subscribe') }}</a
                     >
+                </li>
+                <li @click="changeMenu('about')" class="mr-2">
+                    <a :class="menuStore.currentMenuId === 'about' ? 'active  bg-primary' : ''">{{
+                        $t('navbar.menu.about')
+                    }}</a>
                 </li>
             </ul>
         </div>

@@ -5,8 +5,10 @@ import areaSeriesData from './mock/areaSeriesData';
 import volumeSeriesData from './mock/volumeSeriesData';
 import candlestickSeriesData from './mock/candlestickSeriesData';
 
+interface KLine {}
+
 const props = defineProps<{
-    // coinPairList:;
+    data: KLine;
 }>();
 const chartRef = ref(null);
 const initCharts = () => {
