@@ -22,7 +22,7 @@ const initCharts = () => {
                 borderVisible: false
             },
             layout: {
-                backgroundColor: '#212121',
+                backgroundColor: '#171212',
                 textColor: '#d1d4dc'
             },
             grid: {

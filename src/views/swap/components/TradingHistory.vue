@@ -17,7 +17,7 @@ const countdownFinish = () => {
 </script>
 <template>
     <div>
-        <div class="hidden lg:grid card w-full bg-base-300 trade-history-height">
+        <div class="hidden lg:grid card w-full bg-neutral trade-history-height">
             <div class="card-body gap-4 overflow-y-auto">
                 <h2 class="card-title pr-6 indicator">
                     {{ $t('swap.tradingHistory.title') }}

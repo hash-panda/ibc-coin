@@ -80,8 +80,8 @@ const setLocale = () => {
                         <img src="@/assets/logo.png" />
                     </div>
                 </div>
-                <span class="text-primary text-base lg:text-2xl">IBC</span>
-                <span class="ml-1 font-extrabold text-base lg:text-2xl">Coin</span>
+                <span class="text-primary font-extrabold text-base lg:text-2xl">IBC</span>
+                <span class="ml-1 text-base lg:text-2xl">Coin</span>
             </a>
         </div>
         <div class="navbar-center hidden md:flex">

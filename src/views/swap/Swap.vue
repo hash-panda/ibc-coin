@@ -34,6 +34,7 @@ const { data } = useRequest(queryKLine, {
                 <!-- Swap -->
                 <!-- <SwapCoin /> -->
             </div>
+            <!-- <div class="divider lg:divider-horizontal"></div> -->
             <!-- Right -->
             <div class="lg:basis-1/2 xl:basis-2/5 2xl:basis-2/5 grid gap-2 grid-cols-1">
                 <!-- Trading Hisotry -->
