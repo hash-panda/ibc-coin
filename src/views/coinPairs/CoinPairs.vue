@@ -4,7 +4,7 @@ import CoinPairList from '@/views/coinPairs/components/CoinPairList.vue';
 import junoMock from './mock/junoList';
 import osmoMock from './mock/osmoList';
 import scrtMock from './mock/scrtList';
-import { getAtomPriceApi, getMarketPricesApi, queryTokenListByChain } from '@/api';
+import { getAtomPriceApi, getMarketPricesApi, queryTokenStaticStatusListByChain } from '@/api';
 import { useRequest } from 'vue-request';
 
 // const osmoList = ref(osmoMock);
@@ -22,8 +22,8 @@ const { data } = useRequest(getMarketPricesApi, {
         console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value);
     }
 });
-const { data: osmoList } = useRequest(queryTokenListByChain, {
-    defaultParams: ['osmosis'],
+const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
+    defaultParams: [{chain:'osmosis'}],
     errorRetryCount: 5,
     pollingInterval: 1000 * 30,
     pollingWhenHidden: false,
@@ -46,10 +46,10 @@ const { data: osmoList } = useRequest(queryTokenListByChain, {
                 <CoinPairList key="Osmosis" :coin-pair-list="(osmoList as any)" />
             </n-tab-pane>
             <n-tab-pane name="Junoswap" tab="Junoswap">
-                <CoinPairList key="Junoswap" :coin-pair-list="junoList" />
+                <CoinPairList key="Junoswap" :coin-pair-list="[]" />
             </n-tab-pane>
             <n-tab-pane name="Sifchain" tab="Sifchain">
-                <CoinPairList key="Sifchain" :coin-pair-list="junoList" />
+                <CoinPairList key="Sifchain" :coin-pair-list="[]" />
             </n-tab-pane>
             <!-- <n-tab-pane name="SCRT" tab="SCRT">
                 <CoinPairList key="scrt" :coin-pair-list="scrtList" />

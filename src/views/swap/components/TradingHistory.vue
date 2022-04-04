@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 import TradingTable from './TradingTable.vue';
 import { CountdownProps } from 'naive-ui';
+import { History } from '@vicons/fa';
+
+const props = defineProps<{
+    data: any;
+}>();
 
 const countdownActive = ref(true);
 const countdownDuration = ref(4000);
@@ -20,6 +25,11 @@ const countdownFinish = () => {
         <div class="hidden lg:grid card w-full bg-neutral trade-history-height">
             <div class="card-body gap-4 overflow-y-auto">
                 <h2 class="card-title pr-6 indicator">
+                    <n-icon
+                        :component="History"
+                        size="18"
+                        :depth="3"
+                    />
                     {{ $t('swap.tradingHistory.title') }}
                     <span class="indicator-item indicator-middle badge badge-primary">
                         <n-countdown
@@ -32,13 +42,19 @@ const countdownFinish = () => {
                 </h2>
 
                 <div class="overflow-y-auto">
-                    <TradingTable />
+                    <TradingTable :data="props.data" />
                 </div>
             </div>
         </div>
         <div class="block lg:hidden">
-            <h2 class="my-4 ml-2 text-lg font-bold">{{ $t('swap.tradingHistory.title') }}</h2>
-            <TradingTable />
+            <h2 class="my-4 ml-2 text-lg font-bold"><n-icon
+                        :component="History"
+                        size="15"
+                        :depth="3"
+                    />
+                    {{ $t('swap.tradingHistory.title') }}
+            </h2>
+            <TradingTable :data="props.data" />
         </div>
     </div>
 </template>

@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
+import { Random, ShareSquare, TelegramPlane, Twitter, Discord } from '@vicons/fa';
 import { useI18n } from 'vue-i18n';
+import { useMenuStore } from '@/store/menu';
 
 const { t } = useI18n();
+const menuStore = useMenuStore();
+const openCoinPairList = ()=>{
+  menuStore.setCurrentMenuId('pair');
+}
 </script>
 <template>
     <div class="card w-full bg-base-400">
@@ -15,6 +20,17 @@ const { t } = useI18n();
                         >
                         <span
                             class="tooltip tooltip-bottom ml-2"
+                            :data-tip="t('swap.coinInfo.openCoinPairList')"
+                            @click="openCoinPairList"
+                            ><n-icon
+                                class="hover:text-primary"
+                                :component="Random"
+                                size="18"
+                                :depth="3"
+                            />
+                        </span>
+                        <!-- <span
+                            class="tooltip tooltip-bottom ml-2"
                             :data-tip="t('swap.coinInfo.openWeb')"
                             ><n-icon
                                 class="hover:text-primary"
@@ -22,8 +38,8 @@ const { t } = useI18n();
                                 size="18"
                                 :depth="3"
                             />
-                        </span>
-                        <span
+                        </span> -->
+                        <!-- <span
                             class="tooltip tooltip-bottom ml-2"
                             :data-tip="t('swap.coinInfo.twitter')"
                         >
@@ -33,8 +49,8 @@ const { t } = useI18n();
                                 size="18"
                                 :depth="3"
                             />
-                        </span>
-                        <span
+                        </span> -->
+                        <!-- <span
                             class="tooltip tooltip-bottom ml-2"
                             :data-tip="t('swap.coinInfo.telegram')"
                         >
@@ -44,8 +60,8 @@ const { t } = useI18n();
                                 size="18"
                                 :depth="3"
                             />
-                        </span>
-                        <span
+                        </span> -->
+                        <!-- <span
                             class="tooltip tooltip-bottom ml-2"
                             :data-tip="t('swap.coinInfo.discord')"
                         >
@@ -55,7 +71,7 @@ const { t } = useI18n();
                                 size="18"
                                 :depth="3"
                             />
-                        </span>
+                        </span> -->
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
                         <div>

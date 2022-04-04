@@ -12,6 +12,7 @@
         "axios": "^0.25.0",
         "dayjs": "^1.11.0",
         "lightweight-charts": "^3.8.0",
+        "numeral": "^2.0.6",
         "pinia": "^2.0.9",
         "pinia-plugin-persist": "^0.0.92",
         "vue": "^3.2.25",

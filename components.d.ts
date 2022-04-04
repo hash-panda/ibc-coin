@@ -14,6 +14,7 @@ declare module 'vue' {
     NavNav: typeof import('./src/components/nav/Nav.vue')['default']
     NCountdown: typeof import('naive-ui')['NCountdown']
     NDataTable: typeof import('naive-ui')['NDataTable']
+    NEmpty: typeof import('naive-ui')['NEmpty']
     NIcon: typeof import('naive-ui')['NIcon']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NSpace: typeof import('naive-ui')['NSpace']

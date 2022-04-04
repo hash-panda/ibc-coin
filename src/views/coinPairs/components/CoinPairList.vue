@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { reactive, defineProps } from 'vue';
 import { CoinPair } from '@/types/types';
-import { getImageSrc } from '@/utils';
+import { getImageSrc, formatAmountWithDollar } from '@/utils';
+import { Delicious } from '@vicons/fa';
 import { useMenuStore } from '@/store/menu';
 import { useI18n } from 'vue-i18n';
 
@@ -11,35 +12,13 @@ const props = defineProps<{
     coinPairList: CoinPair[];
 }>();
 
-const columns = reactive([
-    {
-        title: 'Name',
-        key: 'name'
-    },
-    {
-        title: 'Age',
-        key: 'age'
-    },
-    {
-        title: 'Address',
-        key: 'address'
-    }
-]);
-
 const openSwap = () => {
     menuStore.setCurrentMenuId('swap');
 };
-
-const data = Array.apply(null, { length: 46 }).map((_, index) => ({
-    key: index,
-    name: `Edward King ${index}`,
-    age: 32,
-    address: `London, Park Lane no. ${index}`
-}));
 </script>
 <template>
-    <div
-        ><div class="overflow-x-auto w-full">
+    <div>
+        <div v-if="coinPairList?.length>0" class="overflow-x-auto w-full">
             <table class="table w-full">
                 <!-- head -->
                 <thead>
@@ -47,6 +26,7 @@ const data = Array.apply(null, { length: 46 }).map((_, index) => ({
                         <th class="normal-case">{{ t('coinPairs.table.header.coinPair') }}</th>
                         <th class="normal-case">{{ t('coinPairs.table.header.price') }}</th>
                         <th class="normal-case">{{ t('coinPairs.table.header.marketCap') }}</th>
+                        <th class="normal-case">{{ t('coinPairs.table.header.totalVolume') }}</th>
                         <th class="normal-case hidden md:table-cell">{{
                             t('coinPairs.table.header.change')
                         }}</th>
@@ -76,11 +56,12 @@ const data = Array.apply(null, { length: 46 }).map((_, index) => ({
                             </div>
                         </td>
                         <td class="p-2 md:p-4">
-                            <div
-                                >{{ coin.currentPrice }}
+                            <div v-if="coin.currentPrice">
+                                <span>{{ coin.currentPrice }}</span>
                                 <!-- <span class="uppercase"> {{ coin.currentPriceUnit }}</span> -->
                                 <span class="uppercase"> UST</span>
                             </div>
+                            <div v-else>--</div>
                             <div
                                 ><div
                                     class="font-bold md:hidden"
@@ -98,10 +79,15 @@ const data = Array.apply(null, { length: 46 }).map((_, index) => ({
                                 ></div
                             >
                         </td>
-                        <td class="p-2 md:p-4"
-                            >{{ coin.marketCap }}
-                            <!-- <span class="uppercase"> {{ coin.marketCapUnit }}</span> -->
-                            <span class="uppercase"> UST</span>
+                        <td class="p-2 md:p-4">
+                          <div>
+                            {{ formatAmountWithDollar(coin.marketCap) }}
+                          </div>
+                        </td>
+                        <td class="p-2 md:p-4">
+                          <div>
+                            {{ formatAmountWithDollar(coin.totalVolume) }}
+                          </div>
                         </td>
                         <td
                             class="p-2 md:p-4 font-bold hidden md:table-cell"
@@ -127,6 +113,15 @@ const data = Array.apply(null, { length: 46 }).map((_, index) => ({
                     </tr>
                 </tbody>
             </table>
-        </div></div
-    >
+        </div>
+        <n-empty v-else description="." class="h-96 justify-center	">
+          <template #icon>
+            <n-icon
+                :component="Delicious"
+                size="38"
+                :depth="3"
+            />
+          </template>
+        </n-empty>
+    </div>
 </template>

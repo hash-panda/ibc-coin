@@ -6,6 +6,7 @@ export interface CoinPair {
     currentPrice?: number | string;
     currentPriceUnit?: string;
     marketCap?: number | string;
+    totalVolume?: number | string;
     marketCapUnit?: string;
     dailyPriceChangeInPercentage?: string | number;
     lastUpdated?: string | number;

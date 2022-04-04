@@ -1,20 +1,42 @@
 import { ExtractValue, SelectItem } from '@/types/types';
 import { accDiv } from './acc';
+import numeral from 'numeral'
 
 export function getActualAmount(amount: string | number, presicion?: number) {
-    return Number(myFixed(String(accDiv(Number(amount), presicion ?? 1e6)), 2));
+  return accDiv(Number(amount), presicion ?? 1e6);
 }
 
-export function getFormatAmount(amount: string | number) {
-    return Number(myFixed(String(amount), 2));
+export function getFixedAmount(amount: string | number, decimal: number = 2) {
+  if (typeof Number(decimal) === 'number') {
+    return Number(myFixed(String(amount), decimal));
+  } else {
+    return 0
+  }
+}
+
+export function formatAmountWithDollar(amount: string | number, decimal: number = 0) {
+  if (amount) {
+    const decimalLength = Array(decimal ? (decimal + 1) : 0).join('0')
+    return numeral(amount).format(`$0,0.${decimalLength}`)
+  } else {
+    return '--'
+  }
+}
+
+export function formatPercentage(amount: string | number) {
+  return numeral(amount).format('0.000%')
 }
 
 /*
  * cosmos1p2s0gv05xkm2ajrrku4xv2t9e64cvu4tn289zt 换为 cosmos1p2s0gv...n289zt
  */
-export function encodeAddress(address: string) {
+export function encodeAddress(address: string, short: boolean = true) {
+    let length = 13
+    if (short) {
+      length = 6
+    }
     if (address.trim() && address.length > 20) {
-        return `${address.substring(0, 13)}...${address.substring(address.length - 6)}`;
+        return `${address.substring(0, length)}...${address.substring(address.length - 6)}`;
     } else {
         return address.trim();
     }
