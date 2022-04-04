@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { DISPLAY_COIN_LIST } from '@/const/displayCoinList';
 import { getFormatAmount } from '@/utils';
+import dayjs from 'dayjs';
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
 export const getAtomPriceApi = () => {
@@ -90,12 +91,13 @@ export const queryKLine = (requestParams: KLineRequestParams) => {
             .post('/backend/ibccoin/api/v1/kline/query_kline', requestParams)
             .then((res: any) => {
                 if (res.code === 0) {
-                    const result = res.data?.items.map((v) => {
+                    const result = res.data.map((v) => {
                         return {
-                            chain: v.chain,
-                            icon: v.moniker,
-                            name: v.token_name,
-                            coinPair: `${v.token_name} / usd`
+                            time: v.k_line_start_timestamp,
+                            open: v.open_price,
+                            high: v.max_price,
+                            low:  v.min_price,
+                            close:  v.close_price,
                         };
                     });
                     resolve(result);

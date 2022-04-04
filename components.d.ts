@@ -16,6 +16,8 @@ declare module 'vue' {
     NDataTable: typeof import('naive-ui')['NDataTable']
     NIcon: typeof import('naive-ui')['NIcon']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NSpace: typeof import('naive-ui')['NSpace']
+    NSpin: typeof import('naive-ui')['NSpin']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     SubscribeSubscribe: typeof import('./src/components/subscribe/Subscribe.vue')['default']

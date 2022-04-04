@@ -7,9 +7,13 @@ import CoinInfo from './components/CoinInfo.vue';
 import { useRequest } from 'vue-request';
 import { queryKLine } from '@/api';
 
-const { data } = useRequest(queryKLine, {
-    defaultParams: [{ token_id: 1, k_line_interval: '5m' }],
+// 30s 5m 30m 1h 1d
+const timeInterval = ref('5m')
+const { data, loading } = useRequest(queryKLine, {
+    defaultParams: [{ token_id: 1, k_line_interval: timeInterval.value }],
     errorRetryCount: 5,
+    pollingInterval: 1000 * 30,
+    debounceInterval: 1000,
     pollingWhenHidden: true,
     manual: false,
     onError: (error) => {
@@ -19,6 +23,7 @@ const { data } = useRequest(queryKLine, {
         console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value);
     }
 });
+
 </script>
 <template>
     <div>
@@ -27,10 +32,11 @@ const { data } = useRequest(queryKLine, {
                 <div class="mt-4 mr-4 mb-4">
                     <CoinInfo />
                 </div>
-                <div class="h-96 lg:h-full">
-                    <KLine :data="data" />
-                </div>
-
+                <n-spin :show="loading">
+                  <div class="h-96 lg:h-full">
+                      <KLine :data="data" />
+                  </div>
+                </n-spin>
                 <!-- Swap -->
                 <!-- <SwapCoin /> -->
             </div>
