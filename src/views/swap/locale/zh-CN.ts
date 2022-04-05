@@ -13,6 +13,12 @@ export default {
     'swap.tradingHistory.table.coinPair': '币对',
     'swap.tradingHistory.table.volume': '成交量',
     'swap.tradingHistory.table.tradeInfo': '交易信息',
+    'tradingHistory.table.openAddress': '账户信息',
+    'tradingHistory.table.noMoreData': '没有更多数据',
+    'tradingHistory.table.loadMore': '加载更多',
+    'tradingHistory.table.loading': '加载中...',
+    'tradingHistory.table.refresh': '刷新中',
+    'tradingHistory.table.refreshInfo': '每30秒刷新一次',
     'swap.tradingHistory.btn.trader': '交易人',
     'swap.tradingHistory.btn.tx': '记录'
 };

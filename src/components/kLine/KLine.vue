@@ -174,7 +174,7 @@ const timeIntervalSelect = (value) => {
                 name="options"
                 value="30s"
                 :data-title="$t('kline.option.30s')"
-                class="btn btn-sm"
+                class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             />
             <input
@@ -182,7 +182,7 @@ const timeIntervalSelect = (value) => {
                 name="options"
                 value="5m"
                 :data-title="$t('kline.option.5m')"
-                class="btn btn-sm"
+                class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
                 checked
             />
@@ -191,7 +191,7 @@ const timeIntervalSelect = (value) => {
                 name="options"
                 value="30m"
                 :data-title="$t('kline.option.30m')"
-                class="btn btn-sm"
+                class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             />
             <input
@@ -199,7 +199,7 @@ const timeIntervalSelect = (value) => {
                 name="options"
                 value="1h"
                 :data-title="$t('kline.option.1h')"
-                class="btn btn-sm"
+                class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             />
             <input
@@ -207,7 +207,7 @@ const timeIntervalSelect = (value) => {
                 name="options"
                 value="1d"
                 :data-title="$t('kline.option.1d')"
-                class="btn btn-sm"
+                class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             />
         </div>

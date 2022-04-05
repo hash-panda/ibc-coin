@@ -12,7 +12,13 @@ export default {
     'swap.tradingHistory.table.date': 'Date',
     'swap.tradingHistory.table.coinPair': 'Coin Pair',
     'swap.tradingHistory.table.volume': 'Volume',
+    'tradingHistory.table.openAddress': 'Account Detail',
     'swap.tradingHistory.table.tradeInfo': 'Trade Info',
+    'tradingHistory.table.noMoreData': 'No more data',
+    'tradingHistory.table.loadMore': 'Load more',
+    'tradingHistory.table.loading': 'loading...',
+    'tradingHistory.table.refresh': 'refreshing',
+    'tradingHistory.table.refreshInfo': 'Refresh data at 30-second intervals',
     'swap.tradingHistory.btn.trader': 'Trader',
     'swap.tradingHistory.btn.tx': 'Tx'
 };

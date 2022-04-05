@@ -160,7 +160,7 @@ interface TradingHistoryReq {
   page_size?: number; // 每页大小，默认10
 }
 
-interface TradingHistoryRes {
+export interface TradingHistoryRes {
   txTimestamp: number; // 交易时间
   userAddress: string; // 用户钱包地址
   txHash: string; // 交易哈希
@@ -171,7 +171,6 @@ interface TradingHistoryRes {
   id: string;
   tokenNameFrom: string; // 付出token的基本信息-币名称
   tokenNameTo: string; // 获得token的信息-币名称
-
 }
 
 // 查询 交易信息 数据
@@ -195,7 +194,10 @@ export const queryTradingHistory = (requestParams: TradingHistoryReq) => {
                         tokenNameTo: v.token_to.token_name,
                       };
                   });
-                  resolve(result);
+                  resolve({
+                    data: result,
+                    total: res.data?.total
+                  });
               } else {
                   reject(res);
               }
