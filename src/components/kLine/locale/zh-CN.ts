@@ -1,4 +1,5 @@
 export default {
+  'kline.option.5s': '5 秒',
   'kline.option.30s': '30 秒',
   'kline.option.5m': '5 分钟',
   'kline.option.30m': '30 分钟',

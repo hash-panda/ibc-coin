@@ -11,7 +11,7 @@ interface KLine {}
 const props = defineProps<{
     data: any;
 }>();
-const emit = defineEmits(['timeIntervalSelect']);
+const emit = defineEmits(['timeIntervalSelect', '']);
 const timeSelect = ref('5m');
 const chartRef = ref(null);
 const legend = ref({
@@ -136,7 +136,7 @@ const initCharts = () => {
             if (newVisibleTimeRange) {
                 console.log(
                     'chart.timeScale().subscribeVisibleTimeRangeChange',
-                    newVisibleTimeRange
+                    dayjs.unix(newVisibleTimeRange.from).format('YYYY-MM-DD HH:mm:ss'),dayjs.unix(newVisibleTimeRange.to).format('YYYY-MM-DD HH:mm:ss')
                 );
             }
         });
@@ -150,6 +150,7 @@ watch(
     () => {
         if (props.data) {
             candlestickSeries.setData(props.data ?? []);
+            console.log('candlestickSeries', candlestickSeries)
         }
     }
 );
@@ -169,6 +170,14 @@ const timeIntervalSelect = (value) => {
 <template>
     <div class="w-full h-full">
         <div class="btn-group ml-3">
+           <input
+                type="radio"
+                name="options"
+                value="5s"
+                :data-title="$t('kline.option.5s')"
+                class="btn btn-xs lg:btn-sm"
+                @input="timeIntervalSelect"
+            />
             <input
                 type="radio"
                 name="options"

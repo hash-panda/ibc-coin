@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import KLine from '@/components/kLine/KLine.vue';
 import TradingHistory from './components/TradingHistory.vue';
 import SwapCoin from './components/SwapCoin.vue';
@@ -23,6 +23,7 @@ const { data, run, loading } = useRequest(queryKLine, {
         console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value);
     }
 });
+
 
 const { data: tokenDetail } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'osmosis', token_ids: ['4822fe2c-db91-468a-9ff4-68bbe9b2caba'] }],
