@@ -7,8 +7,9 @@ declare module 'vue' {
         BenefitsCardBenefitsCard: typeof import('./src/components/benefitsCard/BenefitsCard.vue')['default']
         CoinCardCoinCard: typeof import('./src/components/coinCard/CoinCard.vue')['default']
         CoinPairListCoinPairList: typeof import('./src/components/coinPairList/CoinPairList.vue')['default']
-        CoinPairsCoinPairs: typeof import('./src/components/coinPairs/CoinPairs.vue')['default']
+        Footer: typeof import('./src/components/footer/Footer.vue')['default']
         FooterFooter: typeof import('./src/components/footer/Footer.vue')['default']
+        KLine: typeof import('./src/components/kLine/KLine.vue')['default']
         KLineKLine: typeof import('./src/components/kLine/KLine.vue')['default']
         MessageMessage: typeof import('./src/components/message/Message.vue')['default']
         NAvatar: typeof import('naive-ui')['NAvatar']
@@ -27,6 +28,7 @@ declare module 'vue' {
         NTabPane: typeof import('naive-ui')['NTabPane']
         NTabs: typeof import('naive-ui')['NTabs']
         SubscribeSubscribe: typeof import('./src/components/subscribe/Subscribe.vue')['default']
+        Tokens: typeof import('./src/views/tokens/index.vue')['default']
     }
 }
 

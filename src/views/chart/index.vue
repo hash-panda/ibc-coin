@@ -58,7 +58,7 @@ const onTimeIntervalSelect = value => {
                 <div class="h-96 lg:h-full">
                     <KLine :data="data" @timeIntervalSelect="onTimeIntervalSelect" />
                 </div>
-                <!-- Swap -->
+                <!-- Chart -->
                 <!-- <SwapCoin /> -->
             </div>
             <!-- <div class="divider lg:divider-horizontal"></div> -->

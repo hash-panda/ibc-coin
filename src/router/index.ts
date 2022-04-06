@@ -5,8 +5,7 @@ import appRoutes from './app'
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        name: '',
-        component: () => import('@/views/home/home.vue'),
+        redirect: 'tokens',
     },
     {
         name: 'root',

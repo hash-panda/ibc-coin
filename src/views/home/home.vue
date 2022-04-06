@@ -3,11 +3,10 @@ import { onMounted, ref } from 'vue'
 import { useRequest } from 'vue-request'
 import axios from 'axios'
 import { useMenuStore } from '@/store/menu'
-import Nav from '@/components/nav/Nav.vue'
-import CoinPairs from '@/views/coinPairs/CoinPairs.vue'
-import Subscribe from '@/components/subscribe/Subscribe.vue'
-import Swap from '@/views/swap/Swap.vue'
-import About from '@/views/about/about.vue'
+import Tokens from '@/views/tokens/index.vue'
+import Subscribe from '@/views/subscribe/index.vue'
+import Chart from '@/views/chart/index.vue'
+import About from '@/views/about/index.vue'
 
 const menuStore = useMenuStore()
 const data = ref(0)
@@ -32,9 +31,8 @@ const data = ref(0)
 </script>
 <template>
     <div>
-        <Nav />
-        <CoinPairs v-show="menuStore.currentMenuId === 'pair'" />
-        <Swap v-if="menuStore.currentMenuId === 'swap'" />
+        <Tokens v-show="menuStore.currentMenuId === 'pair'" />
+        <Chart v-if="menuStore.currentMenuId === 'chart'" />
         <Subscribe v-show="menuStore.currentMenuId === 'subscribe'" />
         <About v-show="menuStore.currentMenuId === 'about'" />
     </div>

@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { computed, reactive, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useMenuStore } from '@/store/menu'
 import { useAppStore } from '@/store/app'
 import { LOCALE_OPTIONS } from '@/locales'
 import useLocale from '@/hooks/locale'
-import { useI18n } from 'vue-i18n'
+import { useRouter, useRoute } from 'vue-router'
 
-const { t } = useI18n()
+const router = useRouter()
+const route = useRoute()
 const menuStore = useMenuStore()
 const appStore = useAppStore()
 const { changeLocale } = useLocale()
+const selectedKey = ref<string[]>([])
 
 const locale = computed(() => {
     const currentLocale = LOCALE_OPTIONS.find(item => item.value === appStore.locale)
@@ -17,7 +19,27 @@ const locale = computed(() => {
     return currentLocale
 })
 
+watch(
+    route,
+    newVal => {
+        let key = newVal.matched[1]?.name as string
+        console.log('newVal-newVal', newVal)
+        if (newVal?.matched.length > 2) {
+            key = newVal.matched[2]?.name as string
+        }
+
+        console.log('newVal.matched', newVal.matched)
+        selectedKey.value = [key]
+    },
+    {
+        immediate: true,
+    },
+)
+
 const changeMenu = (menuId: string) => {
+    router.push({
+        name: menuId,
+    })
     menuStore.setCurrentMenuId(menuId)
 }
 
@@ -38,17 +60,17 @@ const setLocale = () => {
                     </svg>
                 </label>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li @click="changeMenu('pair')">
-                        <a :class="menuStore.currentMenuId === 'pair' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.pairs') }}</a>
+                    <li @click="changeMenu('tokens')">
+                        <a :class="selectedKey.includes('pair') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.tokens') }}</a>
                     </li>
-                    <li @click="changeMenu('swap')">
-                        <a :class="menuStore.currentMenuId === 'swap' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.swap') }}</a>
+                    <li @click="changeMenu('chart')">
+                        <a :class="selectedKey.includes('chart') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.chart') }}</a>
                     </li>
                     <li @click="changeMenu('subscribe')">
-                        <a :class="menuStore.currentMenuId === 'subscribe' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.subscribe') }}</a>
+                        <a :class="selectedKey.includes('subscribe') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.subscribe') }}</a>
                     </li>
                     <li @click="changeMenu('about')">
-                        <a :class="menuStore.currentMenuId === 'about' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.about') }}</a>
+                        <a :class="selectedKey.includes('about') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.about') }}</a>
                     </li>
                 </ul>
             </div>
@@ -64,17 +86,17 @@ const setLocale = () => {
         </div>
         <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal p-0">
-                <li @click="changeMenu('pair')" class="mr-2">
-                    <a :class="menuStore.currentMenuId === 'pair' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.pairs') }}</a>
+                <li @click="changeMenu('tokens')" class="mr-2">
+                    <a :class="selectedKey.includes('pair') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.tokens') }}</a>
                 </li>
-                <li @click="changeMenu('swap')" class="mr-2">
-                    <a :class="menuStore.currentMenuId === 'swap' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.swap') }}</a>
+                <li @click="changeMenu('chart')" class="mr-2">
+                    <a :class="selectedKey.includes('chart') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.chart') }}</a>
                 </li>
                 <li @click="changeMenu('subscribe')" class="mr-2">
-                    <a :class="menuStore.currentMenuId === 'subscribe' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.subscribe') }}</a>
+                    <a :class="selectedKey.includes('subscribe') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.subscribe') }}</a>
                 </li>
                 <li @click="changeMenu('about')" class="mr-2">
-                    <a :class="menuStore.currentMenuId === 'about' ? 'active  bg-primary' : ''">{{ $t('navbar.menu.about') }}</a>
+                    <a :class="selectedKey.includes('about') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.about') }}</a>
                 </li>
             </ul>
         </div>

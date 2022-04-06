@@ -4,8 +4,8 @@ const enUSFiles = import.meta.globEager('../../src/**/locale/en-US.ts')
 
 export default {
     'navbar.action.locale': 'Switch to English',
-    'navbar.menu.pairs': 'Pairs',
-    'navbar.menu.swap': 'Swap',
+    'navbar.menu.tokens': 'Pairs',
+    'navbar.menu.chart': 'Chart',
     'navbar.menu.subscribe': 'Subscribe',
     'navbar.menu.about': 'About',
     ...getLangFiles(enUSFiles),

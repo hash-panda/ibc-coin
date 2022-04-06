@@ -24,14 +24,14 @@ const openCoinPairList = () => {
                         <span class="tx-xl lg:text-3xl tracking-widest text-base-content uppercase">{{ props.coinDetail?.name }}</span>
                         <span
                             class="tooltip tooltip-right ml-1 align-middle tooltip-primary"
-                            :data-tip="t('swap.coinInfo.openCoinPairList')"
+                            :data-tip="t('chart.coinInfo.openCoinPairList')"
                             @click="openCoinPairList"
                         >
                             <n-icon class="hover:text-primary" :component="ArrowRepeatAll16Regular" size="28" :depth="3" />
                         </span>
                         <!-- <span
                             class="tooltip tooltip-bottom ml-2"
-                            :data-tip="t('swap.coinInfo.openWeb')"
+                            :data-tip="t('chart.coinInfo.openWeb')"
                             ><n-icon
                                 class="hover:text-primary"
                                 :component="ShareSquare"
@@ -41,7 +41,7 @@ const openCoinPairList = () => {
                         </span> -->
                         <!-- <span
                             class="tooltip tooltip-bottom ml-2"
-                            :data-tip="t('swap.coinInfo.twitter')"
+                            :data-tip="t('chart.coinInfo.twitter')"
                         >
                             <n-icon
                                 class="hover:text-primary"
@@ -52,7 +52,7 @@ const openCoinPairList = () => {
                         </span> -->
                         <!-- <span
                             class="tooltip tooltip-bottom ml-2"
-                            :data-tip="t('swap.coinInfo.telegram')"
+                            :data-tip="t('chart.coinInfo.telegram')"
                         >
                             <n-icon
                                 class="hover:text-primary"
@@ -63,7 +63,7 @@ const openCoinPairList = () => {
                         </span> -->
                         <!-- <span
                             class="tooltip tooltip-bottom ml-2"
-                            :data-tip="t('swap.coinInfo.discord')"
+                            :data-tip="t('chart.coinInfo.discord')"
                         >
                             <n-icon
                                 class="hover:text-primary"
@@ -75,26 +75,26 @@ const openCoinPairList = () => {
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
                         <div>
-                            <div class="text-sm lg:text-sm mt-2 text-neutral-content opacity-50">{{ t('swap.coinInfo.marketCap') }}</div>
+                            <div class="text-sm lg:text-sm mt-2 text-neutral-content opacity-50">{{ t('chart.coinInfo.marketCap') }}</div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
                                 {{ formatAmountWithDollar(props.coinDetail?.marketCap) }}
                             </div>
                         </div>
                         <div>
-                            <div class="text-sm lg:text-sm mt-2 opacity-50">{{ t('swap.coinInfo.volume') }}</div>
+                            <div class="text-sm lg:text-sm mt-2 opacity-50">{{ t('chart.coinInfo.volume') }}</div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
                                 {{ formatAmountWithDollar(props.coinDetail?.totalVolume) }}
                             </div>
                         </div>
                         <div class="flex mt-2">
                             <div class="mr-4">
-                                <div class="text-sm lg:text-sm opacity-50">{{ t('swap.coinInfo.price') }}</div>
+                                <div class="text-sm lg:text-sm opacity-50">{{ t('chart.coinInfo.price') }}</div>
                                 <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
                                     {{ props.coinDetail?.currentPrice }}
                                 </div>
                             </div>
                             <div>
-                                <div class="text-sm lg:text-sm opacity-50">{{ t('swap.coinInfo.change') }}</div>
+                                <div class="text-sm lg:text-sm opacity-50">{{ t('chart.coinInfo.change') }}</div>
                                 <div
                                     class="text-sm md:text-base xl:text-lg tracking-widest text-primary"
                                     :class="props.coinDetail?.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'"

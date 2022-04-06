@@ -70,10 +70,10 @@ const openTx = (tx: string) => {
             <table class="table table-compact w-full">
                 <thead>
                     <tr class="sticky inset-x-0 top-0 z-40">
-                        <th class="normal-case">{{ $t('swap.tradingHistory.table.date') }}</th>
-                        <th class="normal-case">{{ $t('swap.tradingHistory.table.coinPair') }}</th>
-                        <th class="normal-case">{{ $t('swap.tradingHistory.table.volume') }}</th>
-                        <th class="normal-case">{{ $t('swap.tradingHistory.table.tradeInfo') }}</th>
+                        <th class="normal-case">{{ $t('chart.tradingHistory.table.date') }}</th>
+                        <th class="normal-case">{{ $t('chart.tradingHistory.table.coinPair') }}</th>
+                        <th class="normal-case">{{ $t('chart.tradingHistory.table.volume') }}</th>
+                        <th class="normal-case">{{ $t('chart.tradingHistory.table.tradeInfo') }}</th>
                     </tr>
                 </thead>
                 <tbody>

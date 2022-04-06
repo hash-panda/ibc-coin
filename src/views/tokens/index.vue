@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import CoinPairList from '@/views/coinPairs/components/CoinPairList.vue'
+import CoinPairList from '@/views/tokens/components/CoinPairList.vue'
 import junoMock from './mock/junoList'
 import osmoMock from './mock/osmoList'
 import scrtMock from './mock/scrtList'

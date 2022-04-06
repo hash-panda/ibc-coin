@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, defineProps } from 'vue'
+import { reactive } from 'vue'
 import { CoinPair } from '@/types/types'
 import { getImageSrc, formatAmountWithDollar } from '@/utils'
 import { Delicious } from '@vicons/fa'
@@ -13,7 +13,7 @@ const props = defineProps<{
 }>()
 
 const openSwap = () => {
-    menuStore.setCurrentMenuId('swap')
+    menuStore.setCurrentMenuId('chart')
 }
 </script>
 <template>
@@ -23,11 +23,11 @@ const openSwap = () => {
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th class="normal-case">{{ t('coinPairs.table.header.coinPair') }}</th>
-                        <th class="normal-case">{{ t('coinPairs.table.header.price') }}</th>
-                        <th class="normal-case">{{ t('coinPairs.table.header.marketCap') }}</th>
-                        <th class="normal-case">{{ t('coinPairs.table.header.totalVolume') }}</th>
-                        <th class="normal-case hidden md:table-cell">{{ t('coinPairs.table.header.change') }}</th>
+                        <th class="normal-case">{{ t('tokens.table.header.coinPair') }}</th>
+                        <th class="normal-case">{{ t('tokens.table.header.price') }}</th>
+                        <th class="normal-case">{{ t('tokens.table.header.marketCap') }}</th>
+                        <th class="normal-case">{{ t('tokens.table.header.totalVolume') }}</th>
+                        <th class="normal-case hidden md:table-cell">{{ t('tokens.table.header.change') }}</th>
                         <th class="normal-case hidden md:table-cell"></th>
                     </tr>
                 </thead>
@@ -84,7 +84,7 @@ const openSwap = () => {
                         </td>
                         <th class="hidden sm:table-cell">
                             <button class="btn btn-outline btn-primary btn-sm normal-case" @click="openSwap">
-                                {{ t('coinPairs.table.btn.chart') }}
+                                {{ t('tokens.table.btn.chart') }}
                             </button>
                         </th>
                     </tr>
