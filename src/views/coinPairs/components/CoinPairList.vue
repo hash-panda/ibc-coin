@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { reactive, defineProps } from 'vue';
-import { CoinPair } from '@/types/types';
-import { getImageSrc, formatAmountWithDollar } from '@/utils';
-import { Delicious } from '@vicons/fa';
-import { useMenuStore } from '@/store/menu';
-import { useI18n } from 'vue-i18n';
+import { reactive, defineProps } from 'vue'
+import { CoinPair } from '@/types/types'
+import { getImageSrc, formatAmountWithDollar } from '@/utils'
+import { Delicious } from '@vicons/fa'
+import { useMenuStore } from '@/store/menu'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
-const menuStore = useMenuStore();
+const { t } = useI18n()
+const menuStore = useMenuStore()
 const props = defineProps<{
-    coinPairList: CoinPair[];
-}>();
+    coinPairList: CoinPair[]
+}>()
 
 const openSwap = () => {
-    menuStore.setCurrentMenuId('swap');
-};
+    menuStore.setCurrentMenuId('swap')
+}
 </script>
 <template>
     <div>
-        <div v-if="coinPairList?.length>0" class="overflow-x-auto w-full">
+        <div v-if="coinPairList?.length > 0" class="overflow-x-auto w-full">
             <table class="table w-full">
                 <!-- head -->
                 <thead>
@@ -27,9 +27,7 @@ const openSwap = () => {
                         <th class="normal-case">{{ t('coinPairs.table.header.price') }}</th>
                         <th class="normal-case">{{ t('coinPairs.table.header.marketCap') }}</th>
                         <th class="normal-case">{{ t('coinPairs.table.header.totalVolume') }}</th>
-                        <th class="normal-case hidden md:table-cell">{{
-                            t('coinPairs.table.header.change')
-                        }}</th>
+                        <th class="normal-case hidden md:table-cell">{{ t('coinPairs.table.header.change') }}</th>
                         <th class="normal-case hidden md:table-cell"></th>
                     </tr>
                 </thead>
@@ -44,14 +42,8 @@ const openSwap = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div
-                                        class="font-bold link link-hover uppercase"
-                                        @click="openSwap"
-                                        >{{ coin.name }}</div
-                                    >
-                                    <div class="text-sm opacity-50 uppercase">{{
-                                        coin.coinPair
-                                    }}</div>
+                                    <div class="font-bold link link-hover uppercase" @click="openSwap">{{ coin.name }}</div>
+                                    <div class="text-sm opacity-50 uppercase">{{ coin.coinPair }}</div>
                                 </div>
                             </div>
                         </td>
@@ -59,69 +51,50 @@ const openSwap = () => {
                             <div v-if="coin.currentPrice">
                                 <span>{{ coin.currentPrice }}</span>
                                 <!-- <span class="uppercase"> {{ coin.currentPriceUnit }}</span> -->
-                                <span class="uppercase"> UST</span>
+                                <span class="uppercase">UST</span>
                             </div>
                             <div v-else>--</div>
-                            <div
-                                ><div
-                                    class="font-bold md:hidden"
-                                    :class="
-                                        coin.dailyPriceChangeInPercentage > 0
-                                            ? 'text-success'
-                                            : 'text-error'
-                                    "
-                                    >{{
+                            <div>
+                                <div class="font-bold md:hidden" :class="coin.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'">
+                                    {{
                                         coin.dailyPriceChangeInPercentage > 0
                                             ? '+' + coin.dailyPriceChangeInPercentage
                                             : coin.dailyPriceChangeInPercentage
                                     }}
-                                    %</div
-                                ></div
-                            >
+                                    %
+                                </div>
+                            </div>
                         </td>
                         <td class="p-2 md:p-4">
-                          <div>
-                            {{ formatAmountWithDollar(coin.marketCap) }}
-                          </div>
+                            <div>
+                                {{ formatAmountWithDollar(coin.marketCap) }}
+                            </div>
                         </td>
                         <td class="p-2 md:p-4">
-                          <div>
-                            {{ formatAmountWithDollar(coin.totalVolume) }}
-                          </div>
+                            <div>
+                                {{ formatAmountWithDollar(coin.totalVolume) }}
+                            </div>
                         </td>
                         <td
                             class="p-2 md:p-4 font-bold hidden md:table-cell"
-                            :class="
-                                coin.dailyPriceChangeInPercentage > 0
-                                    ? 'text-success'
-                                    : 'text-error'
-                            "
-                            >{{
-                                coin.dailyPriceChangeInPercentage > 0
-                                    ? '+' + coin.dailyPriceChangeInPercentage
-                                    : coin.dailyPriceChangeInPercentage
-                            }}
-                            %</td
+                            :class="coin.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'"
                         >
+                            {{ coin.dailyPriceChangeInPercentage > 0 ? '+' + coin.dailyPriceChangeInPercentage : coin.dailyPriceChangeInPercentage }}
+                            %
+                        </td>
                         <th class="hidden sm:table-cell">
-                            <button
-                                class="btn btn-outline btn-primary btn-sm normal-case"
-                                @click="openSwap"
-                                >{{ t('coinPairs.table.btn.chart') }}</button
-                            >
+                            <button class="btn btn-outline btn-primary btn-sm normal-case" @click="openSwap">
+                                {{ t('coinPairs.table.btn.chart') }}
+                            </button>
                         </th>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <n-empty v-else description="." class="h-96 justify-center	">
-          <template #icon>
-            <n-icon
-                :component="Delicious"
-                size="38"
-                :depth="3"
-            />
-          </template>
+        <n-empty v-else description="." class="h-96 justify-center">
+            <template #icon>
+                <n-icon :component="Delicious" size="38" :depth="3" />
+            </template>
         </n-empty>
     </div>
 </template>

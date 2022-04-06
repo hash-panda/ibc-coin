@@ -4,5 +4,5 @@ export default {
     'coinPairs.table.header.marketCap': 'Market Cap',
     'coinPairs.table.header.totalVolume': 'Volume',
     'coinPairs.table.header.change': 'Change(24h)',
-    'coinPairs.table.btn.chart': 'Chart'
-};
+    'coinPairs.table.btn.chart': 'Chart',
+}
