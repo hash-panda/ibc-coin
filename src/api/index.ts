@@ -90,6 +90,7 @@ export const queryTokenStaticStatusListByChain = (params: TokenStaticStatusReq) 
                 if (res.code === 0) {
                     const result = res.data?.map(v => {
                         return {
+                            tokenId: v.token_id,
                             chain: v.token.chain,
                             icon: v.token.moniker,
                             name: v.token.token_name,

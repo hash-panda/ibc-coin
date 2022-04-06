@@ -4,19 +4,24 @@ import { useI18n } from 'vue-i18n'
 import { formatAmountWithDollar, encodeAddress } from '@/utils'
 import { ArrowOutlineUpRight48Filled } from '@vicons/fluent'
 import dayjs from 'dayjs'
-import { useRequest, useLoadMore } from 'vue-request'
+import { useLoadMore } from 'vue-request'
 import { queryTradingHistory, TradingHistoryRes } from '@/api'
+import { useTokenStore } from '@/store/token'
+import taiyang from '@/assets/images/order/taiyang.png'
+import diqiu from '@/assets/images/order/diqiu.png'
+import tuxing from '@/assets/images/order/tuxing.png'
+import yueqiu from '@/assets/images/order/yueqiu.png'
 
 type TradingHistoryData = {
     data: TradingHistoryRes[]
     total: number
 }
 
-const { t } = useI18n()
+const tokenStore = useTokenStore()
 const refreshStatus = ref(false)
 
-function testService(params: { data?: TradingHistoryData; dataList?: TradingHistoryData['data'] }) {
-    const p = { page_size: 10 }
+function queryTradingHistoryService(params: { data?: TradingHistoryData; dataList?: TradingHistoryData['data'] }) {
+    const p = { page_size: 10, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain }
     if (params?.dataList?.length !== undefined) {
         p['page'] = params.dataList.length / p.page_size + 1
     } else {
@@ -27,9 +32,9 @@ function testService(params: { data?: TradingHistoryData; dataList?: TradingHist
 
 const { data, loadingMore, dataList, refreshing, loadMore, refresh } = useLoadMore<
     TradingHistoryData,
-    Parameters<typeof testService>,
+    Parameters<typeof queryTradingHistoryService>,
     TradingHistoryData['data']
->(testService as any, {
+>(queryTradingHistoryService as any, {
     listKey: 'data',
     errorRetryCount: 5,
     pollingInterval: 1000 * 30,
@@ -89,7 +94,24 @@ const openTx = (tx: string) => {
                             {{ item.tokenNameTo }}
                             <span class="text-success">{{ item.amountTo }}</span>
                         </td>
-                        <td class="text-xs">{{ formatAmountWithDollar(item.txTotalVolume, 2) }}</td>
+                        <td class="text-xs align-middle">
+                            <div class="avatar">
+                                <div class="w-4 rounded-full">
+                                    <img :src="taiyang" />
+                                </div>
+                            </div>
+                            <div class="avatar">
+                                <div class="w-4 rounded-full">
+                                    <img :src="tuxing" />
+                                </div>
+                            </div>
+                            <div class="avatar">
+                                <div class="w-4 rounded-full">
+                                    <img :src="yueqiu" />
+                                </div>
+                            </div>
+                            <span>{{ formatAmountWithDollar(item.txTotalVolume, 2) }}</span>
+                        </td>
                         <td>
                             <div>
                                 <button @click="openAccountProfile(item.userAddress)" class="btn btn-xs btn-link btn-primary normal-case">

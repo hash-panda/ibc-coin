@@ -40,7 +40,6 @@ const changeMenu = (menuId: string) => {
     router.push({
         name: menuId,
     })
-    menuStore.setCurrentMenuId(menuId)
 }
 
 const setLocale = () => {
@@ -61,7 +60,7 @@ const setLocale = () => {
                 </label>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                     <li @click="changeMenu('tokens')">
-                        <a :class="selectedKey.includes('pair') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.tokens') }}</a>
+                        <a :class="selectedKey.includes('tokens') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.tokens') }}</a>
                     </li>
                     <li @click="changeMenu('chart')">
                         <a :class="selectedKey.includes('chart') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.chart') }}</a>
@@ -87,7 +86,7 @@ const setLocale = () => {
         <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal p-0">
                 <li @click="changeMenu('tokens')" class="mr-2">
-                    <a :class="selectedKey.includes('pair') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.tokens') }}</a>
+                    <a :class="selectedKey.includes('tokens') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.tokens') }}</a>
                 </li>
                 <li @click="changeMenu('chart')" class="mr-2">
                     <a :class="selectedKey.includes('chart') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.chart') }}</a>

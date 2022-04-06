@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import TradingTable from './TradingTable.vue'
 import { InfoCircle } from '@vicons/fa'
+import taiyang from '@/assets/images/order/taiyang.png'
+import diqiu from '@/assets/images/order/diqiu.png'
+import tuxing from '@/assets/images/order/tuxing.png'
+import yueqiu from '@/assets/images/order/yueqiu.png'
 </script>
 <template>
     <div>
@@ -13,6 +17,23 @@ import { InfoCircle } from '@vicons/fa'
                         <n-icon class="hover:text-primary" :component="InfoCircle" size="15" :depth="2" />
                     </span>
                 </h2>
+                <div>
+                    <div class="avatar">
+                        <div class="w-8 rounded-full">
+                            <img :src="taiyang" />
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="w-8 rounded-full">
+                            <img :src="tuxing" />
+                        </div>
+                    </div>
+                    <div class="avatar">
+                        <div class="w-7 rounded-full">
+                            <img :src="yueqiu" />
+                        </div>
+                    </div>
+                </div>
                 <div class="overflow-y-auto">
                     <TradingTable />
                 </div>

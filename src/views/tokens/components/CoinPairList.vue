@@ -3,17 +3,20 @@ import { reactive } from 'vue'
 import { CoinPair } from '@/types/types'
 import { getImageSrc, formatAmountWithDollar } from '@/utils'
 import { Delicious } from '@vicons/fa'
-import { useMenuStore } from '@/store/menu'
-import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { useTokenStore } from '@/store/token'
 
-const { t } = useI18n()
-const menuStore = useMenuStore()
+const router = useRouter()
+const tokenStore = useTokenStore()
 const props = defineProps<{
     coinPairList: CoinPair[]
 }>()
 
-const openSwap = () => {
-    menuStore.setCurrentMenuId('chart')
+const openChart = (coin: CoinPair) => {
+    tokenStore.setCurrentTokenInfo(coin)
+    router.push({
+        name: 'chart',
+    })
 }
 </script>
 <template>
@@ -23,11 +26,11 @@ const openSwap = () => {
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th class="normal-case">{{ t('tokens.table.header.coinPair') }}</th>
-                        <th class="normal-case">{{ t('tokens.table.header.price') }}</th>
-                        <th class="normal-case">{{ t('tokens.table.header.marketCap') }}</th>
-                        <th class="normal-case">{{ t('tokens.table.header.totalVolume') }}</th>
-                        <th class="normal-case hidden md:table-cell">{{ t('tokens.table.header.change') }}</th>
+                        <th class="normal-case">{{ $t('tokens.table.header.coinPair') }}</th>
+                        <th class="normal-case">{{ $t('tokens.table.header.price') }}</th>
+                        <th class="normal-case">{{ $t('tokens.table.header.marketCap') }}</th>
+                        <th class="normal-case">{{ $t('tokens.table.header.totalVolume') }}</th>
+                        <th class="normal-case hidden md:table-cell">{{ $t('tokens.table.header.change') }}</th>
                         <th class="normal-case hidden md:table-cell"></th>
                     </tr>
                 </thead>
@@ -42,7 +45,7 @@ const openSwap = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="font-bold link link-hover uppercase" @click="openSwap">{{ coin.name }}</div>
+                                    <div class="font-bold link link-hover uppercase" @click="openChart(coin)">{{ coin.name }}</div>
                                     <div class="text-sm opacity-50 uppercase">{{ coin.coinPair }}</div>
                                 </div>
                             </div>
@@ -83,8 +86,8 @@ const openSwap = () => {
                             %
                         </td>
                         <th class="hidden sm:table-cell">
-                            <button class="btn btn-outline btn-primary btn-sm normal-case" @click="openSwap">
-                                {{ t('tokens.table.btn.chart') }}
+                            <button class="btn btn-outline btn-primary btn-sm normal-case" @click="openChart(coin)">
+                                {{ $t('tokens.table.btn.chart') }}
                             </button>
                         </th>
                     </tr>

@@ -1,8 +1,9 @@
 export interface CoinPair {
+    tokenId: string
     name: string
     denom?: string
-    coinPair: string
-    icon: string
+    coinPair?: string
+    icon?: string
     currentPrice?: number | string
     currentPriceUnit?: string
     marketCap?: number | string
