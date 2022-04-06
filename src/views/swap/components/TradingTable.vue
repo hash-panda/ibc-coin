@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { formatAmountWithDollar, encodeAddress } from '@/utils';
-import { ArrowOutlineUpRight48Filled } from '@vicons/fluent';
-import dayjs from 'dayjs';
-import { useRequest, useLoadMore } from 'vue-request';
-import { queryTradingHistory, TradingHistoryRes } from '@/api';
+import { ref, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { formatAmountWithDollar, encodeAddress } from '@/utils'
+import { ArrowOutlineUpRight48Filled } from '@vicons/fluent'
+import dayjs from 'dayjs'
+import { useRequest, useLoadMore } from 'vue-request'
+import { queryTradingHistory, TradingHistoryRes } from '@/api'
 
 type TradingHistoryData = {
-    data: TradingHistoryRes[];
-    total: number;
-};
+    data: TradingHistoryRes[]
+    total: number
+}
 
-const { t } = useI18n();
-const refreshStatus = ref(false);
+const { t } = useI18n()
+const refreshStatus = ref(false)
 
 function testService(params: { data?: TradingHistoryData; dataList?: TradingHistoryData['data'] }) {
-    const p = { page_size: 10 };
+    const p = { page_size: 10 }
     if (params?.dataList?.length !== undefined) {
-        p['page'] = params.dataList.length / p.page_size + 1;
+        p['page'] = params.dataList.length / p.page_size + 1
     } else {
-        p['page'] = 1;
+        p['page'] = 1
     }
-    return queryTradingHistory(p);
+    return queryTradingHistory(p)
 }
 
 const { data, loadingMore, dataList, refreshing, loadMore, refresh } = useLoadMore<
@@ -37,29 +37,29 @@ const { data, loadingMore, dataList, refreshing, loadMore, refresh } = useLoadMo
     debounceInterval: 1000,
     manual: false,
     onBefore: () => {
-        refreshStatus.value = true;
+        refreshStatus.value = true
     },
     onAfter: () => {
         setTimeout(() => {
-            refreshStatus.value = false;
-        }, 1000);
-    }
-});
+            refreshStatus.value = false
+        }, 1000)
+    },
+})
 
-const noMore = computed(() => dataList.value.length === data.value?.total);
+const noMore = computed(() => dataList.value.length === data.value?.total)
 
 const openAccountProfile = (account: string) => {
     // TODO 各个不同的账户查询的链接是不同的，现在暂时使用 osmosis
-    window.open(`https://www.mintscan.io/osmosis/account/${account}`, '_blank');
-};
+    window.open(`https://www.mintscan.io/osmosis/account/${account}`, '_blank')
+}
 const openAccount = (account: string) => {
     // TODO 各个不同的账户查询的链接是不同的，现在暂时使用 osmosis
-    window.open(`https://www.mintscan.io/osmosis/account/${account}`, '_blank');
-};
+    window.open(`https://www.mintscan.io/osmosis/account/${account}`, '_blank')
+}
 const openTx = (tx: string) => {
     // TODO 各个不同的地址对应不同 mintscan 信息
-    window.open(`https://www.mintscan.io/osmosis/txs/${tx}`, '_blank');
-};
+    window.open(`https://www.mintscan.io/osmosis/txs/${tx}`, '_blank')
+}
 </script>
 <template>
     <div>
@@ -92,45 +92,28 @@ const openTx = (tx: string) => {
                         <td class="text-xs">{{ formatAmountWithDollar(item.txTotalVolume, 2) }}</td>
                         <td>
                             <div>
-                                <button
-                                    @click="openAccountProfile(item.userAddress)"
-                                    class="btn btn-xs btn-link btn-primary normal-case"
-                                    >{{ encodeAddress(item.userAddress) }}</button
-                                >
+                                <button @click="openAccountProfile(item.userAddress)" class="btn btn-xs btn-link btn-primary normal-case">
+                                    {{ encodeAddress(item.userAddress) }}
+                                </button>
                                 <span
                                     class="tooltip tooltip-bottom align-middle tooltip-primary"
                                     :data-tip="$t('tradingHistory.table.openAddress')"
                                     @click="openAccount(item.userAddress)"
-                                    ><n-icon
-                                        class="hover:text-primary"
-                                        :component="ArrowOutlineUpRight48Filled"
-                                        size="10"
-                                        :depth="2"
-                                    />
+                                >
+                                    <n-icon class="hover:text-primary" :component="ArrowOutlineUpRight48Filled" size="10" :depth="2" />
                                 </span>
                             </div>
                             <div>
-                                <button
-                                    @click="openTx(item.txHash)"
-                                    class="btn btn-link text-neutral-content normal-case btn-xs"
-                                    >Tx: {{ encodeAddress(item.txHash) }}</button
-                                >
+                                <button @click="openTx(item.txHash)" class="btn btn-link text-neutral-content normal-case btn-xs">
+                                    Tx: {{ encodeAddress(item.txHash) }}
+                                </button>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <button
-                class="btn btn-block mt-2"
-                :class="{ loading: loadingMore }"
-                :disabled="noMore"
-                @click="loadMore"
-            >
-                {{
-                    noMore
-                        ? $t('tradingHistory.table.noMoreData')
-                        : $t('tradingHistory.table.loadMore')
-                }}
+            <button class="btn btn-block mt-2" :class="{ loading: loadingMore }" :disabled="noMore" @click="loadMore">
+                {{ noMore ? $t('tradingHistory.table.noMoreData') : $t('tradingHistory.table.loadMore') }}
             </button>
         </n-spin>
     </div>

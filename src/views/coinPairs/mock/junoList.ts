@@ -7,7 +7,7 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '666666666.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: -10.0
+        dailyPriceChangeInPercentage: -10.0,
     },
     {
         name: 'JUNO',
@@ -17,6 +17,6 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '666666666.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: 10.0
-    }
-];
+        dailyPriceChangeInPercentage: 10.0,
+    },
+]

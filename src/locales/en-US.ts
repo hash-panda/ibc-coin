@@ -1,6 +1,6 @@
-import { getLangFiles } from './helper';
+import { getLangFiles } from './helper'
 
-const enUSFiles = import.meta.globEager('../../src/**/locale/en-US.ts');
+const enUSFiles = import.meta.globEager('../../src/**/locale/en-US.ts')
 
 export default {
     'navbar.action.locale': 'Switch to English',
@@ -8,5 +8,5 @@ export default {
     'navbar.menu.swap': 'Swap',
     'navbar.menu.subscribe': 'Subscribe',
     'navbar.menu.about': 'About',
-    ...getLangFiles(enUSFiles)
-};
+    ...getLangFiles(enUSFiles),
+}

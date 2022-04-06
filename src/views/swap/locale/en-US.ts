@@ -20,5 +20,5 @@ export default {
     'tradingHistory.table.refresh': 'refreshing',
     'tradingHistory.table.refreshInfo': 'Refresh data at 30-second intervals',
     'swap.tradingHistory.btn.trader': 'Trader',
-    'swap.tradingHistory.btn.tx': 'Tx'
-};
+    'swap.tradingHistory.btn.tx': 'Tx',
+}

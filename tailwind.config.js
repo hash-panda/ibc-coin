@@ -4,9 +4,9 @@ module.exports = {
         extend: {
             // colors: require('../colors'),
             fontFamily: {
-                title: ['Montserrat', 'sans-serif']
-            }
-        }
+                title: ['Montserrat', 'sans-serif'],
+            },
+        },
     },
     plugins: [require('@tailwindcss/typography'), require('daisyui')],
     daisyui: {
@@ -19,7 +19,7 @@ module.exports = {
             {
                 forest: {
                     ...require('daisyui/src/colors/themes')['[data-theme=forest]'],
-                    '--padding-card': '1.5rem'
+                    '--padding-card': '1.5rem',
                     // '--rounded-box': '1rem', // border radius rounded-box utility class, used in card and other large boxes
                     // '--rounded-btn': '0.5rem', // border radius rounded-btn utility class, used in buttons and similar element
                     // '--rounded-badge': '1.9rem', // border radius rounded-badge utility class, used in badges and similar
@@ -30,8 +30,8 @@ module.exports = {
                     // '--border-btn': '1px', // border width of buttons
                     // '--tab-border': '1px', // border width of tabs
                     // '--tab-radius': '0.5rem' // border radius of tabs
-                }
-            }
-        ]
-    }
-};
+                },
+            },
+        ],
+    },
+}

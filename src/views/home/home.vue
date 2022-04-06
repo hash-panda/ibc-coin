@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRequest } from 'vue-request';
-import axios from 'axios';
-import { useMenuStore } from '@/store/menu';
-import Nav from '@/components/nav/Nav.vue';
-import CoinPairs from '@/views/coinPairs/CoinPairs.vue';
-import Subscribe from '@/components/subscribe/Subscribe.vue';
-import Swap from '@/views/swap/Swap.vue';
-import About from '@/views/about/about.vue';
+import { onMounted, ref } from 'vue'
+import { useRequest } from 'vue-request'
+import axios from 'axios'
+import { useMenuStore } from '@/store/menu'
+import Nav from '@/components/nav/Nav.vue'
+import CoinPairs from '@/views/coinPairs/CoinPairs.vue'
+import Subscribe from '@/components/subscribe/Subscribe.vue'
+import Swap from '@/views/swap/Swap.vue'
+import About from '@/views/about/about.vue'
 
-const menuStore = useMenuStore();
-const data = ref(0);
+const menuStore = useMenuStore()
+const data = ref(0)
 
 // const getWeather = () => {
 //     return axios.post('/demoApi/common/weather/get15DaysWeatherByArea', {

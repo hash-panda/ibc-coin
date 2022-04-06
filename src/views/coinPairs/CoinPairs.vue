@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import CoinPairList from '@/views/coinPairs/components/CoinPairList.vue';
-import junoMock from './mock/junoList';
-import osmoMock from './mock/osmoList';
-import scrtMock from './mock/scrtList';
-import { getAtomPriceApi, getMarketPricesApi, queryTokenStaticStatusListByChain } from '@/api';
-import { useRequest } from 'vue-request';
+import { ref } from 'vue'
+import CoinPairList from '@/views/coinPairs/components/CoinPairList.vue'
+import junoMock from './mock/junoList'
+import osmoMock from './mock/osmoList'
+import scrtMock from './mock/scrtList'
+import { getAtomPriceApi, getMarketPricesApi, queryTokenStaticStatusListByChain } from '@/api'
+import { useRequest } from 'vue-request'
 
 // const osmoList = ref(osmoMock);
-const junoList = ref(junoMock);
+const junoList = ref(junoMock)
 // const scrtList = ref(scrtMock);
 const { data } = useRequest(getMarketPricesApi, {
     errorRetryCount: 5,
     pollingInterval: 1000 * 60,
     pollingWhenHidden: false,
     manual: false,
-    onError: (error) => {
-        console.log('getMarketPrices (⊙︿⊙) something error', error);
+    onError: error => {
+        console.log('getMarketPrices (⊙︿⊙) something error', error)
     },
-    onSuccess: (res) => {
-        console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value);
-    }
-});
+    onSuccess: res => {
+        console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value)
+    },
+})
 const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
-    defaultParams: [{chain:'osmosis'}],
+    defaultParams: [{ chain: 'osmosis' }],
     errorRetryCount: 5,
     pollingInterval: 1000 * 30,
     pollingWhenHidden: false,
     manual: false,
-    onError: (error) => {
-        console.log('queryTokenListByChain (⊙︿⊙) something error', error);
+    onError: error => {
+        console.log('queryTokenListByChain (⊙︿⊙) something error', error)
     },
-    onSuccess: (res) => {
-        console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res);
-    }
-});
+    onSuccess: res => {
+        console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+    },
+})
 </script>
 <template>
     <div class="w-full px-2 lg:px-36 xl:px-72 mt-10">

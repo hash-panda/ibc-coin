@@ -1,30 +1,30 @@
-import { ExtractValue, SelectItem } from '@/types/types';
-import { accDiv } from './acc';
+import { ExtractValue, SelectItem } from '@/types/types'
+import { accDiv } from './acc'
 import numeral from 'numeral'
 
 export function getActualAmount(amount: string | number, presicion?: number) {
-  return accDiv(Number(amount), presicion ?? 1e6);
+    return accDiv(Number(amount), presicion ?? 1e6)
 }
 
 export function getFixedAmount(amount: string | number, decimal: number = 2) {
-  if (typeof Number(decimal) === 'number') {
-    return Number(myFixed(String(amount), decimal));
-  } else {
-    return 0
-  }
+    if (typeof Number(decimal) === 'number') {
+        return Number(myFixed(String(amount), decimal))
+    } else {
+        return 0
+    }
 }
 
 export function formatAmountWithDollar(amount: string | number, decimal: number = 0) {
-  if (amount) {
-    const decimalLength = Array(decimal ? (decimal + 1) : 0).join('0')
-    return numeral(amount).format(`$0,0.${decimalLength}`)
-  } else {
-    return '--'
-  }
+    if (amount) {
+        const decimalLength = Array(decimal ? decimal + 1 : 0).join('0')
+        return numeral(amount).format(`$0,0.${decimalLength}`)
+    } else {
+        return '--'
+    }
 }
 
 export function formatPercentage(amount: string | number) {
-  return numeral(amount).format('0.000%')
+    return numeral(amount).format('0.000%')
 }
 
 /*
@@ -33,12 +33,12 @@ export function formatPercentage(amount: string | number) {
 export function encodeAddress(address: string, short: boolean = true) {
     let length = 13
     if (short) {
-      length = 6
+        length = 6
     }
     if (address.trim() && address.length > 20) {
-        return `${address.substring(0, length)}...${address.substring(address.length - 6)}`;
+        return `${address.substring(0, length)}...${address.substring(address.length - 6)}`
     } else {
-        return address.trim();
+        return address.trim()
     }
 }
 
@@ -50,32 +50,27 @@ export function encodeAddress(address: string, short: boolean = true) {
  */
 export function myFixed(num: string, digit: number): string {
     if (Object.is(parseFloat(num), NaN)) {
-        console.log(`传入的值：${num}不是一个数字`);
-        return '0';
+        console.log(`传入的值：${num}不是一个数字`)
+        return '0'
     }
-    const numFloat = parseFloat(num);
-    return (
-        Math.round((numFloat + Number.EPSILON) * Math.pow(10, digit)) / Math.pow(10, digit)
-    ).toFixed(digit);
+    const numFloat = parseFloat(num)
+    return (Math.round((numFloat + Number.EPSILON) * Math.pow(10, digit)) / Math.pow(10, digit)).toFixed(digit)
 }
 
 export const genMapObject = <T extends Readonly<SelectItem[]>>(originData: T) => {
     const o: {
-        [K in T[number]['value']]: ExtractValue<T[number], K>;
-    } = Object.create(null);
-    originData.forEach((item) => {
-        o[item.value as T[number]['value']] = item.label as ExtractValue<
-            T[number],
-            T[number]['value']
-        >;
-    });
-    return o;
-};
+        [K in T[number]['value']]: ExtractValue<T[number], K>
+    } = Object.create(null)
+    originData.forEach(item => {
+        o[item.value as T[number]['value']] = item.label as ExtractValue<T[number], T[number]['value']>
+    })
+    return o
+}
 
 function isURL(url: string) {
-    var strRegex = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-    var re = new RegExp(strRegex);
-    return re.test(url);
+    var strRegex = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/
+    var re = new RegExp(strRegex)
+    return re.test(url)
 }
 
 /**
@@ -88,8 +83,8 @@ export const getImageSrc = (name: string) => {
     // const modules = import.meta.globEager('/src/assets/images/*');
     // return modules[path].default;
     if (isURL(name)) {
-        return name;
+        return name
     } else {
-        return new URL(`../assets/images/${name}`, import.meta.url).href;
+        return new URL(`../assets/images/${name}`, import.meta.url).href
     }
-};
+}

@@ -20,5 +20,5 @@ export default {
     'tradingHistory.table.refresh': '刷新中',
     'tradingHistory.table.refreshInfo': '每30秒刷新一次',
     'swap.tradingHistory.btn.trader': '交易人',
-    'swap.tradingHistory.btn.tx': '记录'
-};
+    'swap.tradingHistory.btn.tx': '记录',
+}

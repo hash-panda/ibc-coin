@@ -3,11 +3,11 @@
  * @param {Object} mList
  */
 export function getLangFiles(mList: any) {
-    let msg = {};
+    let msg = {}
     for (let path in mList) {
         if (mList[path].default) {
-            msg = { ...msg, ...mList[path].default };
+            msg = { ...msg, ...mList[path].default }
         }
     }
-    return msg;
+    return msg
 }

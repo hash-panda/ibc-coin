@@ -7,7 +7,7 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '33333333.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: 10.0
+        dailyPriceChangeInPercentage: 10.0,
     },
     {
         name: 'SCRT',
@@ -17,7 +17,7 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '33333333.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: 10.0
+        dailyPriceChangeInPercentage: 10.0,
     },
     {
         name: 'SCRT',
@@ -27,6 +27,6 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '33333333.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: 10.0
-    }
-];
+        dailyPriceChangeInPercentage: 10.0,
+    },
+]

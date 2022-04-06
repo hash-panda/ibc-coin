@@ -7,7 +7,7 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '888888888.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: 10.0
+        dailyPriceChangeInPercentage: 10.0,
     },
     {
         name: 'OSMO',
@@ -17,7 +17,7 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '888888888.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: 10.0
+        dailyPriceChangeInPercentage: 10.0,
     },
     {
         name: 'OSMO',
@@ -27,7 +27,7 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '888888888.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: -10.0
+        dailyPriceChangeInPercentage: -10.0,
     },
     {
         name: 'OSMO',
@@ -37,6 +37,6 @@ export default [
         currentPriceUnit: 'UST',
         marketCap: '888888888.88',
         marketCapUnit: 'UST',
-        dailyPriceChangeInPercentage: -10.0
-    }
-];
+        dailyPriceChangeInPercentage: -10.0,
+    },
+]
