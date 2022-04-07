@@ -94,23 +94,23 @@ const openTx = (tx: string) => {
                             {{ item.tokenNameTo }}
                             <span class="text-success">{{ item.amountTo }}</span>
                         </td>
-                        <td class="text-xs align-middle">
-                            <div class="avatar">
-                                <div class="w-4 rounded-full">
+                        <td class="text-xs">
+                            <!-- <div class="avatar align-middle">
+                                <div class="w-8 rounded-full">
                                     <img :src="taiyang" />
                                 </div>
                             </div>
-                            <div class="avatar">
-                                <div class="w-4 rounded-full">
+                            <div class="avatar align-middle">
+                                <div class="w-8 rounded-full">
                                     <img :src="tuxing" />
                                 </div>
                             </div>
-                            <div class="avatar">
-                                <div class="w-4 rounded-full">
+                            <div class="avatar align-middle">
+                                <div class="w-8 rounded-full">
                                     <img :src="yueqiu" />
                                 </div>
-                            </div>
-                            <span>{{ formatAmountWithDollar(item.txTotalVolume, 2) }}</span>
+                            </div> -->
+                            {{ formatAmountWithDollar(item.txTotalVolume, 2) }}
                         </td>
                         <td>
                             <div>

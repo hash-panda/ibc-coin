@@ -18,21 +18,38 @@ import yueqiu from '@/assets/images/order/yueqiu.png'
                     </span>
                 </h2>
                 <div>
-                    <div class="avatar">
-                        <div class="w-8 rounded-full">
-                            <img :src="taiyang" />
-                        </div>
-                    </div>
-                    <div class="avatar">
-                        <div class="w-8 rounded-full">
-                            <img :src="tuxing" />
-                        </div>
-                    </div>
-                    <div class="avatar">
-                        <div class="w-7 rounded-full">
-                            <img :src="yueqiu" />
-                        </div>
-                    </div>
+                    <n-space justify="end" size="large">
+                        <n-tooltip trigger="hover">
+                            <template #trigger>
+                                <div class="avatar">
+                                    <div class="w-8 rounded-full">
+                                        <img :src="taiyang" />
+                                    </div>
+                                </div>
+                            </template>
+                            {{ $t('chart.trading.sun.tip') }}
+                        </n-tooltip>
+                        <n-tooltip trigger="hover">
+                            <template #trigger>
+                                <div class="avatar">
+                                    <div class="w-8 rounded-full">
+                                        <img :src="tuxing" />
+                                    </div>
+                                </div>
+                            </template>
+                            {{ $t('chart.trading.tuxing.tip') }}
+                        </n-tooltip>
+                        <n-tooltip trigger="hover">
+                            <template #trigger>
+                                <div class="avatar">
+                                    <div class="w-8 rounded-full">
+                                        <img :src="yueqiu" />
+                                    </div>
+                                </div>
+                            </template>
+                            {{ $t('chart.trading.moon.tip') }}
+                        </n-tooltip>
+                    </n-space>
                 </div>
                 <div class="overflow-y-auto">
                     <TradingTable />

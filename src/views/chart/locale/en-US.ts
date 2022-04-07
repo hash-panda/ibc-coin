@@ -21,4 +21,8 @@ export default {
     'tradingHistory.table.refreshInfo': 'Refresh data at 30-second intervals',
     'chart.tradingHistory.btn.trader': 'Trader',
     'chart.tradingHistory.btn.tx': 'Tx',
+
+    'chart.trading.sun.tip': 'Sun. Heavy Trader with $500k+ of a trading volume in the last 30 days',
+    'chart.trading.tuxing.tip': 'Saturn. Active Trader with $100k-$500k of a trading volume in the last 30 days',
+    'chart.trading.moon.tip': 'Moon. Heavy Trader with $10k-$100k of a trading volume in the last 30 days',
 }
