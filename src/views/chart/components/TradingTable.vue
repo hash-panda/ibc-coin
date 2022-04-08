@@ -19,6 +19,7 @@ type TradingHistoryData = {
 
 const tokenStore = useTokenStore()
 const refreshStatus = ref(false)
+const showModal = ref(false)
 
 function queryTradingHistoryService(params: { data?: TradingHistoryData; dataList?: TradingHistoryData['data'] }) {
     const p = { page_size: 10, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain }
@@ -55,7 +56,7 @@ const noMore = computed(() => dataList.value.length === data.value?.total)
 
 const openAccountProfile = (account: string) => {
     // TODO 各个不同的账户查询的链接是不同的，现在暂时使用 osmosis
-    window.open(`https://www.mintscan.io/osmosis/account/${account}`, '_blank')
+    showModal.value = true
 }
 const openAccount = (account: string) => {
     // TODO 各个不同的账户查询的链接是不同的，现在暂时使用 osmosis
@@ -138,6 +139,19 @@ const openTx = (tx: string) => {
                 {{ noMore ? $t('tradingHistory.table.noMoreData') : $t('tradingHistory.table.loadMore') }}
             </button>
         </n-spin>
+        <n-modal
+            v-model:show="showModal"
+            class="w-full h-full"
+            :content-style="{width: '100%', height: '100%'}"
+            preset="card"
+            title="卡片预设"
+            size="huge"
+            :bordered="false"
+        >
+            <template #header-extra>噢!</template>
+            内容
+            <template #footer>尾部</template>
+        </n-modal>
     </div>
 </template>
 <style scoped></style>

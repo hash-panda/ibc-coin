@@ -11,14 +11,18 @@ const route = useRoute()
         <Nav />
         <div class="content">
             <router-view v-slot="{ Component }">
-                <keep-alive>
-                    <component :is="Component" v-if="route.meta.keepAlive" :key="route.name" />
-                </keep-alive>
-                <component :is="Component" v-if="!route.meta.keepAlive" :key="route.name" />
+                <transition name="fade" mode="out-in">
+                    <keep-alive>
+                        <component :is="Component" v-if="route.meta.keepAlive" :key="route.name" />
+                    </keep-alive>
+                </transition>
+                <transition name="fade" mode="out-in">
+                    <component :is="Component" v-if="!route.meta.keepAlive" :key="route.name" />
+                </transition>
             </router-view>
         </div>
-        <div class="footer">
+        <!-- <div class="footer">
             <Footer />
-        </div>
+        </div> -->
     </div>
 </template>
