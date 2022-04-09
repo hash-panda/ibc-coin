@@ -142,7 +142,7 @@ const openTx = (tx: string) => {
         <n-modal
             v-model:show="showModal"
             class="w-full h-full"
-            :content-style="{width: '100%', height: '100%'}"
+            :content-style="{ width: '100%', height: '100%' }"
             preset="card"
             title="卡片预设"
             size="huge"
