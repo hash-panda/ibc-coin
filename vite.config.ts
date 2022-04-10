@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import { resolve } from 'path';
-import Components from 'unplugin-vue-components/vite';
-import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import { resolve } from 'path'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,13 +12,13 @@ export default defineConfig({
         vueJsx(),
         Components({
             resolvers: [NaiveUiResolver(), VueUseComponentsResolver()],
-            directoryAsNamespace: true
-        })
+            directoryAsNamespace: true,
+        }),
     ],
     resolve: {
         alias: {
-            '@': resolve(__dirname, 'src')
-        }
+            '@': resolve(__dirname, 'src'),
+        },
     },
     base: './', // 设置打包路径
     server: {
@@ -30,14 +30,15 @@ export default defineConfig({
             '/backend/cosmostation': {
                 target: 'https://api-utility.cosmostation.io',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/backend\/cosmostation/, '')
+                rewrite: path => path.replace(/^\/backend\/cosmostation/, ''),
             },
             '/backend/ibccoin': {
-                target: 'http://127.0.0.1:4523/mock/767404',
+                // target: 'http://127.0.0.1:4523/mock/767404',
+                target: 'http://135.181.25.194:7777',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/backend\/ibccoin/, '')
-            }
-        }
+                rewrite: path => path.replace(/^\/backend\/ibccoin/, ''),
+            },
+        },
     },
     build: {
         minify: 'terser',
@@ -45,8 +46,8 @@ export default defineConfig({
             compress: {
                 //生产环境时移除console
                 drop_console: true,
-                drop_debugger: true
-            }
-        }
-    }
-});
+                drop_debugger: true,
+            },
+        },
+    },
+})

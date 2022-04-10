@@ -1,7 +1,7 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
     setup() {
-        return () => <div>404</div>; //写一个 hello world祭天
-    }
-});
+        return () => <div>404</div> //写一个 hello world祭天
+    },
+})

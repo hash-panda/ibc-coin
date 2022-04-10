@@ -1,5 +1,5 @@
-import { setGlobalOptions } from 'vue-request';
+import { setGlobalOptions } from 'vue-request'
 
 setGlobalOptions({
-    manual: true
-});
+    manual: true,
+})

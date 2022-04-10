@@ -1,30 +1,43 @@
-import { acceptHMRUpdate, defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useAppStore = defineStore({
     id: 'app',
     state: () => {
         return {
-            locale: 'zh-CN' // zh-CN  en-US
-        };
+            locale: 'zh-CN', // zh-CN  en-US
+            isDark: false,
+        }
     },
-    getters: {},
+    getters: {
+        currentTheme(state) {
+            return state.isDark ? 'forest' : 'emerald'
+        },
+    },
     actions: {
         setLocale() {
-            this.locale = this.locale === 'zh-CN' ? 'en-US' : 'zh-CN';
-        }
+            this.locale = this.locale === 'zh-CN' ? 'en-US' : 'zh-CN'
+        },
+        changeTheme(isDark: boolean) {
+            this.isDark = isDark
+        },
     },
     persist: {
         enabled: true,
         strategies: [
             {
-                key: 'ibcCoin_app',
+                key: 'ibcCoin_org_locale',
                 storage: localStorage,
-                paths: ['locale']
-            }
-        ]
-    }
-});
+                paths: ['locale'],
+            },
+            {
+                key: 'ibcCoin_org_theme',
+                storage: localStorage,
+                paths: ['isDark'],
+            },
+        ],
+    },
+})
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useAppStore, import.meta.hot));
+    import.meta.hot.accept(acceptHMRUpdate(useAppStore, import.meta.hot))
 }
