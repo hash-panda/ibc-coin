@@ -5,7 +5,7 @@ export const useAppStore = defineStore({
     state: () => {
         return {
             locale: 'zh-CN', // zh-CN  en-US
-            isDark: true,
+            isDark: false,
         }
     },
     getters: {
@@ -25,12 +25,12 @@ export const useAppStore = defineStore({
         enabled: true,
         strategies: [
             {
-                key: 'ibcCoin_locale',
+                key: 'ibcCoin_org_locale',
                 storage: localStorage,
                 paths: ['locale'],
             },
             {
-                key: 'ibcCoin_theme',
+                key: 'ibcCoin_org_theme',
                 storage: localStorage,
                 paths: ['isDark'],
             },

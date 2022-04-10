@@ -48,9 +48,9 @@ const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
             <n-tab-pane name="Junoswap" tab="Junoswap">
                 <CoinPairList key="Junoswap" :coin-pair-list="[]" />
             </n-tab-pane>
-            <n-tab-pane name="Sifchain" tab="Sifchain">
+            <!-- <n-tab-pane name="Sifchain" tab="Sifchain">
                 <CoinPairList key="Sifchain" :coin-pair-list="[]" />
-            </n-tab-pane>
+            </n-tab-pane> -->
             <!-- <n-tab-pane name="SCRT" tab="SCRT">
                 <CoinPairList key="scrt" :coin-pair-list="scrtList" />
             </n-tab-pane> -->
