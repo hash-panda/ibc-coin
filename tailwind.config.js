@@ -3,9 +3,7 @@ module.exports = {
     theme: {
         extend: {
             // colors: require('../colors'),
-            fontFamily: {
-                title: ['Montserrat', 'sans-serif'],
-            },
+            fontFamily: ['Montserrat', 'sans-serif'],
         },
     },
     plugins: [require('@tailwindcss/typography'), require('daisyui')],
@@ -32,6 +30,7 @@ module.exports = {
                     // '--tab-radius': '0.5rem' // border radius of tabs
                 },
             },
+            'emerald',
         ],
     },
 }

@@ -2,7 +2,7 @@ export default [
     {
         path: '/tokens',
         name: 'tokens',
-        component: () => import(/* webpackChunkName: "tokens" */ '@/views/tokens/index.vue'),
+        component: () => import('@/views/tokens/index.vue'),
         meta: {
             keepAlive: true,
             icon: '',
@@ -11,7 +11,7 @@ export default [
     {
         path: '/chart',
         name: 'chart',
-        component: () => import(/* webpackChunkName: "chart" */ '@/views/chart/index.vue'),
+        component: () => import('@/views/chart/index.vue'),
         meta: {
             keepAlive: true,
             icon: '',
@@ -20,7 +20,7 @@ export default [
     {
         path: '/subscribe',
         name: 'subscribe',
-        component: () => import(/* webpackChunkName: "subscribe" */ '@/views/subscribe/index.vue'),
+        component: () => import('@/views/subscribe/index.vue'),
         meta: {
             keepAlive: true,
             icon: '',
@@ -29,7 +29,7 @@ export default [
     {
         path: '/about',
         name: 'about',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/about/index.vue'),
+        component: () => import('@/views/about/index.vue'),
         meta: {
             keepAlive: true,
             icon: '',
@@ -38,7 +38,7 @@ export default [
     {
         path: '/test',
         name: 'test',
-        component: () => import(/* webpackChunkName: "test" */ '@/views/test/test.vue'),
+        component: () => import('@/views/test/test.vue'),
         meta: {
             keepAlive: false,
             icon: '',
@@ -47,7 +47,7 @@ export default [
     {
         path: '/demo',
         name: 'demo',
-        component: () => import(/* webpackChunkName: "demo" */ '@/views/demo/demo.vue'),
+        component: () => import('@/views/demo/demo.vue'),
         meta: {
             keepAlive: false,
             icon: '',

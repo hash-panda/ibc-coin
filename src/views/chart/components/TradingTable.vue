@@ -135,23 +135,10 @@ const openTx = (tx: string) => {
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-block mt-2" :class="{ loading: loadingMore }" :disabled="noMore" @click="loadMore">
+            <button class="btn btn-block btn-link mt-2" :class="{ loading: loadingMore }" :disabled="noMore" @click="loadMore">
                 {{ noMore ? $t('tradingHistory.table.noMoreData') : $t('tradingHistory.table.loadMore') }}
             </button>
         </n-spin>
-        <n-modal
-            v-model:show="showModal"
-            class="w-full h-full"
-            :content-style="{ width: '100%', height: '100%' }"
-            preset="card"
-            title="卡片预设"
-            size="huge"
-            :bordered="false"
-        >
-            <template #header-extra>噢!</template>
-            内容
-            <template #footer>尾部</template>
-        </n-modal>
     </div>
 </template>
 <style scoped></style>

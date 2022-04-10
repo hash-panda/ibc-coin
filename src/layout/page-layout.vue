@@ -6,7 +6,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
-const transition = ['slide-left', 'slide-right']
+const transition = ['slide-top', 'slide-bottom']
 const transitionName = ref(transition[0])
 
 watch(

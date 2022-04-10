@@ -9,7 +9,7 @@ import yueqiu from '@/assets/images/order/yueqiu.png'
 </script>
 <template>
     <div>
-        <div class="card w-full bg-neutral trade-history-height">
+        <div class="card w-full trade-history-height">
             <div class="card-body gap-4 overflow-y-auto">
                 <h2 class="card-title pr-6 indicator align-middle">
                     {{ $t('chart.tradingHistory.title') }}

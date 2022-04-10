@@ -5,6 +5,7 @@ import areaSeriesData from './mock/areaSeriesData'
 import volumeSeriesData from './mock/volumeSeriesData'
 import candlestickSeriesData from './mock/candlestickSeriesData'
 import dayjs from 'dayjs'
+import { useAppStore } from '@/store/app'
 
 interface KLine {}
 
@@ -12,6 +13,7 @@ const props = defineProps<{
     data: any
 }>()
 const emit = defineEmits(['timeIntervalSelect', ''])
+const appStore = useAppStore()
 const timeSelect = ref('5m')
 const chartRef = ref(null)
 const legend = ref({
@@ -22,13 +24,13 @@ const legend = ref({
     low: 0,
 })
 
-let chart: any = {}
+const chart: any = ref({})
 let candlestickSeries: any = {}
 const initCharts = () => {
     try {
-        chart = createChart(chartRef.value, {
+        chart.value = createChart(chartRef.value, {
             width: chartRef._value.offsetWidth,
-            height: chartRef._value.offsetHeight - 30,
+            height: chartRef._value.offsetHeight - 90,
             rightPriceScale: {
                 scaleMargins: {
                     top: 0.1,
@@ -37,20 +39,28 @@ const initCharts = () => {
                 borderVisible: false,
             },
             layout: {
-                backgroundColor: '#171212',
-                textColor: '#d1d4dc',
+                backgroundColor: appStore.isDark ? '#ffffff' : '#171212',
+                textColor: appStore.isDark ? '#171212' : '#d1d4dc',
             },
             grid: {
                 vertLines: {
                     color: 'rgba(42, 46, 57, 0)',
                 },
                 horzLines: {
-                    color: 'rgba(42, 46, 57, 0.6)',
+                    color: 'rgba(42, 46, 57, 0.1)',
                 },
             },
             timeScale: {
                 timeVisible: true,
                 secondsVisible: false,
+            },
+            watermark: {
+                visible: true,
+                fontSize: 108,
+                horzAlign: 'center',
+                vertAlign: 'center',
+                color: appStore.isDark ? '#efefef' : '#241c1c',
+                text: 'IBCCoin.org',
             },
             // crosshair: {
             //   vertLine: {
@@ -64,27 +74,27 @@ const initCharts = () => {
             //   },
             // },
         })
-        chart.timeScale().fitContent()
+        chart.value.timeScale().fitContent()
         // 页面大小发生变化时，图表跟着变化
         window.addEventListener('resize', resize, false)
         function resize() {
-            chart.applyOptions({
+            chart.value.applyOptions({
                 width: chartRef._value.offsetWidth,
-                height: chartRef._value.offsetHeight - 30,
+                height: chartRef._value.offsetHeight - 90,
             })
             setTimeout(() => {
                 chart.timeScale().fitContent()
             }, 0)
         }
 
-        const areaSeries = chart.addAreaSeries({
+        const areaSeries = chart.value.addAreaSeries({
             topColor: 'rgba(38,198,218, 0.56)',
             bottomColor: 'rgba(38,198,218, 0.04)',
             lineColor: 'rgba(38,198,218, 1)',
             lineWidth: 2,
         })
 
-        const volumeSeries = chart.addHistogramSeries({
+        const volumeSeries = chart.value.addHistogramSeries({
             color: '#26a69a',
             priceFormat: {
                 type: 'volume',
@@ -99,7 +109,7 @@ const initCharts = () => {
         // areaSeries.setData(areaSeriesData);
         // volumeSeries.setData(volumeSeriesData);
 
-        candlestickSeries = chart.addCandlestickSeries({
+        candlestickSeries = chart.value.addCandlestickSeries({
             upColor: '#26a59a',
             downColor: '#A52A2A',
             borderVisible: false,
@@ -116,7 +126,7 @@ const initCharts = () => {
         // candlestickSeries.updateData(props.data);
 
         // high low open close 展示面板数据
-        chart.subscribeCrosshairMove(param => {
+        chart.value.subscribeCrosshairMove(param => {
             if (param.time) {
                 const price: any = param.seriesPrices.get(candlestickSeries)
                 legend.value = {
@@ -132,7 +142,7 @@ const initCharts = () => {
         })
 
         // 横坐标时间坐标更新
-        chart.timeScale().subscribeVisibleTimeRangeChange(newVisibleTimeRange => {
+        chart.value.timeScale().subscribeVisibleTimeRangeChange(newVisibleTimeRange => {
             if (newVisibleTimeRange) {
                 console.log(
                     'chart.timeScale().subscribeVisibleTimeRangeChange',
@@ -156,6 +166,23 @@ watch(
     },
 )
 
+watch(
+    () => appStore.isDark,
+    () => {
+        chart.value.applyOptions({
+            layout: {
+                backgroundColor: appStore.isDark ? '#ffffff' : '#171212',
+                textColor: appStore.isDark ? '#171212' : '#d1d4dc',
+            },
+            watermark: {
+                color: appStore.isDark ? '#efefef' : '#241c1c',
+            },
+        })
+
+        console.log('chart chart', chart)
+    },
+)
+
 onMounted(() => {
     setTimeout(() => {
         initCharts()
@@ -170,7 +197,7 @@ const timeIntervalSelect = value => {
 </script>
 <template>
     <div class="w-full h-full">
-        <div class="btn-group ml-3">
+        <div class="btn-group ml-3 mb-3">
             <input
                 type="radio"
                 name="options"
@@ -221,27 +248,27 @@ const timeIntervalSelect = value => {
                 @input="timeIntervalSelect"
             />
         </div>
-        <div ref="chartRef" class="w-full h-full relative">
+        <div ref="chartRef" class="w-full h-full relative ml-3">
             <div class="absolute top-3 z-20 ml-5">
                 <span></span>
                 <n-space class="text-xs">
                     <span>
-                        <span class="text-neutral-content opacity-50">{{ legend.time }}</span>
+                        <span class="text-base-content opacity-50">{{ legend.time }}</span>
                     </span>
                     <span>
-                        <span class="text-neutral-content opacity-50">{{ $t('kline.open') }}:</span>
+                        <span class="text-base-content opacity-50">{{ $t('kline.open') }}:</span>
                         <span class="text-accent">{{ legend.open }}</span>
                     </span>
                     <span>
-                        <span class="text-neutral-content opacity-50">{{ $t('kline.high') }}:</span>
+                        <span class="text-base-content opacity-50">{{ $t('kline.high') }}:</span>
                         <span class="text-accent">{{ legend.high }}</span>
                     </span>
                     <span>
-                        <span class="text-neutral-content opacity-50">{{ $t('kline.low') }}:</span>
+                        <span class="text-base-content opacity-50">{{ $t('kline.low') }}:</span>
                         <span class="text-accent">{{ legend.low }}</span>
                     </span>
                     <span>
-                        <span class="text-neutral-content opacity-50">{{ $t('kline.close') }}:</span>
+                        <span class="text-base-content opacity-50">{{ $t('kline.close') }}:</span>
                         <span class="text-accent">{{ legend.close }}</span>
                     </span>
                 </n-space>
