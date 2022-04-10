@@ -10,6 +10,9 @@ module.exports = (req, res) => {
     if (req.url.startsWith('/backend/cosmostation')) {
         target = 'https://api-utility.cosmostation.io'
     }
+    if (req.url.startsWith('/backend/ibccoin')) {
+        target = 'http://135.181.25.194:7777'
+    }
     // 创建代理对象并转发请求
     createProxyMiddleware({
         target,
@@ -18,6 +21,7 @@ module.exports = (req, res) => {
             // 通过路径重写，去除请求路径中的 `/backend`
             // 例如 /backend/user/login 将被转发到 http://backend-api.com/user/login
             '^/backend/cosmostation': '/',
+            '^/backend/ibccoin': '/',
         },
     })(req, res)
 }

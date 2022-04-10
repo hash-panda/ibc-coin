@@ -11,14 +11,20 @@ const partners = computed(() => {
             icon: defi100Logo,
             name: 'DeFi100',
             desc: t('partner.defi100.desc'),
+            link: 'https://twitter.com/iDeFi100',
         },
         {
             icon: iCosmosDAOLogo,
             name: 'iCosmosDAO',
             desc: t('partner.iCosmosDAO.desc'),
+            link: 'https://twitter.com/iCosmosDAO',
         },
     ]
 })
+
+const openTwitter = (link: string) => {
+    window.open(link, '_blank')
+}
 </script>
 <template>
     <div class="container px-5 lg:px-20 py-24 mx-auto">
@@ -36,9 +42,9 @@ const partners = computed(() => {
                 <div class="h-full flex items-center border-gray-100 border-opacity-60 border hover:border-primary p-4 rounded-lg">
                     <img alt="partner" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" :src="item.icon" />
                     <div class="flex-grow">
-                        <h2 class="title-font font-medium">
+                        <button @click="openTwitter(item.link)" class="btn btn-link pl-0 mb-3 h-3 min-h-fit normal-case title-font font-medium">
                             {{ item.name }}
-                        </h2>
+                        </button>
                         <p class="opacity-60">{{ item.desc }}</p>
                     </div>
                 </div>

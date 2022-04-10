@@ -55,7 +55,7 @@ export default {
 
     'partner.title': '合作伙伴',
     'partner.defi100.desc': '中文世界领先的研究型 Crypto 社区',
-    'partner.iCosmosDAO.desc': '专注于Cosmos生态的社区、媒体和节点运营机构',
+    'partner.iCosmosDAO.desc': '专注于 Cosmos 生态的社区、媒体和节点运营机构',
 
     'faq.title': '常见问题',
     'faq.question1.ask': 'IBCCoin 目标是什么？',

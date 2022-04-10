@@ -46,7 +46,7 @@ const openKeplr = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in addresses" :key="index" class="border-t last:border-b border-gray-100 border-opacity-60">
+                    <tr v-for="(item, index) in addresses" :key="index" class="border-t last:border-b border-gray-100 border-opacity-40">
                         <td class="px-4 py-3">{{ item.chain }}</td>
                         <td class="px-4 py-3">{{ item.address }}</td>
                     </tr>
