@@ -8,7 +8,7 @@ import { getAtomPriceApi, getMarketPricesApi, queryTokenStaticStatusListByChain 
 import { useRequest } from 'vue-request'
 
 // const osmoList = ref(osmoMock);
-const junoList = ref(junoMock)
+// const junoList = ref(junoMock)
 // const scrtList = ref(scrtMock);
 const { data } = useRequest(getMarketPricesApi, {
     errorRetryCount: 5,
@@ -35,18 +35,31 @@ const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
         console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
     },
 })
+const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
+    defaultParams: [{ chain: 'juno' }],
+    errorRetryCount: 5,
+    pollingInterval: 1000 * 30,
+    pollingWhenHidden: false,
+    manual: false,
+    onError: error => {
+        console.log('queryTokenListByChain (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+    },
+})
 </script>
 <template>
     <div class="w-full px-2 lg:px-36 xl:px-72 mt-10">
         <n-tabs type="card">
-            <n-tab-pane name="All" tab="All">
+            <!-- <n-tab-pane name="All" tab="All">
                 <CoinPairList key="osmo" :coin-pair-list="(data as any)" />
-            </n-tab-pane>
+            </n-tab-pane> -->
             <n-tab-pane name="Osmosis" tab="Osmosis">
                 <CoinPairList key="Osmosis" :coin-pair-list="(osmoList as any)" />
             </n-tab-pane>
-            <n-tab-pane name="Junoswap" tab="Junoswap">
-                <CoinPairList key="Junoswap" :coin-pair-list="[]" />
+            <n-tab-pane name="JunoSwap" tab="Junoswap">
+                <CoinPairList key="Junoswap" :coin-pair-list="(junoList as any)" />
             </n-tab-pane>
             <!-- <n-tab-pane name="Sifchain" tab="Sifchain">
                 <CoinPairList key="Sifchain" :coin-pair-list="[]" />

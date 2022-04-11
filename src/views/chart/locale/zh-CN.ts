@@ -19,6 +19,7 @@ export default {
     'tradingHistory.table.loading': '加载中...',
     'tradingHistory.table.refresh': '刷新中',
     'tradingHistory.table.refreshInfo': '每30秒刷新一次',
+    'tradingHistory.table.fullHistoryBtn': '全部交易记录',
     'chart.tradingHistory.btn.trader': '交易人',
     'chart.tradingHistory.btn.tx': '记录',
 

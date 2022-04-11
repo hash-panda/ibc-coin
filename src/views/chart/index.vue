@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import KLine from '@/components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
 // import SwapCoin from './components/SwapCoin.vue'
@@ -33,12 +33,12 @@ const fetchKLine = () => {
     run({ token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeInterval.value })
 }
 
-const { data: tokenDetail } = useRequest(queryTokenStaticStatusListByChain, {
-    defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
+const { data: tokenDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
+    // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
     errorRetryCount: 5,
     pollingInterval: 1000 * 30,
     pollingWhenHidden: true,
-    manual: false,
+    manual: true,
     onError: error => {
         console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
     },
@@ -48,9 +48,21 @@ const { data: tokenDetail } = useRequest(queryTokenStaticStatusListByChain, {
     },
 })
 
+const fetchTokenInfo = () => {
+    runTokenInfo({ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] })
+}
+
 onMounted(() => {
     fetchKLine()
+    fetchTokenInfo()
 })
+
+watch(
+    () => tokenStore.currentTokenInfo.tokenId,
+    () => {
+        fetchTokenInfo()
+    },
+)
 
 const onTimeIntervalSelect = value => {
     timeInterval.value = value

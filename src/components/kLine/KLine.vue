@@ -9,10 +9,13 @@ import { useAppStore } from '@/store/app'
 
 interface KLine {}
 
+interface emitType {
+    (e: 'timeIntervalSelect', data: string): void
+}
 const props = defineProps<{
     data: any
 }>()
-const emit = defineEmits(['timeIntervalSelect', ''])
+const emit = defineEmits<emitType>()
 const appStore = useAppStore()
 const timeSelect = ref('5m')
 const chartRef = ref(null)
@@ -198,22 +201,22 @@ const timeIntervalSelect = value => {
 <template>
     <div class="w-full h-full">
         <div class="btn-group ml-3 mb-3">
-            <input
+            <!-- <input
                 type="radio"
                 name="options"
                 value="5s"
                 :data-title="$t('kline.option.5s')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            />
-            <input
+            /> -->
+            <!-- <input
                 type="radio"
                 name="options"
                 value="30s"
                 :data-title="$t('kline.option.30s')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            />
+            /> -->
             <input
                 type="radio"
                 name="options"
@@ -223,14 +226,14 @@ const timeIntervalSelect = value => {
                 @input="timeIntervalSelect"
                 checked
             />
-            <input
+            <!-- <input
                 type="radio"
                 name="options"
                 value="30m"
                 :data-title="$t('kline.option.30m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            />
+            /> -->
             <input
                 type="radio"
                 name="options"
