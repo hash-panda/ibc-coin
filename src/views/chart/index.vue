@@ -15,7 +15,13 @@ const kLineRequestParams = ref({
     token_id: tokenStore.currentTokenInfo.tokenId,
     k_line_interval: timeInterval.value,
 })
-const { data, run, loading } = useRequest(queryKLine, {
+const {
+    data,
+    run,
+    reload: kLineReload,
+    refresh: kLineRefresh,
+    loading,
+} = useRequest(queryKLine, {
     // defaultParams: [{ token_id: 1, k_line_interval: timeInterval.value }],
     errorRetryCount: 5,
     pollingInterval: 1000 * 30,
@@ -36,7 +42,7 @@ const fetchKLine = () => {
 const { data: tokenDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
     // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
     errorRetryCount: 5,
-    pollingInterval: 1000 * 30,
+    pollingInterval: 1000 * 15,
     pollingWhenHidden: true,
     manual: true,
     onError: error => {

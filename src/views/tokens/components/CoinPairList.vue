@@ -52,9 +52,9 @@ const openChart = (coin: CoinPair) => {
                         </td>
                         <td class="p-2 md:p-4">
                             <div v-if="coin.currentPrice">
-                                <span>{{ coin.currentPrice }}</span>
+                                <span>{{ formatAmountWithDollar(coin.currentPrice, 8) }}</span>
                                 <!-- <span class="uppercase"> {{ coin.currentPriceUnit }}</span> -->
-                                <span class="uppercase">UST</span>
+                                <!-- <span class="uppercase">UST</span> -->
                             </div>
                             <div v-else>--</div>
                             <div>

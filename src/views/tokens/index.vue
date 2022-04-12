@@ -14,7 +14,7 @@ const { data } = useRequest(getMarketPricesApi, {
     errorRetryCount: 5,
     pollingInterval: 1000 * 60,
     pollingWhenHidden: false,
-    manual: false,
+    manual: true,
     onError: error => {
         console.log('getMarketPrices (⊙︿⊙) something error', error)
     },
@@ -25,7 +25,7 @@ const { data } = useRequest(getMarketPricesApi, {
 const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'osmosis' }],
     errorRetryCount: 5,
-    pollingInterval: 1000 * 30,
+    pollingInterval: 1000 * 15,
     pollingWhenHidden: false,
     manual: false,
     onError: error => {
@@ -38,7 +38,7 @@ const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
 const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'juno' }],
     errorRetryCount: 5,
-    pollingInterval: 1000 * 30,
+    pollingInterval: 1000 * 15,
     pollingWhenHidden: false,
     manual: false,
     onError: error => {

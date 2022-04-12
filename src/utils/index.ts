@@ -17,7 +17,7 @@ export function getFixedAmount(amount: string | number, decimal: number = 2) {
 export function formatAmountWithDollar(amount: string | number, decimal: number = 0) {
     if (amount) {
         const decimalLength = Array(decimal ? decimal + 1 : 0).join('0')
-        return numeral(amount).format(`$0,0.${decimalLength}`)
+        return numeral(amount).format(`$0,0.[${decimalLength}]`)
     } else {
         return '--'
     }

@@ -226,14 +226,14 @@ const timeIntervalSelect = value => {
                 @input="timeIntervalSelect"
                 checked
             />
-            <!-- <input
+            <input
                 type="radio"
                 name="options"
                 value="30m"
                 :data-title="$t('kline.option.30m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
+            />
             <input
                 type="radio"
                 name="options"

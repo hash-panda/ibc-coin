@@ -35,22 +35,4 @@ export default [
             icon: '',
         },
     },
-    {
-        path: '/test',
-        name: 'test',
-        component: () => import('@/views/test/test.vue'),
-        meta: {
-            keepAlive: false,
-            icon: '',
-        },
-    },
-    {
-        path: '/demo',
-        name: 'demo',
-        component: () => import('@/views/demo/demo.vue'),
-        meta: {
-            keepAlive: false,
-            icon: '',
-        },
-    },
 ]
