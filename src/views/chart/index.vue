@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import KLine from '@/components/kLine/KLine.vue'
+import KLine from './components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
 // import SwapCoin from './components/SwapCoin.vue'
 import CoinInfo from './components/CoinInfo.vue'
@@ -10,7 +10,7 @@ import { useTokenStore } from '@/store/token'
 
 const tokenStore = useTokenStore()
 // 30s 5m 30m 1h 1d
-const timeInterval = ref('5m')
+const timeInterval = ref('1h')
 const kLineRequestParams = ref({
     token_id: tokenStore.currentTokenInfo.tokenId,
     k_line_interval: timeInterval.value,
@@ -59,14 +59,16 @@ const fetchTokenInfo = () => {
 }
 
 onMounted(() => {
-    fetchKLine()
     fetchTokenInfo()
+    fetchKLine()
 })
 
 watch(
     () => tokenStore.currentTokenInfo.tokenId,
     () => {
         fetchTokenInfo()
+        kLineReload()
+        fetchKLine()
     },
 )
 

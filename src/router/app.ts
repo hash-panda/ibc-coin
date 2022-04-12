@@ -35,4 +35,13 @@ export default [
             icon: '',
         },
     },
+    {
+        path: '/full-trading-history',
+        name: 'fullTradingHistory',
+        component: () => import('@/views/fullTradingHistory/index.vue'),
+        meta: {
+            keepAlive: false,
+            icon: '',
+        },
+    },
 ]

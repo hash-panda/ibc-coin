@@ -17,7 +17,7 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<emitType>()
 const appStore = useAppStore()
-const timeSelect = ref('5m')
+const timeSelect = ref('1h')
 const chartRef = ref(null)
 const legend = ref({
     time: '',
@@ -224,7 +224,6 @@ const timeIntervalSelect = value => {
                 :data-title="$t('kline.option.5m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-                checked
             />
             <input
                 type="radio"
@@ -241,6 +240,7 @@ const timeIntervalSelect = value => {
                 :data-title="$t('kline.option.1h')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
+                checked
             />
             <input
                 type="radio"
