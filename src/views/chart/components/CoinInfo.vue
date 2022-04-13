@@ -1,16 +1,46 @@
 <script setup lang="ts">
+import { watch, onMounted } from 'vue'
 import { ArrowRepeatAll16Regular } from '@vicons/fluent'
 import { CoinPair } from '@/types/types'
-import { useMenuStore } from '@/store/menu'
+import { useTokenStore } from '@/store/token'
 import { formatAmountWithDollar } from '@/utils'
 import { useRouter } from 'vue-router'
+import { useRequest } from 'vue-request'
+import { queryTokenStaticStatusListByChain } from '@/api'
 
-const props = defineProps<{
-    coinDetail: CoinPair
-}>()
-
+const tokenStore = useTokenStore()
 const router = useRouter()
-const menuStore = useMenuStore()
+
+const { data: coinDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
+    // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
+    errorRetryCount: 5,
+    pollingInterval: 1000 * 15,
+    pollingWhenHidden: true,
+    manual: true,
+    onError: error => {
+        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res[0])
+        tokenStore.setCurrentTokenInfo(res?.[0])
+    },
+})
+
+const fetchTokenInfo = () => {
+    runTokenInfo({ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] })
+}
+
+onMounted(() => {
+    fetchTokenInfo()
+})
+
+watch(
+    () => tokenStore.currentTokenInfo.tokenId,
+    () => {
+        fetchTokenInfo()
+    },
+)
+
 const openTokensList = () => {
     router.push({
         name: 'tokens',
@@ -23,7 +53,7 @@ const openTokensList = () => {
             <div class="flex flex-row">
                 <div class="w-full">
                     <div class="card-title inline-block text-bottom">
-                        <span class="tx-xl lg:text-3xl tracking-widest text-base-content uppercase">{{ props.coinDetail?.name }}</span>
+                        <span class="tx-xl lg:text-3xl tracking-widest text-base-content uppercase">{{ tokenStore.currentTokenInfo?.name }}</span>
                         <span
                             class="tooltip tooltip-right ml-1 align-middle tooltip-primary"
                             :data-tip="$t('chart.coinInfo.openCoinPairList')"
@@ -79,32 +109,32 @@ const openTokensList = () => {
                         <div>
                             <div class="text-sm lg:text-sm mt-2 opacity-50">{{ $t('chart.coinInfo.marketCap') }}</div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
-                                {{ formatAmountWithDollar(props.coinDetail?.marketCap) }}
+                                {{ formatAmountWithDollar(tokenStore.currentTokenInfo?.marketCap) }}
                             </div>
                         </div>
                         <div>
                             <div class="text-sm lg:text-sm mt-2 opacity-50">{{ $t('chart.coinInfo.volume') }}</div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
-                                {{ formatAmountWithDollar(props.coinDetail?.totalVolume) }}
+                                {{ formatAmountWithDollar(tokenStore.currentTokenInfo?.totalVolume) }}
                             </div>
                         </div>
                         <div class="flex mt-2">
                             <div class="mr-4">
                                 <div class="text-sm lg:text-sm opacity-50">{{ $t('chart.coinInfo.price') }}</div>
                                 <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
-                                    {{ props.coinDetail?.currentPrice }}
+                                    {{ tokenStore.currentTokenInfo?.currentPrice }}
                                 </div>
                             </div>
                             <div>
                                 <div class="text-sm lg:text-sm opacity-50">{{ $t('chart.coinInfo.change') }}</div>
                                 <div
                                     class="text-sm md:text-base xl:text-lg tracking-widest text-primary"
-                                    :class="props.coinDetail?.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'"
+                                    :class="tokenStore.currentTokenInfo?.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'"
                                 >
                                     {{
-                                        props.coinDetail?.dailyPriceChangeInPercentage > 0
-                                            ? '+' + props.coinDetail?.dailyPriceChangeInPercentage
-                                            : props.coinDetail?.dailyPriceChangeInPercentage
+                                        tokenStore.currentTokenInfo?.dailyPriceChangeInPercentage > 0
+                                            ? '+' + tokenStore.currentTokenInfo?.dailyPriceChangeInPercentage
+                                            : tokenStore.currentTokenInfo?.dailyPriceChangeInPercentage
                                     }}%
                                 </div>
                             </div>

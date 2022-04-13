@@ -39,39 +39,6 @@ const fetchKLine = () => {
     run({ token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeInterval.value })
 }
 
-const { data: tokenDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
-    // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
-    errorRetryCount: 5,
-    pollingInterval: 1000 * 15,
-    pollingWhenHidden: true,
-    manual: true,
-    onError: error => {
-        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
-    },
-    onSuccess: res => {
-        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res[0])
-        tokenStore.setCurrentTokenInfo(res?.[0])
-    },
-})
-
-const fetchTokenInfo = () => {
-    runTokenInfo({ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] })
-}
-
-onMounted(() => {
-    fetchTokenInfo()
-    fetchKLine()
-})
-
-watch(
-    () => tokenStore.currentTokenInfo.tokenId,
-    () => {
-        fetchTokenInfo()
-        kLineReload()
-        fetchKLine()
-    },
-)
-
 const onTimeIntervalSelect = value => {
     timeInterval.value = value
     console.log('当前选择的是：', timeInterval.value)
@@ -83,7 +50,7 @@ const onTimeIntervalSelect = value => {
         <div class="grid grid-cols-1 my-2 mx-6 lg:flex lg:flex-row lg:m-4">
             <div class="lg:basis-1/2 xl:basis-3/5 2xl:basis-3/5 flex flex-col">
                 <div class="mt-4 mr-4 mb-4">
-                    <CoinInfo :coinDetail="tokenStore.currentTokenInfo" />
+                    <CoinInfo />
                 </div>
                 <div class="h-96 lg:h-full">
                     <KLine :data="data" @timeIntervalSelect="onTimeIntervalSelect" />
