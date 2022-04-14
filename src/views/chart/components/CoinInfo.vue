@@ -14,14 +14,13 @@ const router = useRouter()
 const { data: coinDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
     // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
     errorRetryCount: 5,
-    pollingInterval: 1000 * 15,
+    pollingInterval: 1000 * 10,
     pollingWhenHidden: true,
     manual: true,
     onError: error => {
         console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
     },
     onSuccess: res => {
-        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res[0])
         tokenStore.setCurrentTokenInfo(res?.[0])
     },
 })

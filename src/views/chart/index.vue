@@ -4,46 +4,6 @@ import KLine from './components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
 // import SwapCoin from './components/SwapCoin.vue'
 import CoinInfo from './components/CoinInfo.vue'
-import { useRequest } from 'vue-request'
-import { queryKLine, queryTokenStaticStatusListByChain } from '@/api'
-import { useTokenStore } from '@/store/token'
-
-const tokenStore = useTokenStore()
-// 30s 5m 30m 1h 1d
-const timeInterval = ref('1h')
-const kLineRequestParams = ref({
-    token_id: tokenStore.currentTokenInfo.tokenId,
-    k_line_interval: timeInterval.value,
-})
-const {
-    data,
-    run,
-    reload: kLineReload,
-    refresh: kLineRefresh,
-    loading,
-} = useRequest(queryKLine, {
-    // defaultParams: [{ token_id: 1, k_line_interval: timeInterval.value }],
-    errorRetryCount: 5,
-    pollingInterval: 1000 * 30,
-    debounceInterval: 1000,
-    pollingWhenHidden: true,
-    onError: error => {
-        console.log('getMarketPrices (⊙︿⊙) something error', error)
-    },
-    onSuccess: res => {
-        console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value)
-    },
-})
-
-const fetchKLine = () => {
-    run({ token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeInterval.value })
-}
-
-const onTimeIntervalSelect = value => {
-    timeInterval.value = value
-    console.log('当前选择的是：', timeInterval.value)
-    fetchKLine()
-}
 </script>
 <template>
     <div>
@@ -53,7 +13,7 @@ const onTimeIntervalSelect = value => {
                     <CoinInfo />
                 </div>
                 <div class="h-96 lg:h-full">
-                    <KLine :data="data" @timeIntervalSelect="onTimeIntervalSelect" />
+                    <KLine />
                 </div>
                 <!-- Chart -->
                 <!-- <SwapCoin /> -->

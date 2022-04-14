@@ -76,7 +76,6 @@ const { data, reload, run, refresh } = useRequest(queryTradingHistory, {
         showLoading.value = false
     },
     onSuccess: res => {
-        console.log('queryTradingHistory ✿✿ヽ(°▽°)ノ✿ success', data, data.value)
         showLoading.value = false
     },
 })
@@ -93,7 +92,6 @@ onMounted(() => {
 watch(
     () => tokenStore.currentTokenInfo.tokenId,
     () => {
-        console.log('watch relaod', tokenStore.currentTokenInfo.tokenId)
         reload()
         fetchTradingHistory()
     },

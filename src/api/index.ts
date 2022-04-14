@@ -131,6 +131,7 @@ export const queryKLine = (requestParams: KLineRequestParams) => {
                     const result = res.data.map(v => {
                         return {
                             time: v.k_line_start_timestamp,
+                            // time: dayjs.unix(v.k_line_start_timestamp).format('YYYY-MM-DD HH:mm:ss'),
                             open: v.open_price,
                             high: v.max_price,
                             low: v.min_price,

@@ -6,19 +6,23 @@ import volumeSeriesData from './mock/volumeSeriesData'
 import candlestickSeriesData from './mock/candlestickSeriesData'
 import dayjs from 'dayjs'
 import { useAppStore } from '@/store/app'
+import { useTokenStore } from '@/store/token'
+import { useRequest } from 'vue-request'
+import { queryKLine } from '@/api'
+import { isIntersectionTypeAnnotation } from '@babel/types'
 
 interface KLine {}
 
 interface emitType {
     (e: 'timeIntervalSelect', data: string): void
 }
-const props = defineProps<{
-    data: any
-}>()
-const emit = defineEmits<emitType>()
+
+const isInit = ref(true)
+const tokenStore = useTokenStore()
 const appStore = useAppStore()
 const timeSelect = ref('1h')
 const chartRef = ref(null)
+const lastUpdateTime = ref<any>()
 const legend = ref({
     time: '',
     open: 0,
@@ -86,7 +90,7 @@ const initCharts = () => {
                 height: chartRef._value.offsetHeight - 90,
             })
             setTimeout(() => {
-                chart.timeScale().fitContent()
+                chart.value.timeScale().fitContent()
             }, 0)
         }
 
@@ -123,10 +127,10 @@ const initCharts = () => {
             wickDownColor: '#A52A2A',
         })
 
-        console.log('props.data', props.data)
+        console.log('data', data)
         // candlestickSeries.setData(candlestickSeriesData);
-        // candlestickSeries.setData(props.data??[]);
-        // candlestickSeries.updateData(props.data);
+        // candlestickSeries.setData(data ?? [])
+        // candlestickSeries.updateData(data);
 
         // high low open close 展示面板数据
         chart.value.subscribeCrosshairMove(param => {
@@ -152,6 +156,23 @@ const initCharts = () => {
                     dayjs.unix(newVisibleTimeRange.from).format('YYYY-MM-DD HH:mm:ss'),
                     dayjs.unix(newVisibleTimeRange.to).format('YYYY-MM-DD HH:mm:ss'),
                 )
+                if (lastUpdateTime.value - newVisibleTimeRange.from > 1000 * 600) {
+                    fetchKLine(lastUpdateTime.value)
+                }
+            }
+        })
+        chart.value.timeScale().subscribeVisibleLogicalRangeChange(newVisibleLogicalRange => {
+            if (newVisibleLogicalRange) {
+                console.log(
+                    'chart.timeScale().subscribeVisibleLogicalRangeChange',
+                    newVisibleLogicalRange.from,
+                    newVisibleLogicalRange.to,
+                    dayjs.unix(newVisibleLogicalRange.from).format('YYYY-MM-DD HH:mm:ss'),
+                    dayjs.unix(newVisibleLogicalRange.to).format('YYYY-MM-DD HH:mm:ss'),
+                )
+                if (newVisibleLogicalRange.from < -10) {
+                    updateKLine(lastUpdateTime.value)
+                }
             }
         })
     } catch (e) {
@@ -159,16 +180,81 @@ const initCharts = () => {
     }
 }
 
+const {
+    data,
+    run: createKLineRun,
+    reload,
+    loading,
+} = useRequest(queryKLine, {
+    // defaultParams: [{ token_id: 1, k_line_interval: timeInterval.value }],
+    errorRetryCount: 5,
+    pollingInterval: 1000 * 30,
+    debounceInterval: 1000,
+    pollingWhenHidden: true,
+    manual: true,
+    onError: error => {
+        console.log('queryKLine (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        console.log('queryKLine (⊙︿⊙) something success', res)
+        if (res?.length > 0) {
+            candlestickSeries.setData(res)
+        }
+    },
+})
+
+const { run: updateKLineRun } = useRequest(queryKLine, {
+    // defaultParams: [{ token_id: 1, k_line_interval: timeInterval.value }],
+    debounceInterval: 2000,
+    manual: true,
+    onError: error => {
+        console.log('updateKLineRun (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        console.log('updateKLineRun (⊙︿⊙) something success', res)
+        lastUpdateTime.value = res[0]?.time
+        if (res?.length > 0) {
+            candlestickSeries.setData(res)
+        }
+    },
+})
+
+const fetchKLine = (endTime?: string | number) => {
+    const requestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
+    createKLineRun(requestParams)
+}
+const updateKLine = (endTime?: string | number) => {
+    let requestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
+    if (endTime) {
+        requestParams = { ...requestParams, timestamp_end: endTime }
+    }
+    updateKLineRun(requestParams)
+}
+
 watch(
-    () => props.data,
+    () => tokenStore.currentTokenInfo.tokenId,
     () => {
-        if (props.data) {
-            candlestickSeries.setData(props.data ?? [])
-            console.log('candlestickSeries', candlestickSeries)
+        reload()
+        candlestickSeries.setData([])
+        chart.value.timeScale().fitContent()
+        isInit.value = true
+        fetchKLine()
+    },
+)
+
+watch(
+    () => timeSelect.value,
+    () => {
+        if (timeSelect.value) {
+            candlestickSeries.setData([])
+            chart.value.timeScale().fitContent()
+            isInit.value = true
+            fetchKLine()
         }
     },
 )
 
+// 根据主题适配颜色
 watch(
     () => appStore.isDark,
     () => {
@@ -181,21 +267,18 @@ watch(
                 color: appStore.isDark ? '#efefef' : '#241c1c',
             },
         })
-
-        console.log('chart chart', chart)
     },
 )
 
 onMounted(() => {
-    setTimeout(() => {
-        initCharts()
-    }, 300)
+    initCharts()
+    isInit.value = true
+    fetchKLine()
 })
 
 // 选择时间
 const timeIntervalSelect = value => {
-    console.log('vale', value.target.defaultValue)
-    emit('timeIntervalSelect', value.target.defaultValue)
+    timeSelect.value = value.target.defaultValue
 }
 </script>
 <template>
@@ -217,22 +300,22 @@ const timeIntervalSelect = value => {
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             /> -->
-            <input
+            <!-- <input
                 type="radio"
                 name="options"
                 value="5m"
                 :data-title="$t('kline.option.5m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            />
-            <input
+            /> -->
+            <!-- <input
                 type="radio"
                 name="options"
                 value="30m"
                 :data-title="$t('kline.option.30m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            />
+            /> -->
             <input
                 type="radio"
                 name="options"
