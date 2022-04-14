@@ -114,7 +114,7 @@ export const queryTokenStaticStatusListByChain = (params: TokenStaticStatusReq) 
             })
     })
 }
-interface KLineRequestParams {
+export interface KLineRequestParams {
     token_id: number | string // token在数据库中的id
     k_line_interval: string // k线级别，可选参数为 5s,30s,5m,30m,1h,1d
     timestamp_start?: number // 时间范围起点时间戳，单位s。如果不填写，则根据timestamp_end自动向前推一段时间
@@ -194,10 +194,7 @@ export const queryTradingHistory = (requestParams: TradingHistoryReq) => {
                             tokenNameTo: v.token_to.token_name,
                         }
                     })
-                    resolve({
-                        data: result,
-                        total: res.data?.total,
-                    })
+                    resolve(result)
                 } else {
                     reject(res)
                 }

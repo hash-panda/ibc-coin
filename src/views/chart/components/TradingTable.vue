@@ -131,7 +131,7 @@ const openFullHistory = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in (data?.data as any)" :key="item.id">
+                    <tr v-for="item in (data as any)" :key="item.id">
                         <th class="text-xs">
                             <div>{{ dayjs.unix(item.txTimestamp).format('YYYY-MM-DD') }}</div>
                             <div>{{ dayjs.unix(item.txTimestamp).format('HH:mm:ss') }}</div>
@@ -183,7 +183,7 @@ const openFullHistory = () => {
                     </tr>
                 </tbody>
             </table>
-            <button v-if="data?.data?.length > 0" class="btn btn-block btn-link mt-2" @click="openFullHistory">
+            <button v-if="(data as any)?.length > 0" class="btn btn-block btn-link mt-2" @click="openFullHistory">
                 {{ $t('tradingHistory.table.fullHistoryBtn') }}
             </button>
             <!-- 加载更多的 按钮，暂时不用这种模式 -->

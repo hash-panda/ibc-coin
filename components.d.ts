@@ -7,7 +7,6 @@ declare module 'vue' {
     BenefitsCardBenefitsCard: typeof import('./src/components/benefitsCard/BenefitsCard.vue')['default']
     CoinCardCoinCard: typeof import('./src/components/coinCard/CoinCard.vue')['default']
     FooterFooter: typeof import('./src/components/footer/Footer.vue')['default']
-    KLineKLine: typeof import('./src/components/kLine/KLine.vue')['default']
     MessageMessage: typeof import('./src/components/message/Message.vue')['default']
     NAnchor: typeof import('naive-ui')['NAnchor']
     NAnchorLink: typeof import('naive-ui')['NAnchorLink']

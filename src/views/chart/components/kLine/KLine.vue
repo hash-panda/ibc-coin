@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { useAppStore } from '@/store/app'
 import { useTokenStore } from '@/store/token'
 import { useRequest } from 'vue-request'
-import { queryKLine } from '@/api'
+import { queryKLine, KLineRequestParams } from '@/api'
 import { isIntersectionTypeAnnotation } from '@babel/types'
 
 interface KLine {}
@@ -197,7 +197,7 @@ const {
     },
     onSuccess: res => {
         console.log('queryKLine (⊙︿⊙) something success', res)
-        if (res?.length > 0) {
+        if ((res as any)?.length > 0) {
             candlestickSeries.setData(res)
         }
     },
@@ -213,18 +213,18 @@ const { run: updateKLineRun } = useRequest(queryKLine, {
     onSuccess: res => {
         console.log('updateKLineRun (⊙︿⊙) something success', res)
         lastUpdateTime.value = res[0]?.time
-        if (res?.length > 0) {
+        if ((res as any)?.length > 0) {
             candlestickSeries.setData(res)
         }
     },
 })
 
-const fetchKLine = (endTime?: string | number) => {
+const fetchKLine = (endTime?: number) => {
     const requestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
     createKLineRun(requestParams)
 }
-const updateKLine = (endTime?: string | number) => {
-    let requestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
+const updateKLine = (endTime?: number) => {
+    let requestParams: KLineRequestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
     if (endTime) {
         requestParams = { ...requestParams, timestamp_end: endTime }
     }
