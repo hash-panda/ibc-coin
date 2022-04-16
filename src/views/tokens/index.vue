@@ -22,6 +22,19 @@ const { data } = useRequest(getMarketPricesApi, {
         console.log('getMarketPrices ✿✿ヽ(°▽°)ノ✿ success', data, data.value)
     },
 })
+const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
+    defaultParams: [{ chain: 'crescent' }],
+    errorRetryCount: 5,
+    pollingInterval: 1000 * 15,
+    pollingWhenHidden: false,
+    manual: false,
+    onError: error => {
+        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+    },
+})
 const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'osmosis' }],
     errorRetryCount: 5,
@@ -29,10 +42,10 @@ const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
     pollingWhenHidden: false,
     manual: false,
     onError: error => {
-        console.log('queryTokenListByChain (⊙︿⊙) something error', error)
+        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
     },
     onSuccess: res => {
-        console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
     },
 })
 const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -42,10 +55,10 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
     pollingWhenHidden: false,
     manual: false,
     onError: error => {
-        console.log('queryTokenListByChain (⊙︿⊙) something error', error)
+        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
     },
     onSuccess: res => {
-        console.log('queryTokenListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
     },
 })
 </script>
@@ -55,6 +68,9 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
             <!-- <n-tab-pane name="All" tab="All">
                 <CoinPairList key="osmo" :coin-pair-list="(data as any)" />
             </n-tab-pane> -->
+            <n-tab-pane name="Crescent" tab="Crescent">
+                <CoinPairList key="Crescent" :coin-pair-list="(crescentList as any)" />
+            </n-tab-pane>
             <n-tab-pane name="Osmosis" tab="Osmosis">
                 <CoinPairList key="Osmosis" :coin-pair-list="(osmoList as any)" />
             </n-tab-pane>

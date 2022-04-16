@@ -86,7 +86,10 @@ const changeTheme = () => {
                         <img src="@/assets/logo.png" />
                     </div>
                 </div>
-                <div class="text-base text-xl font-bold text-primary lg:text-2xl">IBCCoin.org</div>
+                <div class="text-base text-xl font-bold text-primary lg:text-2xl">
+                    <span>IBC</span>
+                    <span class="text-primary-focus">coin.org</span>
+                </div>
             </button>
         </div>
         <div class="navbar-center hidden md:flex">

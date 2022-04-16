@@ -11,6 +11,7 @@ import taiyang from '@/assets/images/order/taiyang.png'
 import diqiu from '@/assets/images/order/diqiu.png'
 import tuxing from '@/assets/images/order/tuxing.png'
 import yueqiu from '@/assets/images/order/yueqiu.png'
+import { Delicious } from '@vicons/fa'
 import { useRouter, useRoute } from 'vue-router'
 
 type TradingHistoryData = {
@@ -186,6 +187,11 @@ const openFullHistory = () => {
             <button v-if="(data as any)?.length > 0" class="btn btn-block btn-link mt-2" @click="openFullHistory">
                 {{ $t('tradingHistory.table.fullHistoryBtn') }}
             </button>
+            <n-empty v-if="(data as any)?.length <= 0" description="." class="h-96 justify-center">
+                <template #icon>
+                    <n-icon :component="Delicious" size="38" :depth="3" />
+                </template>
+            </n-empty>
             <!-- 加载更多的 按钮，暂时不用这种模式 -->
             <!-- <button class="btn btn-block btn-link mt-2" :class="{ loading: loadingMore }" :disabled="noMore" @click="loadMore">
                 {{ noMore ? $t('tradingHistory.table.noMoreData') : $t('tradingHistory.table.loadMore') }}

@@ -67,7 +67,7 @@ const initCharts = () => {
                 horzAlign: 'center',
                 vertAlign: 'center',
                 color: appStore.isDark ? '#efefef' : '#241c1c',
-                text: 'IBCCoin.org',
+                text: 'IBCcoin.org',
             },
             // crosshair: {
             //   vertLine: {
@@ -156,9 +156,9 @@ const initCharts = () => {
                     dayjs.unix(newVisibleTimeRange.from).format('YYYY-MM-DD HH:mm:ss'),
                     dayjs.unix(newVisibleTimeRange.to).format('YYYY-MM-DD HH:mm:ss'),
                 )
-                if (lastUpdateTime.value - newVisibleTimeRange.from > 1000 * 600) {
-                    fetchKLine(lastUpdateTime.value)
-                }
+                // if (lastUpdateTime.value - newVisibleTimeRange.from > 1000 * 600) {
+                //     fetchKLine(lastUpdateTime.value)
+                // }
             }
         })
         chart.value.timeScale().subscribeVisibleLogicalRangeChange(newVisibleLogicalRange => {
@@ -170,9 +170,9 @@ const initCharts = () => {
                     dayjs.unix(newVisibleLogicalRange.from).format('YYYY-MM-DD HH:mm:ss'),
                     dayjs.unix(newVisibleLogicalRange.to).format('YYYY-MM-DD HH:mm:ss'),
                 )
-                if (newVisibleLogicalRange.from < -10) {
-                    updateKLine(lastUpdateTime.value)
-                }
+                // if (newVisibleLogicalRange.from < -10) {
+                //     updateKLine(lastUpdateTime.value)
+                // }
             }
         })
     } catch (e) {
@@ -300,22 +300,22 @@ const timeIntervalSelect = value => {
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             /> -->
-            <!-- <input
+            <input
                 type="radio"
                 name="options"
                 value="5m"
                 :data-title="$t('kline.option.5m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
-            <!-- <input
+            />
+            <input
                 type="radio"
                 name="options"
                 value="30m"
                 :data-title="$t('kline.option.30m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
+            />
             <input
                 type="radio"
                 name="options"
