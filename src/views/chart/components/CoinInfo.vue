@@ -3,7 +3,7 @@ import { watch, onMounted } from 'vue'
 import { ArrowRepeatAll16Regular } from '@vicons/fluent'
 import { CoinPair } from '@/types/types'
 import { useTokenStore } from '@/store/token'
-import { formatAmountWithDollar } from '@/utils'
+import { formatAmountWithDollar, formatAmountWithDollarDecimal } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useRequest } from 'vue-request'
 import { queryTokenStaticStatusListByChain } from '@/api'
@@ -121,7 +121,7 @@ const openTokensList = () => {
                             <div class="mr-4">
                                 <div class="text-sm lg:text-sm opacity-50">{{ $t('chart.coinInfo.price') }}</div>
                                 <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
-                                    {{ tokenStore.currentTokenInfo?.currentPrice }}
+                                    {{ formatAmountWithDollarDecimal(tokenStore.currentTokenInfo?.currentPrice) }}
                                 </div>
                             </div>
                             <div>

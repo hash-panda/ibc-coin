@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { CoinPair } from '@/types/types'
-import { getImageSrc, formatAmountWithDollar } from '@/utils'
+import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal } from '@/utils'
 import { Delicious } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'
@@ -52,7 +52,7 @@ const openChart = (coin: CoinPair) => {
                         </td>
                         <td class="p-2 md:p-4">
                             <div v-if="coin.currentPrice">
-                                <span>{{ formatAmountWithDollar(coin.currentPrice, 8) }}</span>
+                                <span>{{ formatAmountWithDollarDecimal(coin.currentPrice) }}</span>
                                 <!-- <span class="uppercase"> {{ coin.currentPriceUnit }}</span> -->
                                 <!-- <span class="uppercase">UST</span> -->
                             </div>

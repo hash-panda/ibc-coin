@@ -4,6 +4,21 @@ import KLine from './components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
 // import SwapCoin from './components/SwapCoin.vue'
 import CoinInfo from './components/CoinInfo.vue'
+import { useTokenStore } from '@/store/token'
+
+const tokenStore = useTokenStore()
+const setTitle = () => {
+    document.title = `${tokenStore.currentTokenInfo.name?.toUpperCase()}(${tokenStore.currentTokenInfo.chain}) Price & Chart - IBCcoin.org`
+}
+watch(
+    () => tokenStore.currentTokenInfo.tokenId,
+    () => {
+        setTitle()
+    },
+)
+onMounted(() => {
+    setTitle()
+})
 </script>
 <template>
     <div>
