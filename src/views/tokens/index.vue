@@ -50,7 +50,7 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
 })
 </script>
 <template>
-    <div class="w-full px-2 lg:px-36 xl:px-72 mt-10">
+    <div class="w-full px-2 lg:px-36 xl:px-72 mt-4">
         <n-tabs type="card">
             <!-- <n-tab-pane name="All" tab="All">
                 <CoinPairList key="osmo" :coin-pair-list="(data as any)" />

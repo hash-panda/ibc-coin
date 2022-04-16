@@ -175,7 +175,7 @@ const openFullHistory = () => {
                                 </span>
                             </div>
                             <div>
-                                <button @click="openTx(item.txHash)" class="btn btn-link text-neutral-content normal-case btn-xs">
+                                <button @click="openTx(item.txHash)" class="btn btn-link text-base-content normal-case btn-xs">
                                     Tx: {{ encodeAddress(item.txHash) }}
                                 </button>
                             </div>

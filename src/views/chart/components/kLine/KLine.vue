@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { createChart } from 'lightweight-charts'
+import { ArrowSyncCircle20Filled } from '@vicons/fluent'
 import areaSeriesData from './mock/areaSeriesData'
 import volumeSeriesData from './mock/volumeSeriesData'
 import candlestickSeriesData from './mock/candlestickSeriesData'
@@ -283,8 +284,9 @@ const timeIntervalSelect = value => {
 </script>
 <template>
     <div class="w-full h-full">
-        <div class="btn-group ml-3 mb-3">
-            <!-- <input
+        <n-space size="large">
+            <div class="btn-group ml-3 mb-3">
+                <!-- <input
                 type="radio"
                 name="options"
                 value="5s"
@@ -292,7 +294,7 @@ const timeIntervalSelect = value => {
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             /> -->
-            <!-- <input
+                <!-- <input
                 type="radio"
                 name="options"
                 value="30s"
@@ -300,7 +302,7 @@ const timeIntervalSelect = value => {
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             /> -->
-            <!-- <input
+                <!-- <input
                 type="radio"
                 name="options"
                 value="5m"
@@ -308,7 +310,7 @@ const timeIntervalSelect = value => {
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             /> -->
-            <!-- <input
+                <!-- <input
                 type="radio"
                 name="options"
                 value="30m"
@@ -316,24 +318,29 @@ const timeIntervalSelect = value => {
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
             /> -->
-            <input
-                type="radio"
-                name="options"
-                value="1h"
-                :data-title="$t('kline.option.1h')"
-                class="btn btn-xs lg:btn-sm"
-                @input="timeIntervalSelect"
-                checked
-            />
-            <input
-                type="radio"
-                name="options"
-                value="1d"
-                :data-title="$t('kline.option.1d')"
-                class="btn btn-xs lg:btn-sm"
-                @input="timeIntervalSelect"
-            />
-        </div>
+                <input
+                    type="radio"
+                    name="options"
+                    value="1h"
+                    :data-title="$t('kline.option.1h')"
+                    class="btn btn-xs lg:btn-sm"
+                    @input="timeIntervalSelect"
+                    checked
+                />
+                <input
+                    type="radio"
+                    name="options"
+                    value="1d"
+                    :data-title="$t('kline.option.1d')"
+                    class="btn btn-xs lg:btn-sm"
+                    @input="timeIntervalSelect"
+                />
+            </div>
+            <span class="tooltip tooltip-right ml-1 align-middle tooltip-primary" :data-tip="$t('kline.refresh')">
+                <n-icon class="hover:text-primary" :component="ArrowSyncCircle20Filled" size="28" :depth="3" />
+            </span>
+        </n-space>
+
         <div ref="chartRef" class="w-full h-full relative ml-3">
             <div class="absolute top-3 z-20 ml-5">
                 <span></span>
