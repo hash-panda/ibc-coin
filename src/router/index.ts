@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/:pathMatch(.*)*',
         name: '404',
-        component: () => import('@/views/404/404'),
+        component: () => import('@/views/404/404.vue'),
     },
 ]
 const router = createRouter({
@@ -53,6 +53,7 @@ const router = createRouter({
 })
 
 router.afterEach((to, from, next) => {
+    console.log('router afterEach', to, from)
     //遍历meta改变title
     if (to.meta.title) {
         document.title = to.meta.title as string

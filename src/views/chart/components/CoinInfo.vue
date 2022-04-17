@@ -3,7 +3,7 @@ import { watch, onMounted } from 'vue'
 import { ArrowRepeatAll16Regular } from '@vicons/fluent'
 import { CoinPair } from '@/types/types'
 import { useTokenStore } from '@/store/token'
-import { formatAmountWithDollar, formatAmountWithDollarDecimal } from '@/utils'
+import { formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useRequest } from 'vue-request'
 import { queryTokenStaticStatusListByChain } from '@/api'
@@ -52,7 +52,9 @@ const openTokensList = () => {
             <div class="flex flex-row">
                 <div class="w-full">
                     <div class="card-title inline-block text-bottom">
-                        <span class="tx-xl lg:text-3xl tracking-widest text-base-content uppercase">{{ tokenStore.currentTokenInfo?.name }}</span>
+                        <span class="tx-xl lg:text-3xl tracking-widest text-base-content">
+                            {{ getTokenDisplayName(tokenStore.currentTokenInfo?.name) }}
+                        </span>
                         <!-- <span
                             class="tooltip tooltip-right ml-1 align-middle tooltip-primary"
                             :data-tip="$t('chart.coinInfo.openCoinPairList')"

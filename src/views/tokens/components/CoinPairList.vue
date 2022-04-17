@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h } from 'vue'
 import { CoinPair } from '@/types/types'
-import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal } from '@/utils'
+import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
 import { Delicious } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'
@@ -32,10 +32,10 @@ const columns = computed(() => {
                         h('div', { class: 'ml-2' }, [
                             h(
                                 'div',
-                                { class: 'font-bold btn-link link link-hover uppercase', onClick: () => openChart(row) },
-                                { default: () => row.name },
+                                { class: 'font-bold btn-link link link-hover', onClick: () => openChart(row) },
+                                { default: () => getTokenDisplayName(row.name) },
                             ),
-                            h('div', { class: 'text-xs	opacity-50 uppercase' }, { default: () => row.coinPair }),
+                            h('div', { class: 'text-xs	opacity-50' }, { default: () => row.coinPair }),
                         ]),
                     ],
                 )

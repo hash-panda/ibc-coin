@@ -1,17 +1,25 @@
 <script setup lang="ts">
-import { onActivated } from 'vue'
+import { onActivated, onMounted } from 'vue'
 import KLine from './components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
 import CoinInfo from './components/CoinInfo.vue'
 import { useTokenStore } from '@/store/token'
 import { useTitle } from '@vueuse/core'
+import { getTokenDisplayName } from '@/utils'
+import { useRouter, useRoute } from 'vue-router'
 
 const tokenStore = useTokenStore()
+const router = useRouter()
+const route = useRoute()
 
 onActivated(() => {
-    const currentDocumentTitle = useTitle(
-        `${tokenStore.currentTokenInfo.name?.toUpperCase()}(${tokenStore.currentTokenInfo.chain}) Price & Chart - IBCcoin.org`,
-    )
+    const currentDocumentTitle = useTitle(`${getTokenDisplayName(tokenStore.currentTokenInfo.name)} Price & Chart - IBCcoin.org`)
+})
+
+onMounted(() => {
+    if (route.meta.tokenId) {
+        tokenStore.setCurrentTokenInfo({ tokenId: route.meta.tokenId as string, chain: 'crescent' })
+    }
 })
 </script>
 <template>
