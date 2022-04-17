@@ -42,6 +42,7 @@ const darkThemeOverrides = {
         tdPaddingMedium: '15px',
         tdColor: 'rgba(23, 18, 18, 1)',
         thColor: 'rgba(20, 16, 16, 1)',
+        borderColor: 'rgba(45, 45, 48, 0.2)',
         thColorHover: 'rgba(20, 16, 16, 1)',
         tdColorHover: 'rgba(20, 16, 16, 1)',
     },
@@ -50,8 +51,8 @@ const darkThemeOverrides = {
 
 <template>
     <n-config-provider
-        :locale="zhCN"
-        :date-locale="dateZhCN"
+        :locale="appStore.locale === 'zh-CN' ? zhCN : null"
+        :date-locale="appStore.locale === 'zh-CN' ? dateZhCN : null"
         :theme="appStore.isDark ? null : darkTheme"
         :theme-overrides="appStore.isDark ? lightThemeOverrides : darkThemeOverrides"
     >

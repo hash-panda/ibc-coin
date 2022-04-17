@@ -12,7 +12,6 @@ declare module 'vue' {
     NAnchorLink: typeof import('naive-ui')['NAnchorLink']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NavNav: typeof import('./src/components/nav/Nav.vue')['default']
-    NBadge: typeof import('naive-ui')['NBadge']
     NButton: typeof import('naive-ui')['NButton']
     NDataTable: typeof import('naive-ui')['NDataTable']
     NEmpty: typeof import('naive-ui')['NEmpty']

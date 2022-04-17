@@ -23,7 +23,7 @@ const roadmapstage = computed(() => {
                 },
                 {
                     content: t('roadmap.stage1.desc4'),
-                    checked: false,
+                    checked: true,
                 },
                 {
                     content: t('roadmap.stage1.desc5'),
