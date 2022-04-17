@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, onMounted } from 'vue'
+import { watch, onMounted, onActivated } from 'vue'
 import KLine from './components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
 import CoinInfo from './components/CoinInfo.vue'
@@ -12,6 +12,9 @@ const tokenStore = useTokenStore()
 const router = useRouter()
 const route = useRoute()
 
+onActivated(() => {
+    const currentDocumentTitle = useTitle(`${getTokenDisplayName(tokenStore.currentTokenInfo.name)} Price & Chart - IBCcoin.org`)
+})
 watch(
     () => tokenStore.currentTokenInfo.name,
     () => {
