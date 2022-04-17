@@ -46,7 +46,7 @@ export default {
     'roadmap.stage2.desc3': 'App UI Refresh: The awesome UI you see when interacting with the web',
     'roadmap.stage2.desc4': 'Add the feature of collecting currency',
     'roadmap.stage2.desc5': 'VIP membership system design',
-    'roadmap.stage2.desc6': 'Launch IBCCoin DAO',
+    'roadmap.stage2.desc6': 'Launch IBCcoin DAO',
 
     'roadmap.stage3.title': 'Stage 3',
     'roadmap.stage3.desc1': 'Increase marketing',
@@ -59,10 +59,10 @@ export default {
     'partner.iCosmosDAO.desc': 'Community, media and node operators focusing on Cosmos ecology',
 
     'faq.title': 'Frequently Asked Questions',
-    'faq.question1.ask': 'What is the goal of IBCCoin?',
+    'faq.question1.ask': 'What is the goal of IBCcoin?',
     'faq.question1.answer':
-        'IBCCoin wants to be the Nansen + Coinhall of the Cosmos ecosystem, and hopes to actively contribute to the Cosmos ecosystem.',
-    'faq.question2.ask': 'Will IBCCoin have an airdrop?',
+        'IBCcoin wants to be the Nansen + Coinhall of the Cosmos ecosystem, and hopes to actively contribute to the Cosmos ecosystem.',
+    'faq.question2.ask': 'Will IBCcoin have an airdrop?',
     'faq.question2.answer': 'We may also airdrop in the future, the specific form and the user group of the reward are temporarily uncertain.',
     'faq.question3.ask': '',
     'faq.question3.answer': '',
@@ -71,7 +71,7 @@ export default {
 
     'donation.title': 'Donation',
     'donation.desc':
-        'Thank you for your continuing support for IBCCoin! Any fund contributing here will be used by the team to do lots of amazing things.',
+        'Thank you for your continuing support for IBCcoin! Any fund contributing here will be used by the team to do lots of amazing things.',
     'donation.table.header.chain': 'Chain',
     'donation.table.header.address': 'Address',
     'donation.btn.gotoDonation': 'Go to Donate',

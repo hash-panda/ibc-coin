@@ -8,7 +8,7 @@ import './api/core/vue-request'
 import './assets/style/tailwind.css'
 
 const app = createApp(App)
-app.use(router)
 app.use(store)
+app.use(router)
 app.use(i18n)
 app.mount('#app')

@@ -1,6 +1,8 @@
 import { ExtractValue, SelectItem } from '@/types/types'
 import { accDiv } from './acc'
 import numeral from 'numeral'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 
 export function getActualAmount(amount: string | number, presicion?: number) {
     return accDiv(Number(amount), presicion ?? 1e6)
@@ -16,6 +18,31 @@ export function getFixedAmount(amount: string | number, decimal: number = 2) {
 
 export function formatAmountWithDollar(amount: string | number, decimal: number = 0) {
     if (amount) {
+        const decimalLength = Array(decimal ? decimal + 1 : 0).join('0')
+        return numeral(amount).format(`$0,0.[${decimalLength}]`)
+    } else {
+        return '--'
+    }
+}
+
+/**
+ * 根据精度自动格式化
+ * @param amount
+ * @param decimal
+ * @returns
+ */
+export function formatAmountWithDollarDecimal(amount: string | number) {
+    if (amount) {
+        let decimal = 0
+        if (amount > 1) {
+            decimal = 2
+        } else if (amount >= 0.01 && amount < 1) {
+            decimal = 4
+        } else if (amount >= 0.0001 && amount < 0.01) {
+            decimal = 6
+        } else {
+            decimal = 8
+        }
         const decimalLength = Array(decimal ? decimal + 1 : 0).join('0')
         return numeral(amount).format(`$0,0.[${decimalLength}]`)
     } else {
@@ -87,4 +114,14 @@ export const getImageSrc = (name: string) => {
     } else {
         return new URL(`../assets/images/${name}`, import.meta.url).href
     }
+}
+
+export function timeToLocal(originalTime) {
+    const d = new Date(originalTime * 1000)
+    return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds()) / 1000
+}
+
+export function transformTime(timestamp) {
+    dayjs.extend(utc)
+    return dayjs.utc(timestamp * 1000).format('YYYY/MM/DD HH:mm:ss')
 }

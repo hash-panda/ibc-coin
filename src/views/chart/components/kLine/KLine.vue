@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
-import { createChart } from 'lightweight-charts'
+import { createChart, UTCTimestamp } from 'lightweight-charts'
 import { ArrowSyncCircle20Filled } from '@vicons/fluent'
 import areaSeriesData from './mock/areaSeriesData'
 import volumeSeriesData from './mock/volumeSeriesData'
 import candlestickSeriesData from './mock/candlestickSeriesData'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import { useAppStore } from '@/store/app'
 import { useTokenStore } from '@/store/token'
 import { useRequest } from 'vue-request'
 import { queryKLine, KLineRequestParams } from '@/api'
 import { isIntersectionTypeAnnotation } from '@babel/types'
+import { timeToLocal } from '@/utils'
 
 interface KLine {}
 
@@ -25,7 +27,7 @@ const timeSelect = ref('1h')
 const chartRef = ref(null)
 const lastUpdateTime = ref<any>()
 const legend = ref({
-    time: '',
+    // time: '',
     open: 0,
     close: 0,
     high: 0,
@@ -60,6 +62,7 @@ const initCharts = () => {
             },
             timeScale: {
                 timeVisible: true,
+                // secondsVisible: true,
                 secondsVisible: false,
             },
             watermark: {
@@ -68,7 +71,7 @@ const initCharts = () => {
                 horzAlign: 'center',
                 vertAlign: 'center',
                 color: appStore.isDark ? '#efefef' : '#241c1c',
-                text: 'IBCCoin.org',
+                text: 'IBCcoin.org',
             },
             // crosshair: {
             //   vertLine: {
@@ -137,8 +140,8 @@ const initCharts = () => {
         chart.value.subscribeCrosshairMove(param => {
             if (param.time) {
                 const price: any = param.seriesPrices.get(candlestickSeries)
+                dayjs.extend(utc)
                 legend.value = {
-                    time: dayjs.unix(param.time).format('YYYY-MM-DD HH:mm'),
                     open: price.open,
                     close: price.close,
                     low: price.low,
@@ -157,9 +160,9 @@ const initCharts = () => {
                     dayjs.unix(newVisibleTimeRange.from).format('YYYY-MM-DD HH:mm:ss'),
                     dayjs.unix(newVisibleTimeRange.to).format('YYYY-MM-DD HH:mm:ss'),
                 )
-                if (lastUpdateTime.value - newVisibleTimeRange.from > 1000 * 600) {
-                    fetchKLine(lastUpdateTime.value)
-                }
+                // if (lastUpdateTime.value - newVisibleTimeRange.from > 1000 * 600) {
+                //     fetchKLine(lastUpdateTime.value)
+                // }
             }
         })
         chart.value.timeScale().subscribeVisibleLogicalRangeChange(newVisibleLogicalRange => {
@@ -171,9 +174,9 @@ const initCharts = () => {
                     dayjs.unix(newVisibleLogicalRange.from).format('YYYY-MM-DD HH:mm:ss'),
                     dayjs.unix(newVisibleLogicalRange.to).format('YYYY-MM-DD HH:mm:ss'),
                 )
-                if (newVisibleLogicalRange.from < -10) {
-                    updateKLine(lastUpdateTime.value)
-                }
+                // if (newVisibleLogicalRange.from < -10) {
+                //     updateKLine(lastUpdateTime.value)
+                // }
             }
         })
     } catch (e) {
@@ -284,70 +287,64 @@ const timeIntervalSelect = value => {
 </script>
 <template>
     <div class="w-full h-full">
-        <n-space size="large">
-            <div class="btn-group ml-3 mb-3">
-                <!-- <input
+        <div class="btn-group ml-3 mb-3">
+            <input
                 type="radio"
                 name="options"
                 value="5s"
                 :data-title="$t('kline.option.5s')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
-                <!-- <input
+            />
+            <input
                 type="radio"
                 name="options"
                 value="30s"
                 :data-title="$t('kline.option.30s')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
-                <!-- <input
+            />
+            <input
                 type="radio"
                 name="options"
                 value="5m"
                 :data-title="$t('kline.option.5m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
-                <!-- <input
+            />
+            <input
                 type="radio"
                 name="options"
                 value="30m"
                 :data-title="$t('kline.option.30m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-            /> -->
-                <input
-                    type="radio"
-                    name="options"
-                    value="1h"
-                    :data-title="$t('kline.option.1h')"
-                    class="btn btn-xs lg:btn-sm"
-                    @input="timeIntervalSelect"
-                    checked
-                />
-                <input
-                    type="radio"
-                    name="options"
-                    value="1d"
-                    :data-title="$t('kline.option.1d')"
-                    class="btn btn-xs lg:btn-sm"
-                    @input="timeIntervalSelect"
-                />
-            </div>
-            <span class="tooltip tooltip-right ml-1 align-middle tooltip-primary" :data-tip="$t('kline.refresh')">
-                <n-icon class="hover:text-primary" :component="ArrowSyncCircle20Filled" size="28" :depth="3" />
-            </span>
-        </n-space>
-
+            />
+            <input
+                type="radio"
+                name="options"
+                value="1h"
+                :data-title="$t('kline.option.1h')"
+                class="btn btn-xs lg:btn-sm"
+                @input="timeIntervalSelect"
+                checked
+            />
+            <input
+                type="radio"
+                name="options"
+                value="1d"
+                :data-title="$t('kline.option.1d')"
+                class="btn btn-xs lg:btn-sm"
+                @input="timeIntervalSelect"
+            />
+        </div>
         <div ref="chartRef" class="w-full h-full relative ml-3">
             <div class="absolute top-3 z-20 ml-5">
                 <span></span>
                 <n-space class="text-xs">
-                    <span>
+                    <!-- <span>
                         <span class="text-base-content opacity-50">{{ legend.time }}</span>
-                    </span>
+                    </span> -->
                     <span>
                         <span class="text-base-content opacity-50">{{ $t('kline.open') }}:</span>
                         <span class="text-accent">{{ legend.open }}</span>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h } from 'vue'
 import { CoinPair } from '@/types/types'
-import { getImageSrc, formatAmountWithDollar } from '@/utils'
+import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal } from '@/utils'
 import { Delicious } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'

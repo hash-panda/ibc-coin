@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { DISPLAY_COIN_LIST } from '@/const/displayCoinList'
-import { getActualAmount, getFixedAmount } from '@/utils'
-import dayjs from 'dayjs'
-import { NumberFormatResult } from 'vue-i18n'
+import { getActualAmount, getFixedAmount, timeToLocal, transformTime } from '@/utils'
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
 export const getAtomPriceApi = () => {
@@ -130,8 +128,7 @@ export const queryKLine = (requestParams: KLineRequestParams) => {
                 if (res.code === 0) {
                     const result = res.data.map(v => {
                         return {
-                            time: v.k_line_start_timestamp,
-                            // time: dayjs.unix(v.k_line_start_timestamp).format('YYYY-MM-DD HH:mm:ss'),
+                            time: timeToLocal(v.k_line_start_timestamp),
                             open: v.open_price,
                             high: v.max_price,
                             low: v.min_price,

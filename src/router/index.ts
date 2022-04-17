@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import PageLayout from '@/layout/page-layout.vue'
 import appRoutes from './app'
+import { useTitle } from '@vueuse/core'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -49,6 +50,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+})
+
+router.afterEach((to, from, next) => {
+    //遍历meta改变title
+    if (to.meta.title) {
+        document.title = to.meta.title as string
+    } else {
+        useTitle('Data Analysis of Cosmos Ecosystem - IBCcoin.org')
+    }
+    window.scrollTo(0, 0)
 })
 
 export default router

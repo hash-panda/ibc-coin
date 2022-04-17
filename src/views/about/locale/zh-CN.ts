@@ -45,7 +45,7 @@ export default {
     'roadmap.stage2.desc3': '应用 UI 更新：您在与 Web 交互时看到的 UI 页面更新',
     'roadmap.stage2.desc4': '增加收藏币种功能',
     'roadmap.stage2.desc5': 'VIP 会员体系设计',
-    'roadmap.stage2.desc6': '启动 IBCCoin DAO',
+    'roadmap.stage2.desc6': '启动 IBCcoin DAO',
 
     'roadmap.stage3.title': '阶段 3',
     'roadmap.stage3.desc1': '市场增长',
@@ -58,9 +58,9 @@ export default {
     'partner.iCosmosDAO.desc': '专注于 Cosmos 生态的社区、媒体和节点运营机构',
 
     'faq.title': '常见问题',
-    'faq.question1.ask': 'IBCCoin 目标是什么？',
-    'faq.question1.answer': 'IBCCoin 想做 Cosmos 生态的 Nansen + Coinhall，希望积极为 Cosmos 生态做贡献。',
-    'faq.question2.ask': 'IBCCoin 会有空投么？',
+    'faq.question1.ask': 'IBCcoin 目标是什么？',
+    'faq.question1.answer': 'IBCcoin 想做 Cosmos 生态的 Nansen + Coinhall，希望积极为 Cosmos 生态做贡献。',
+    'faq.question2.ask': 'IBCcoin 会有空投么？',
     'faq.question2.answer': '我们在未来可能也会空投，具体的形式以及奖励的用户群体暂时不确定。',
     'faq.question3.ask': '',
     'faq.question3.answer': '',
@@ -68,7 +68,7 @@ export default {
     'faq.question4.answer': '',
 
     'donation.title': '捐赠',
-    'donation.desc': '感谢您一直以来对 IBCCoin 的支持！在这里贡献的任何资金都将被团队用来做许多令人惊奇的事情！',
+    'donation.desc': '感谢您一直以来对 IBCcoin 的支持！在这里贡献的任何资金都将被团队用来做许多令人惊奇的事情！',
     'donation.table.header.chain': '链',
     'donation.table.header.address': '地址',
     'donation.btn.gotoDonation': '去捐赠',
