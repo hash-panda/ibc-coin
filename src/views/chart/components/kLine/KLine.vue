@@ -23,7 +23,7 @@ interface emitType {
 const isInit = ref(true)
 const tokenStore = useTokenStore()
 const appStore = useAppStore()
-const timeSelect = ref('1h')
+const timeSelect = ref('5m')
 const chartRef = ref(null)
 const lastUpdateTime = ref<any>()
 const legend = ref({
@@ -39,8 +39,8 @@ let candlestickSeries: any = {}
 const initCharts = () => {
     try {
         chart.value = createChart(chartRef.value, {
-            width: chartRef._value.offsetWidth,
-            height: chartRef._value.offsetHeight - 90,
+            width: chartRef._value?.offsetWidth,
+            height: chartRef._value?.offsetHeight - 90,
             rightPriceScale: {
                 scaleMargins: {
                     top: 0.1,
@@ -62,8 +62,7 @@ const initCharts = () => {
             },
             timeScale: {
                 timeVisible: true,
-                // secondsVisible: true,
-                secondsVisible: false,
+                secondsVisible: true,
             },
             watermark: {
                 visible: true,
@@ -90,8 +89,8 @@ const initCharts = () => {
         window.addEventListener('resize', resize, false)
         function resize() {
             chart.value.applyOptions({
-                width: chartRef._value.offsetWidth,
-                height: chartRef._value.offsetHeight - 90,
+                width: chartRef._value?.offsetWidth,
+                height: chartRef._value?.offsetHeight ?? 500 - 90,
             })
             setTimeout(() => {
                 chart.value.timeScale().fitContent()
@@ -311,6 +310,7 @@ const timeIntervalSelect = value => {
                 :data-title="$t('kline.option.5m')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
+                checked
             />
             <input
                 type="radio"
@@ -327,7 +327,6 @@ const timeIntervalSelect = value => {
                 :data-title="$t('kline.option.1h')"
                 class="btn btn-xs lg:btn-sm"
                 @input="timeIntervalSelect"
-                checked
             />
             <input
                 type="radio"
