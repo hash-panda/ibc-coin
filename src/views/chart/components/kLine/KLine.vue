@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { createChart, UTCTimestamp } from 'lightweight-charts'
+import { ArrowSyncCircle20Filled } from '@vicons/fluent'
 import areaSeriesData from './mock/areaSeriesData'
 import volumeSeriesData from './mock/volumeSeriesData'
 import candlestickSeriesData from './mock/candlestickSeriesData'

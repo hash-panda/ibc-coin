@@ -9,4 +9,5 @@ export default {
     'kline.high': 'high',
     'kline.low': 'low',
     'kline.close': 'close',
+    'kline.refresh': 'Refresh',
 }

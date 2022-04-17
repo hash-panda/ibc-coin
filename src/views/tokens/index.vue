@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
 import CoinPairList from '@/views/tokens/components/CoinPairList.vue'
 import { queryTokenStaticStatusListByChain } from '@/api'
 import { useRequest } from 'vue-request'
@@ -42,18 +43,33 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
     },
 })
+
+const tokenList = reactive([
+    {
+        key: 'Crescent',
+        name: 'crescent',
+        data: crescentList as any,
+    },
+    {
+        key: 'Osmosis',
+        name: 'osmosis',
+        data: osmoList as any,
+    },
+    {
+        key: 'JunoSwap',
+        name: 'junoswap',
+        data: junoList as any,
+    },
+])
 </script>
 <template>
-    <div class="w-full px-2 lg:px-36 xl:px-72 mt-10">
-        <n-tabs type="card">
-            <n-tab-pane name="Crescent" tab="Crescent">
-                <CoinPairList key="Crescent" :coin-pair-list="(crescentList as any)" />
-            </n-tab-pane>
-            <n-tab-pane name="Osmosis" tab="Osmosis">
-                <CoinPairList key="Osmosis" :coin-pair-list="(osmoList as any)" />
-            </n-tab-pane>
-            <n-tab-pane name="JunoSwap" tab="Junoswap">
-                <CoinPairList key="Junoswap" :coin-pair-list="(junoList as any)" />
+    <div class="w-full px-2 lg:px-36 xl:px-72 mt-4">
+        <n-tabs type="card" :animated="true" :bar-width="200">
+            <n-tab-pane v-for="item in tokenList" :key="item.key" :name="item.name">
+                <template #tab>
+                    {{ item.key }}
+                </template>
+                <CoinPairList key="Crescent" :coin-pair-list="item.data" />
             </n-tab-pane>
         </n-tabs>
     </div>

@@ -53,13 +53,13 @@ const openTokensList = () => {
                 <div class="w-full">
                     <div class="card-title inline-block text-bottom">
                         <span class="tx-xl lg:text-3xl tracking-widest text-base-content uppercase">{{ tokenStore.currentTokenInfo?.name }}</span>
-                        <span
+                        <!-- <span
                             class="tooltip tooltip-right ml-1 align-middle tooltip-primary"
                             :data-tip="$t('chart.coinInfo.openCoinPairList')"
                             @click="openTokensList"
                         >
                             <n-icon class="hover:text-primary" :component="ArrowRepeatAll16Regular" size="28" :depth="3" />
-                        </span>
+                        </span> -->
                         <!-- <span
                             class="tooltip tooltip-bottom ml-2"
                             :data-tip="$t('chart.coinInfo.openWeb')"
