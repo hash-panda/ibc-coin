@@ -16,6 +16,13 @@ const router = useRouter()
 const pagination = { pageSize: 9 }
 const tokenStore = useTokenStore()
 
+const renderSorterIcon = (order: string | boolean) => {
+    const style = 'transform: translateY(-3px);'
+    if (order === false) return h('div', { style }, ['🤔'])
+    if (order === 'ascend') return h('div', { style }, ['👆'])
+    if (order === 'descend') return h('div', { style }, ['👇'])
+}
+
 const columns = computed(() => {
     return [
         {
@@ -48,10 +55,7 @@ const columns = computed(() => {
                 return h('span', {}, formatAmountWithDollarDecimal(row.currentPrice))
             },
             renderSorterIcon: ({ order }) => {
-                const style = 'transform: translateY(-3px);'
-                if (order === false) return h('div', { style }, ['🤔'])
-                if (order === 'ascend') return h('div', { style }, ['👆'])
-                if (order === 'descend') return h('div', { style }, ['👇'])
+                return renderSorterIcon(order)
             },
             sorter: (row1, row2) => row1.currentPrice - row2.currentPrice,
         },
@@ -62,10 +66,7 @@ const columns = computed(() => {
                 return h('span', {}, formatAmountWithDollar(row.marketCap))
             },
             renderSorterIcon: ({ order }) => {
-                const style = 'transform: translateY(-3px);'
-                if (order === false) return h('div', { style }, ['🤔'])
-                if (order === 'ascend') return h('div', { style }, ['👆'])
-                if (order === 'descend') return h('div', { style }, ['👇'])
+                return renderSorterIcon(order)
             },
             sorter: (row1, row2) => row1.marketCap - row2.marketCap,
         },
@@ -77,10 +78,7 @@ const columns = computed(() => {
             },
             defaultSortOrder: 'descend',
             renderSorterIcon: ({ order }) => {
-                const style = 'transform: translateY(-3px);'
-                if (order === false) return h('div', { style }, ['🤔'])
-                if (order === 'ascend') return h('div', { style }, ['👆'])
-                if (order === 'descend') return h('div', { style }, ['👇'])
+                return renderSorterIcon(order)
             },
             sorter: (row1, row2) => row1.totalVolume - row2.totalVolume,
         },
@@ -97,10 +95,7 @@ const columns = computed(() => {
                 )
             },
             renderSorterIcon: ({ order }) => {
-                const style = 'transform: translateY(-3px);'
-                if (order === false) return h('div', { style }, ['🤔'])
-                if (order === 'ascend') return h('div', { style }, ['👆'])
-                if (order === 'descend') return h('div', { style }, ['👇'])
+                return renderSorterIcon(order)
             },
             sorter: (row1, row2) => row1.dailyPriceChangeInPercentage - row2.dailyPriceChangeInPercentage,
         },
@@ -122,6 +117,7 @@ const columns = computed(() => {
 })
 
 const openChart = (coin: CoinPair) => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaa', coin)
     tokenStore.setCurrentTokenInfo(coin)
     router.push({
         name: 'chart',

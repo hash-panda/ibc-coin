@@ -53,10 +53,8 @@ const router = createRouter({
 })
 
 router.afterEach((to, from, next) => {
-    console.log('router afterEach', to, from)
     //遍历meta改变title
-    if (to.meta.title) {
-        document.title = to.meta.title as string
+    if (to.meta.customizeTitle) {
     } else {
         useTitle('Data Analysis of Cosmos Ecosystem - IBCcoin.org')
     }
