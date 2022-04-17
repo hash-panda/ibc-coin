@@ -4,6 +4,7 @@ import Message from '@/components/message/Message.vue'
 import { useAppStore } from '@/store/app'
 
 const appStore = useAppStore()
+
 const themeOverrides: GlobalThemeOverrides = {
     Card: {
         color: 'rgba(42, 48, 60, 1)',
