@@ -5,29 +5,45 @@ import { useAppStore } from '@/store/app'
 
 const appStore = useAppStore()
 
-const lightThemeOverrides = {
-    Card: {
-        color: 'rgba(42, 48, 60, 1)',
+const common = {
+    Common: {
+        fontWeightStrong: '600',
+        primaryColor: '#1eb853FF',
+        primaryColorHover: '#1eb853FF',
+        primaryColorPressed: '#1eb853FF',
+        primaryColorSuppl: '#1eb853FF',
     },
     Tabs: {
         tabTextColorActiveCard: '#1eb853FF',
     },
     DataTable: {
-        tdPaddingLarge: '16px',
+        // tdPaddingMedium: '15px',
+    },
+    Pagination: {
+        itemTextColorHover: '#1eb853FF',
+        itemTextColorPressed: '#1eb853FF',
+        itemTextColorActive: '#1eb853FF',
+    },
+}
+
+const lightThemeOverrides = {
+    ...common,
+    Card: {
+        color: 'rgba(42, 48, 60, 1)',
+    },
+    DataTable: {
+        // tdPaddingMedium: '15px',
     },
 }
 
 const darkThemeOverrides = {
-    Card: {
-        color: 'rgba(42, 48, 60, 1)',
-    },
-    Tabs: {
-        tabTextColorActiveCard: '#1eb853FF',
-    },
+    ...common,
     DataTable: {
-        tdPaddingLarge: '16px',
+        tdPaddingMedium: '15px',
         tdColor: 'rgba(23, 18, 18, 1)',
         thColor: 'rgba(20, 16, 16, 1)',
+        thColorHover: 'rgba(20, 16, 16, 1)',
+        tdColorHover: 'rgba(20, 16, 16, 1)',
     },
 }
 </script>

@@ -13,7 +13,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
-const pagination = { pageSize: 10 }
+const pagination = { pageSize: 9 }
 const tokenStore = useTokenStore()
 
 const columns = computed(() => {
@@ -21,19 +21,37 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.coinPair'),
             key: 'name',
-
-            // render: row => {
-            //     return h('NAvatar', {
-            //         size: 48,
-            //         src: row.avatar,
-            //     })
-            // },
+            render: row => {
+                return h(
+                    'div',
+                    {
+                        class: 'flex items-center',
+                    },
+                    [
+                        h('div', { class: 'avatar' }, h('div', { class: 'mask mask-squircle w-8 h-8' }, h('img', { src: getImageSrc(row.icon) }))),
+                        h('div', { class: 'ml-2' }, [
+                            h(
+                                'div',
+                                { class: 'font-bold btn-link link link-hover uppercase', onClick: () => openChart(row) },
+                                { default: () => row.name },
+                            ),
+                            h('div', { class: 'text-xs	opacity-50 uppercase' }, { default: () => row.coinPair }),
+                        ]),
+                    ],
+                )
+            },
         },
         {
             title: t('tokens.table.header.price'),
             key: 'currentPrice',
             render: row => {
-                return h('span', {}, formatAmountWithDollar(row.currentPrice, 8))
+                return h('span', {}, formatAmountWithDollarDecimal(row.currentPrice))
+            },
+            renderSorterIcon: ({ order }) => {
+                const style = 'transform: translateY(-3px);'
+                if (order === false) return h('div', { style }, ['🤔'])
+                if (order === 'ascend') return h('div', { style }, ['👆'])
+                if (order === 'descend') return h('div', { style }, ['👇'])
             },
             sorter: (row1, row2) => row1.currentPrice - row2.currentPrice,
         },
@@ -43,6 +61,12 @@ const columns = computed(() => {
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.marketCap))
             },
+            renderSorterIcon: ({ order }) => {
+                const style = 'transform: translateY(-3px);'
+                if (order === false) return h('div', { style }, ['🤔'])
+                if (order === 'ascend') return h('div', { style }, ['👆'])
+                if (order === 'descend') return h('div', { style }, ['👇'])
+            },
             sorter: (row1, row2) => row1.marketCap - row2.marketCap,
         },
         {
@@ -50,6 +74,13 @@ const columns = computed(() => {
             key: 'totalVolume',
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.totalVolume))
+            },
+            defaultSortOrder: 'descend',
+            renderSorterIcon: ({ order }) => {
+                const style = 'transform: translateY(-3px);'
+                if (order === false) return h('div', { style }, ['🤔'])
+                if (order === 'ascend') return h('div', { style }, ['👆'])
+                if (order === 'descend') return h('div', { style }, ['👇'])
             },
             sorter: (row1, row2) => row1.totalVolume - row2.totalVolume,
         },
@@ -65,11 +96,27 @@ const columns = computed(() => {
                     row.dailyPriceChangeInPercentage > 0 ? `+${row.dailyPriceChangeInPercentage} %` : `${row.dailyPriceChangeInPercentage} %`,
                 )
             },
+            renderSorterIcon: ({ order }) => {
+                const style = 'transform: translateY(-3px);'
+                if (order === false) return h('div', { style }, ['🤔'])
+                if (order === 'ascend') return h('div', { style }, ['👆'])
+                if (order === 'descend') return h('div', { style }, ['👇'])
+            },
             sorter: (row1, row2) => row1.dailyPriceChangeInPercentage - row2.dailyPriceChangeInPercentage,
         },
         {
             title: '',
             key: 'options',
+            render(row) {
+                return h(
+                    'button',
+                    {
+                        class: 'btn btn-outline btn-primary btn-sm normal-case',
+                        onClick: () => openChart(row),
+                    },
+                    { default: () => t('tokens.table.btn.chart') },
+                )
+            },
         },
     ]
 })
@@ -86,9 +133,8 @@ const openChart = (coin: CoinPair) => {
         <n-data-table
             ref="table"
             :paginate-single-page="false"
-            size="large"
             :bordered="false"
-            :bottom-bordered="false"
+            :bottom-bordered="true"
             :single-column="false"
             :columns="columns"
             :data="coinPairList"
