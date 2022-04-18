@@ -3,6 +3,7 @@ import { accDiv } from './acc'
 import numeral from 'numeral'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import tokenDisplayName from '@/const/tokenDisplayName'
 
 export function getActualAmount(amount: string | number, presicion?: number) {
     return accDiv(Number(amount), presicion ?? 1e6)
@@ -124,4 +125,17 @@ export function timeToLocal(originalTime) {
 export function transformTime(timestamp) {
     dayjs.extend(utc)
     return dayjs.utc(timestamp * 1000).format('YYYY/MM/DD HH:mm:ss')
+}
+
+export function getTokenDisplayName(token: string) {
+    if (token) {
+        const displayName = tokenDisplayName.find(v => v.key === token)
+        if (displayName) {
+            return displayName.displayNme
+        } else {
+            return token?.toUpperCase()
+        }
+    } else {
+        return ''
+    }
 }

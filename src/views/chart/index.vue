@@ -1,23 +1,31 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { watch, onMounted, onActivated } from 'vue'
 import KLine from './components/kLine/KLine.vue'
 import TradingHistory from './components/TradingHistory.vue'
-// import SwapCoin from './components/SwapCoin.vue'
 import CoinInfo from './components/CoinInfo.vue'
 import { useTokenStore } from '@/store/token'
+import { useTitle } from '@vueuse/core'
+import { getTokenDisplayName } from '@/utils'
+import { useRouter, useRoute } from 'vue-router'
 
 const tokenStore = useTokenStore()
-const setTitle = () => {
-    document.title = `${tokenStore.currentTokenInfo.name?.toUpperCase()}(${tokenStore.currentTokenInfo.chain}) Price & Chart - IBCcoin.org`
-}
+const router = useRouter()
+const route = useRoute()
+
+onActivated(() => {
+    const currentDocumentTitle = useTitle(`${getTokenDisplayName(tokenStore.currentTokenInfo.name)} Price & Chart - IBCcoin.org`)
+})
 watch(
-    () => tokenStore.currentTokenInfo.tokenId,
+    () => tokenStore.currentTokenInfo.name,
     () => {
-        setTitle()
+        const currentDocumentTitle = useTitle(`${getTokenDisplayName(tokenStore.currentTokenInfo.name)} Price & Chart - IBCcoin.org`)
     },
 )
+
 onMounted(() => {
-    setTitle()
+    if (route.meta.tokenId) {
+        tokenStore.setCurrentTokenInfo({ tokenId: route.meta.tokenId as string, chain: 'crescent' })
+    }
 })
 </script>
 <template>
@@ -30,10 +38,7 @@ onMounted(() => {
                 <div class="h-96 lg:h-full">
                     <KLine />
                 </div>
-                <!-- Chart -->
-                <!-- <SwapCoin /> -->
             </div>
-            <!-- <div class="divider lg:divider-horizontal"></div> -->
             <!-- Right -->
             <div class="lg:basis-1/2 xl:basis-2/5 2xl:basis-2/5 grid gap-2 grid-cols-1">
                 <!-- Trading Hisotry -->

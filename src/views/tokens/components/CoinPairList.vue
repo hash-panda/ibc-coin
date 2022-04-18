@@ -1,18 +1,123 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { computed, h } from 'vue'
 import { CoinPair } from '@/types/types'
-import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal } from '@/utils'
+import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
 import { Delicious } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'
+import { useI18n } from 'vue-i18n'
 
-const router = useRouter()
-const tokenStore = useTokenStore()
 const props = defineProps<{
     coinPairList: CoinPair[]
 }>()
 
+const { t } = useI18n()
+const router = useRouter()
+const pagination = { pageSize: 9 }
+const tokenStore = useTokenStore()
+
+const renderSorterIcon = (order: string | boolean) => {
+    const style = 'transform: translateY(-3px);'
+    if (order === false) return h('div', { style }, ['🤔'])
+    if (order === 'ascend') return h('div', { style }, ['👆'])
+    if (order === 'descend') return h('div', { style }, ['👇'])
+}
+
+const columns = computed(() => {
+    return [
+        {
+            title: t('tokens.table.header.coinPair'),
+            key: 'name',
+            render: row => {
+                return h(
+                    'div',
+                    {
+                        class: 'flex items-center',
+                    },
+                    [
+                        h('div', { class: 'avatar' }, h('div', { class: 'mask mask-squircle w-8 h-8' }, h('img', { src: getImageSrc(row.icon) }))),
+                        h('div', { class: 'ml-2' }, [
+                            h(
+                                'div',
+                                { class: 'font-bold btn-link link link-hover', onClick: () => openChart(row) },
+                                { default: () => getTokenDisplayName(row.name) },
+                            ),
+                            h('div', { class: 'text-xs	opacity-50' }, { default: () => row.coinPair }),
+                        ]),
+                    ],
+                )
+            },
+        },
+        {
+            title: t('tokens.table.header.price'),
+            key: 'currentPrice',
+            render: row => {
+                return h('span', {}, formatAmountWithDollarDecimal(row.currentPrice))
+            },
+            renderSorterIcon: ({ order }) => {
+                return renderSorterIcon(order)
+            },
+            sorter: (row1, row2) => row1.currentPrice - row2.currentPrice,
+        },
+        {
+            title: t('tokens.table.header.marketCap'),
+            key: 'marketCap',
+            render: row => {
+                return h('span', {}, formatAmountWithDollar(row.marketCap))
+            },
+            renderSorterIcon: ({ order }) => {
+                return renderSorterIcon(order)
+            },
+            sorter: (row1, row2) => row1.marketCap - row2.marketCap,
+        },
+        {
+            title: t('tokens.table.header.totalVolume'),
+            key: 'totalVolume',
+            render: row => {
+                return h('span', {}, formatAmountWithDollar(row.totalVolume))
+            },
+            defaultSortOrder: 'descend',
+            renderSorterIcon: ({ order }) => {
+                return renderSorterIcon(order)
+            },
+            sorter: (row1, row2) => row1.totalVolume - row2.totalVolume,
+        },
+        {
+            title: t('tokens.table.header.change'),
+            key: 'dailyPriceChangeInPercentage',
+            render: row => {
+                return h(
+                    'span',
+                    {
+                        class: row.dailyPriceChangeInPercentage > 0 ? 'font-bold text-success' : 'font-bold text-error',
+                    },
+                    row.dailyPriceChangeInPercentage > 0 ? `+${row.dailyPriceChangeInPercentage} %` : `${row.dailyPriceChangeInPercentage} %`,
+                )
+            },
+            renderSorterIcon: ({ order }) => {
+                return renderSorterIcon(order)
+            },
+            sorter: (row1, row2) => row1.dailyPriceChangeInPercentage - row2.dailyPriceChangeInPercentage,
+        },
+        {
+            title: '',
+            key: 'options',
+            render(row) {
+                return h(
+                    'button',
+                    {
+                        class: 'btn btn-outline btn-primary btn-sm normal-case',
+                        onClick: () => openChart(row),
+                    },
+                    { default: () => t('tokens.table.btn.chart') },
+                )
+            },
+        },
+    ]
+})
+
 const openChart = (coin: CoinPair) => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaa', coin)
     tokenStore.setCurrentTokenInfo(coin)
     router.push({
         name: 'chart',
@@ -21,9 +126,18 @@ const openChart = (coin: CoinPair) => {
 </script>
 <template>
     <div>
-        <div v-if="coinPairList?.length > 0" class="overflow-x-auto w-full">
+        <n-data-table
+            ref="table"
+            :paginate-single-page="false"
+            :bordered="false"
+            :bottom-bordered="true"
+            :single-column="false"
+            :columns="columns"
+            :data="coinPairList"
+            :pagination="pagination"
+        />
+        <!-- <div v-if="coinPairList?.length > 0" class="overflow-x-auto w-full">
             <table class="table w-full">
-                <!-- head -->
                 <thead>
                     <tr>
                         <th class="normal-case">{{ $t('tokens.table.header.coinPair') }}</th>
@@ -35,7 +149,6 @@ const openChart = (coin: CoinPair) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- row 1 -->
                     <tr v-for="coin in props.coinPairList" :key="coin.name" class="hover">
                         <td class="p-2 md:p-4">
                             <div class="flex items-center sm:space-x-3">
@@ -52,9 +165,7 @@ const openChart = (coin: CoinPair) => {
                         </td>
                         <td class="p-2 md:p-4">
                             <div v-if="coin.currentPrice">
-                                <span>{{ formatAmountWithDollarDecimal(coin.currentPrice) }}</span>
-                                <!-- <span class="uppercase"> {{ coin.currentPriceUnit }}</span> -->
-                                <!-- <span class="uppercase">UST</span> -->
+                                <span>{{ formatAmountWithDollar(coin.currentPrice, 8) }}</span>
                             </div>
                             <div v-else>--</div>
                             <div>
@@ -98,6 +209,6 @@ const openChart = (coin: CoinPair) => {
             <template #icon>
                 <n-icon :component="Delicious" size="38" :depth="3" />
             </template>
-        </n-empty>
+        </n-empty> -->
     </div>
 </template>

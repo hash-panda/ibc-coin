@@ -23,7 +23,7 @@ watch(
 <template>
     <div>
         <Nav />
-        <div class="content">
+        <div class="min-h-[90vh]">
             <router-view v-slot="{ Component }">
                 <transition :name="transitionName" mode="out-in">
                     <keep-alive>
@@ -35,9 +35,7 @@ watch(
                 </transition>
             </router-view>
         </div>
-        <!-- <div class="footer">
-            <Footer />
-        </div> -->
+        <Footer />
     </div>
 </template>
 <style>

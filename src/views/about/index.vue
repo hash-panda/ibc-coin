@@ -5,7 +5,6 @@ import Feature from './components/Feature.vue'
 import Partner from './components/Partner.vue'
 import Faq from './components/Faq.vue'
 import Donation from './components/Donation.vue'
-import Footer from './components/Footer.vue'
 import { LOCALE_OPTIONS } from '@/locales'
 import useLocale from '@/hooks/locale'
 import { useAppStore } from '@/store/app'
@@ -137,8 +136,5 @@ const changeTheme = () => {
         <section id="donation" ref="donationRef" class="body-font">
             <Donation />
         </section>
-
-        <!-- Footer -->
-        <Footer />
     </div>
 </template>

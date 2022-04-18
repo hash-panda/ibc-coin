@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { DISPLAY_COIN_LIST } from '@/const/displayCoinList'
-import { getActualAmount, getFixedAmount, timeToLocal, transformTime } from '@/utils'
+import { getActualAmount, getFixedAmount, timeToLocal, getTokenDisplayName } from '@/utils'
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
 export const getAtomPriceApi = () => {
@@ -92,7 +92,7 @@ export const queryTokenStaticStatusListByChain = (params: TokenStaticStatusReq) 
                             chain: v.token.chain,
                             icon: v.token.moniker,
                             name: v.token.token_name,
-                            coinPair: `${v.token.token_name} / ust`,
+                            coinPair: `${getTokenDisplayName(v.token.token_name)} / UST`,
                             currentPrice: v.price,
                             currentPriceUnit: 'ust',
                             marketCap: v.market_cap,

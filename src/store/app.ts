@@ -10,7 +10,7 @@ export const useAppStore = defineStore({
     },
     getters: {
         currentTheme(state) {
-            return state.isDark ? 'forest' : 'emerald'
+            return !state.isDark ? 'forest' : 'emerald'
         },
     },
     actions: {

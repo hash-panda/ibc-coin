@@ -9,4 +9,5 @@ export default {
     'kline.high': '高',
     'kline.low': '低',
     'kline.close': '收',
+    'kline.refresh': '刷新',
 }

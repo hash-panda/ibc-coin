@@ -18,7 +18,7 @@ export default {
     'tradingHistory.table.loadMore': 'Load more',
     'tradingHistory.table.loading': 'loading...',
     'tradingHistory.table.refresh': 'refreshing',
-    'tradingHistory.table.refreshInfo': 'Refresh data at 30-second intervals',
+    'tradingHistory.table.refreshInfo': 'Refresh data at 15-second intervals',
     'tradingHistory.table.fullHistoryBtn': 'Full History',
     'chart.tradingHistory.btn.trader': 'Trader',
     'chart.tradingHistory.btn.tx': 'Tx',
