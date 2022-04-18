@@ -88,10 +88,10 @@ const initCharts = () => {
         // 页面大小发生变化时，图表跟着变化
         window.addEventListener('resize', resize, false)
         function resize() {
-            chart.value.applyOptions({
-                width: chartRef._value?.offsetWidth,
-                height: chartRef._value?.offsetHeight ?? 500 - 90,
-            })
+            // chart.value.applyOptions({
+            //     width: chartRef._value?.offsetWidth,
+            //     height: chartRef._value?.offsetHeight ?? 500 - 90,
+            // })
             setTimeout(() => {
                 chart.value.timeScale().fitContent()
             }, 0)
