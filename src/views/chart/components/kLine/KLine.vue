@@ -34,11 +34,11 @@ const legend = ref({
     low: 0,
 })
 
-const chart: any = ref({})
+let chart = {} as any
 let candlestickSeries: any = {}
 const initCharts = () => {
     try {
-        chart.value = createChart(chartRef.value, {
+        chart = createChart(chartRef.value, {
             width: chartRef._value?.offsetWidth,
             height: chartRef._value?.offsetHeight - 90,
             rightPriceScale: {
@@ -84,27 +84,27 @@ const initCharts = () => {
             //   },
             // },
         })
-        chart.value.timeScale().fitContent()
+        chart.timeScale().fitContent()
         // 页面大小发生变化时，图表跟着变化
         window.addEventListener('resize', resize, false)
         function resize() {
-            // chart.value.applyOptions({
+            // chart.applyOptions({
             //     width: chartRef._value?.offsetWidth,
             //     height: chartRef._value?.offsetHeight ?? 500 - 90,
             // })
             setTimeout(() => {
-                chart.value.timeScale().fitContent()
+                chart.timeScale().fitContent()
             }, 0)
         }
 
-        const areaSeries = chart.value.addAreaSeries({
+        const areaSeries = chart.addAreaSeries({
             topColor: 'rgba(38,198,218, 0.56)',
             bottomColor: 'rgba(38,198,218, 0.04)',
             lineColor: 'rgba(38,198,218, 1)',
             lineWidth: 2,
         })
 
-        const volumeSeries = chart.value.addHistogramSeries({
+        const volumeSeries = chart.addHistogramSeries({
             color: '#26a69a',
             priceFormat: {
                 type: 'volume',
@@ -119,7 +119,7 @@ const initCharts = () => {
         // areaSeries.setData(areaSeriesData);
         // volumeSeries.setData(volumeSeriesData);
 
-        candlestickSeries = chart.value.addCandlestickSeries({
+        candlestickSeries = chart.addCandlestickSeries({
             upColor: '#26a59a',
             downColor: '#A52A2A',
             borderVisible: false,
@@ -136,7 +136,7 @@ const initCharts = () => {
         // candlestickSeries.updateData(data);
 
         // high low open close 展示面板数据
-        chart.value.subscribeCrosshairMove(param => {
+        chart.subscribeCrosshairMove(param => {
             if (param.time) {
                 const price: any = param.seriesPrices.get(candlestickSeries)
                 dayjs.extend(utc)
@@ -152,7 +152,7 @@ const initCharts = () => {
         })
 
         // 横坐标时间坐标更新
-        chart.value.timeScale().subscribeVisibleTimeRangeChange(newVisibleTimeRange => {
+        chart.timeScale().subscribeVisibleTimeRangeChange(newVisibleTimeRange => {
             if (newVisibleTimeRange) {
                 console.log(
                     'chart.timeScale().subscribeVisibleTimeRangeChange',
@@ -164,7 +164,7 @@ const initCharts = () => {
                 // }
             }
         })
-        chart.value.timeScale().subscribeVisibleLogicalRangeChange(newVisibleLogicalRange => {
+        chart.timeScale().subscribeVisibleLogicalRangeChange(newVisibleLogicalRange => {
             if (newVisibleLogicalRange) {
                 console.log(
                     'chart.timeScale().subscribeVisibleLogicalRangeChange',
@@ -239,7 +239,7 @@ watch(
     () => {
         reload()
         candlestickSeries.setData([])
-        chart.value.timeScale().fitContent()
+        chart.timeScale().fitContent()
         isInit.value = true
         fetchKLine()
     },
@@ -250,7 +250,7 @@ watch(
     () => {
         if (timeSelect.value) {
             candlestickSeries.setData([])
-            chart.value.timeScale().fitContent()
+            chart.timeScale().fitContent()
             isInit.value = true
             fetchKLine()
         }
@@ -261,7 +261,7 @@ watch(
 watch(
     () => appStore.isDark,
     () => {
-        chart.value.applyOptions({
+        chart.applyOptions({
             layout: {
                 backgroundColor: appStore.isDark ? '#ffffff' : '#171212',
                 textColor: appStore.isDark ? '#171212' : '#d1d4dc',
