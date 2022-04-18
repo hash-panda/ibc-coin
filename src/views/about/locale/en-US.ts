@@ -1,5 +1,5 @@
 export default {
-    'header.enterApp': 'Enter App',
+    'header.enterApp': 'Launch App',
     'header.menu.top': 'Top',
     'header.menu.feature': 'Feature',
     'header.menu.roadmap': 'Roadmap',
@@ -14,23 +14,23 @@ export default {
     'feature.title': 'Feature',
     'feature.desc': '',
     'feature.f1.title': 'K-line Chart',
-    'feature.f1.desc': 'K-line chart supports data display of 5m, 1h, and 1d dimensions',
+    'feature.f1.desc': 'K-line chart supports data display of 5m, 1h, and 1d intervals',
     'feature.f2.title': 'Data Analysis',
-    'feature.f2.desc': 'Large-value transaction monitoring, account monitoring, stake and unstake data analysis.',
+    'feature.f2.desc': 'Large transactions monitoring, accounts monitoring, stake and unstake data analysis.',
     'feature.f3.title': 'Multi-language',
-    'feature.f3.desc': 'Support Chinese and English display.',
+    'feature.f3.desc': 'Support Chinese and English.',
 
     'roadmap.title': 'Roadmap',
     'roadmap.desc': 'Roadmap may be adjusted based on project situation',
 
     'roadmap.stage1.title': 'Stage 1',
     'roadmap.stage1.desc1': 'Landing Page: Design and implement the landing page',
-    'roadmap.stage1.desc2': 'Communication Channels: Set up Twitter account',
+    'roadmap.stage1.desc2': 'Social Media: Set up Twitter account',
     'roadmap.stage1.desc3': 'Integrated osmosis candlestick chart',
     'roadmap.stage1.desc4': 'Integrated juno candlestick chart',
     'roadmap.stage1.desc5': 'Integrated other Cosmos-ecosystem candlestick chart',
     'roadmap.stage1.desc6': 'Mark whale transaction records, and support filtering and viewing',
-    'roadmap.stage1.desc7': 'Whale transaction reminder (support SMS, phone, Discord announcement and other reminder methods)',
+    'roadmap.stage1.desc7': 'Whale transaction Notifications (support SMS, phone call, Discord notification and other notification methods)',
     'roadmap.stage1.desc8': 'Price alerts (send alerts when a specified price is reached)',
     'roadmap.stage1.desc9': 'Premium Paid Membership and Donations',
     'roadmap.stage1.desc10': 'Whale address monitoring',
@@ -41,7 +41,7 @@ export default {
     'roadmap.stage1.desc15': 'Node data analysis and intelligent recommendation',
 
     'roadmap.stage2.title': 'Stage 2',
-    'roadmap.stage2.desc1': 'Web3 connection, support wallet connection login',
+    'roadmap.stage2.desc1': 'Web3 logins, support wallet connection login',
     'roadmap.stage2.desc2': 'Add swap function',
     'roadmap.stage2.desc3': 'App UI Refresh: The awesome UI you see when interacting with the web',
     'roadmap.stage2.desc4': 'Add the feature of collecting currency',
@@ -56,7 +56,7 @@ export default {
 
     'partner.title': 'Our Partner',
     'partner.defi100.desc': 'Leading Chinese crypto community',
-    'partner.iCosmosDAO.desc': 'Community, media and node operators focusing on Cosmos ecology',
+    'partner.iCosmosDAO.desc': 'Community, media and node operators focusing on Cosmos ecosystem',
 
     'faq.title': 'Frequently Asked Questions',
     'faq.question1.ask': 'What is the goal of IBCcoin?',
