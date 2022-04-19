@@ -28,7 +28,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.coinPair'),
             key: 'name',
-            width: 150,
+            width: 90,
             fixed: 'left',
             render: row => {
                 return h(
@@ -44,7 +44,7 @@ const columns = computed(() => {
                                 { class: 'font-bold btn-link link link-hover', onClick: () => openChart(row) },
                                 { default: () => getTokenDisplayName(row.name) },
                             ),
-                            h('div', { class: 'text-xs	opacity-50' }, { default: () => row.coinPair }),
+                            h('div', { class: 'text-[10px] md:text-xs opacity-50' }, { default: () => row.coinPair }),
                         ]),
                     ],
                 )
@@ -53,7 +53,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.price'),
             key: 'currentPrice',
-            width: 100,
+            width: 60,
             render: row => {
                 return h('span', {}, formatAmountWithDollarDecimal(row.currentPrice))
             },
@@ -65,7 +65,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.marketCap'),
             key: 'marketCap',
-            width: 150,
+            width: 90,
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.marketCap))
             },
@@ -77,7 +77,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.totalVolume'),
             key: 'totalVolume',
-            width: 150,
+            width: 90,
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.totalVolume))
             },
@@ -90,7 +90,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.change'),
             key: 'dailyPriceChangeInPercentage',
-            width: 140,
+            width: 80,
             render: row => {
                 return h(
                     'span',
@@ -108,7 +108,7 @@ const columns = computed(() => {
         {
             title: '',
             key: 'options',
-            width: 100,
+            width: 40,
             render(row) {
                 return h(
                     'button',
@@ -146,6 +146,7 @@ const openChart = (coin: CoinPair) => {
                 :columns="columns"
                 :data="coinPairList"
                 :pagination="pagination"
+                :scroll-x="750"
             />
         </n-space>
     </div>

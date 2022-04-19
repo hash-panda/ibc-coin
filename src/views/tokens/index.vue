@@ -63,7 +63,7 @@ const tokenList = reactive([
 ])
 </script>
 <template>
-    <div class="w-full px-2 lg:px-36 xl:px-72 mt-4">
+    <div class="w-full px-2 sm:px-6 md:px-12 lg:px-36 xl:px-72 mt-4">
         <n-tabs type="card" :animated="true" :bar-width="200">
             <n-tab-pane v-for="item in tokenList" :key="item.key" :name="item.name">
                 <template #tab>
