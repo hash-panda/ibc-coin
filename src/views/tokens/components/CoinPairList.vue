@@ -28,6 +28,8 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.coinPair'),
             key: 'name',
+            width: 150,
+            fixed: 'left',
             render: row => {
                 return h(
                     'div',
@@ -51,6 +53,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.price'),
             key: 'currentPrice',
+            width: 100,
             render: row => {
                 return h('span', {}, formatAmountWithDollarDecimal(row.currentPrice))
             },
@@ -62,6 +65,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.marketCap'),
             key: 'marketCap',
+            width: 150,
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.marketCap))
             },
@@ -73,6 +77,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.totalVolume'),
             key: 'totalVolume',
+            width: 150,
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.totalVolume))
             },
@@ -85,6 +90,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.change'),
             key: 'dailyPriceChangeInPercentage',
+            width: 140,
             render: row => {
                 return h(
                     'span',
@@ -102,6 +108,7 @@ const columns = computed(() => {
         {
             title: '',
             key: 'options',
+            width: 100,
             render(row) {
                 return h(
                     'button',
@@ -117,7 +124,6 @@ const columns = computed(() => {
 })
 
 const openChart = (coin: CoinPair) => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaa', coin)
     tokenStore.setCurrentTokenInfo(coin)
     router.push({
         name: 'chart',
@@ -126,89 +132,21 @@ const openChart = (coin: CoinPair) => {
 </script>
 <template>
     <div>
-        <n-data-table
-            ref="table"
-            :paginate-single-page="false"
-            :bordered="false"
-            :bottom-bordered="true"
-            :single-column="false"
-            :columns="columns"
-            :data="coinPairList"
-            :pagination="pagination"
-        />
-        <!-- <div v-if="coinPairList?.length > 0" class="overflow-x-auto w-full">
-            <table class="table w-full">
-                <thead>
-                    <tr>
-                        <th class="normal-case">{{ $t('tokens.table.header.coinPair') }}</th>
-                        <th class="normal-case">{{ $t('tokens.table.header.price') }}</th>
-                        <th class="normal-case">{{ $t('tokens.table.header.marketCap') }}</th>
-                        <th class="normal-case">{{ $t('tokens.table.header.totalVolume') }}</th>
-                        <th class="normal-case hidden md:table-cell">{{ $t('tokens.table.header.change') }}</th>
-                        <th class="normal-case hidden md:table-cell"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="coin in props.coinPairList" :key="coin.name" class="hover">
-                        <td class="p-2 md:p-4">
-                            <div class="flex items-center sm:space-x-3">
-                                <div class="avatar hidden sm:table-cell">
-                                    <div class="mask mask-squircle w-6 h-6 md:w-12 md:h-12">
-                                        <img :src="getImageSrc(coin.icon)" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="font-bold link link-hover uppercase" @click="openChart(coin)">{{ coin.name }}</div>
-                                    <div class="text-sm opacity-50 uppercase">{{ coin.coinPair }}</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="p-2 md:p-4">
-                            <div v-if="coin.currentPrice">
-                                <span>{{ formatAmountWithDollar(coin.currentPrice, 8) }}</span>
-                            </div>
-                            <div v-else>--</div>
-                            <div>
-                                <div class="font-bold md:hidden" :class="coin.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'">
-                                    {{
-                                        coin.dailyPriceChangeInPercentage > 0
-                                            ? '+' + coin.dailyPriceChangeInPercentage
-                                            : coin.dailyPriceChangeInPercentage
-                                    }}
-                                    %
-                                </div>
-                            </div>
-                        </td>
-                        <td class="p-2 md:p-4">
-                            <div>
-                                {{ formatAmountWithDollar(coin.marketCap) }}
-                            </div>
-                        </td>
-                        <td class="p-2 md:p-4">
-                            <div>
-                                {{ formatAmountWithDollar(coin.totalVolume) }}
-                            </div>
-                        </td>
-                        <td
-                            class="p-2 md:p-4 font-bold hidden md:table-cell"
-                            :class="coin.dailyPriceChangeInPercentage > 0 ? 'text-success' : 'text-error'"
-                        >
-                            {{ coin.dailyPriceChangeInPercentage > 0 ? '+' + coin.dailyPriceChangeInPercentage : coin.dailyPriceChangeInPercentage }}
-                            %
-                        </td>
-                        <th class="hidden sm:table-cell">
-                            <button class="btn btn-outline btn-primary btn-sm normal-case" @click="openChart(coin)">
-                                {{ $t('tokens.table.btn.chart') }}
-                            </button>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <n-empty v-else description="." class="h-96 justify-center">
-            <template #icon>
-                <n-icon :component="Delicious" size="38" :depth="3" />
-            </template>
-        </n-empty> -->
+        <n-space vertical>
+            <!-- <n-input-group>
+                <n-input :style="{ width: '40%' }" />
+                <n-button type="primary" ghost>搜索</n-button>
+            </n-input-group> -->
+            <n-data-table
+                ref="table"
+                :paginate-single-page="false"
+                :bordered="false"
+                :bottom-bordered="true"
+                :single-column="false"
+                :columns="columns"
+                :data="coinPairList"
+                :pagination="pagination"
+            />
+        </n-space>
     </div>
 </template>

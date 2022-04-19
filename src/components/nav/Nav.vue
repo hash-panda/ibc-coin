@@ -87,13 +87,13 @@ const openTokensList = () => {
                     </li>
                 </ul>
             </div>
-            <button class="flex items-center normal-case ml-5" @click="openTokensList">
+            <button class="flex items-center normal-case ml-0 md:ml-5" @click="openTokensList">
                 <div class="avatar mr-2">
                     <div class="w-8 rounded-full md:w-12">
                         <img src="@/assets/logo.png" />
                     </div>
                 </div>
-                <div class="text-base text-xl font-bold text-primary lg:text-2xl">
+                <div class="text-base text-l font-bold text-primary lg:text-2xl">
                     <span>IBC</span>
                     <span class="text-primary-focus">coin.org</span>
                 </div>

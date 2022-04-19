@@ -23,7 +23,7 @@ watch(
 <template>
     <div>
         <Nav />
-        <div class="min-h-[90vh]">
+        <div class="min-h-[90vh] p-2 md:p-0">
             <router-view v-slot="{ Component }">
                 <transition :name="transitionName" mode="out-in">
                     <keep-alive>
