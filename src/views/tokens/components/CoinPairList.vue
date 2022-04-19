@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h } from 'vue'
+import { computed, h, ref } from 'vue'
 import { CoinPair } from '@/types/types'
 import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
 import { Delicious } from '@vicons/fa'
@@ -15,6 +15,7 @@ const { t } = useI18n()
 const router = useRouter()
 const pagination = { pageSize: 9 }
 const tokenStore = useTokenStore()
+const searchKey = ref<string>('')
 
 const renderSorterIcon = (order: string | boolean) => {
     const style = 'transform: translateY(-3px);'
@@ -123,6 +124,29 @@ const columns = computed(() => {
     ]
 })
 
+const searchedData = computed(() => {
+    let result = []
+    if (searchKey.value) {
+        const findOne = props.coinPairList.find(v => v.name?.toLowerCase() === searchKey.value.toLowerCase())
+        if (findOne) {
+            result = [findOne]
+        } else {
+            result = []
+        }
+    } else {
+        result = props.coinPairList
+    }
+    return result
+})
+
+const onSearch = (value: any) => {
+    searchKey.value = value?.target?._value ?? ''
+}
+
+const onClear = () => {
+    searchKey.value = ''
+}
+
 const openChart = (coin: CoinPair) => {
     tokenStore.setCurrentTokenInfo(coin)
     router.push({
@@ -133,10 +157,16 @@ const openChart = (coin: CoinPair) => {
 <template>
     <div>
         <n-space vertical>
-            <!-- <n-input-group>
-                <n-input :style="{ width: '40%' }" />
-                <n-button type="primary" ghost>搜索</n-button>
-            </n-input-group> -->
+            <n-input-group>
+                <n-input
+                    clearable
+                    :placeholder="$t('tokens.table.btn.search.placeholder')"
+                    :style="{ width: '40%' }"
+                    @blur="onSearch"
+                    @clear="onSearch"
+                />
+                <!-- <n-button type="primary" ghost>{{ $t('tokens.table.btn.search') }}</n-button> -->
+            </n-input-group>
             <n-data-table
                 ref="table"
                 :paginate-single-page="false"
@@ -144,7 +174,7 @@ const openChart = (coin: CoinPair) => {
                 :bottom-bordered="true"
                 :single-column="false"
                 :columns="columns"
-                :data="coinPairList"
+                :data="searchedData"
                 :pagination="pagination"
                 :scroll-x="750"
             />

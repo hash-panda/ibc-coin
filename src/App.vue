@@ -6,23 +6,12 @@ import { useAppStore } from '@/store/app'
 const appStore = useAppStore()
 
 const common = {
-    Common: {
+    common: {
         fontWeightStrong: '600',
         primaryColor: '#1eb853FF',
         primaryColorHover: '#1eb853FF',
         primaryColorPressed: '#1eb853FF',
         primaryColorSuppl: '#1eb853FF',
-    },
-    Tabs: {
-        tabTextColorActiveCard: '#1eb853FF',
-    },
-    DataTable: {
-        // tdPaddingMedium: '15px',
-    },
-    Pagination: {
-        itemTextColorHover: '#1eb853FF',
-        itemTextColorPressed: '#1eb853FF',
-        itemTextColorActive: '#1eb853FF',
     },
 }
 

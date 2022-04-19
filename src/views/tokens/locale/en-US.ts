@@ -5,4 +5,6 @@ export default {
     'tokens.table.header.totalVolume': 'Volume',
     'tokens.table.header.change': 'Change(24h)',
     'tokens.table.btn.chart': 'Chart',
+    'tokens.table.btn.search': 'Search',
+    'tokens.table.btn.search.placeholder': 'Token Name',
 }
