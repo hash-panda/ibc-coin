@@ -18,22 +18,29 @@ const common = {
 const lightThemeOverrides = {
     ...common,
     Card: {
-        color: 'rgba(42, 48, 60, 1)',
+        color: 'rgba(247, 247, 250, 1)',
     },
     DataTable: {
-        // tdPaddingMedium: '15px',
+        tdPaddingMedium: '12px',
     },
 }
 
 const darkThemeOverrides = {
     ...common,
     DataTable: {
-        tdPaddingMedium: '15px',
+        tdPaddingMedium: '12px',
         tdColor: 'rgba(23, 18, 18, 1)',
         thColor: 'rgba(20, 16, 16, 1)',
         borderColor: 'rgba(45, 45, 48, 0.2)',
         thColorHover: 'rgba(20, 16, 16, 1)',
         tdColorHover: 'rgba(20, 16, 16, 1)',
+    },
+    Card: {
+        color: 'rgba(20, 16, 16, 1)',
+    },
+    Descriptions: {
+        thColor: 'rgba(23, 18, 18, 1)',
+        tdColor: 'rgba(20, 16, 16, 1)',
     },
 }
 </script>
