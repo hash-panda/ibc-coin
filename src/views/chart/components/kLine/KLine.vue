@@ -193,7 +193,7 @@ const {
     errorRetryCount: 5,
     pollingInterval: 1000 * 30,
     debounceInterval: 1000,
-    pollingWhenHidden: true,
+    pollingWhenHidden: false,
     manual: true,
     onError: error => {
         console.log('queryKLine (⊙︿⊙) something error', error)

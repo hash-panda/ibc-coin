@@ -15,7 +15,7 @@ const { data: coinDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatu
     // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
     errorRetryCount: 5,
     pollingInterval: 1000 * 10,
-    pollingWhenHidden: true,
+    pollingWhenHidden: false,
     manual: true,
     onError: error => {
         console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)

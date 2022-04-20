@@ -70,7 +70,7 @@ const { data, reload, run, refresh } = useRequest(queryTradingHistory, {
     defaultParams: [{ page_size: 50, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain }],
     errorRetryCount: 5,
     pollingInterval: 1000 * 15,
-    pollingWhenHidden: true,
+    pollingWhenHidden: false,
     manual: true,
     onError: error => {
         console.log('queryTradingHistory (⊙︿⊙) something error', error)
