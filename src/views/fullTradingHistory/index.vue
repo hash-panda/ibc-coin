@@ -91,7 +91,7 @@ const pagination = { pageSize: 10 }
 const columns = computed(() => {
     return [
         {
-            title: '交易日期',
+            title: t('fullTradingHistory.table.header.date'),
             key: 'txTimestamp',
             width: 60,
             render: row => {
@@ -99,7 +99,7 @@ const columns = computed(() => {
             },
         },
         {
-            title: '交易币对',
+            title: t('fullTradingHistory.table.header.coinPair'),
             key: 'tokenNameFrom',
             width: 50,
             render: row => {
@@ -116,7 +116,7 @@ const columns = computed(() => {
             },
         },
         {
-            title: '成交量',
+            title: t('fullTradingHistory.table.header.volume'),
             key: 'txTotalVolume',
             width: 40,
             render: row => {
@@ -133,7 +133,7 @@ const columns = computed(() => {
             },
         },
         {
-            title: '交易账户',
+            title: t('fullTradingHistory.table.header.trader'),
             key: 'userAddress',
             width: 40,
             render: row => {
@@ -141,7 +141,7 @@ const columns = computed(() => {
             },
         },
         {
-            title: '交易哈希',
+            title: t('fullTradingHistory.table.header.txHash'),
             key: 'txHash',
             width: 40,
             render: row => {
@@ -176,37 +176,37 @@ const backPage = () => {
         <n-grid cols="3" x-gap="20" y-gap="20" item-responsive>
             <n-grid-item span="3 1024:1">
                 <n-space vertical>
-                    <n-card :bordered="false" title="基础信息">
+                    <n-card :bordered="false" :title="$t('fullTradingHistory.basicInfo.title')">
                         <n-descriptions column="1" label-placement="left" size="medium" bordered>
                             <n-descriptions-item label-style="width: 150px">
-                                <template #label>币种</template>
+                                <template #label>{{ $t('fullTradingHistory.basicInfo.tokenName') }}</template>
                                 <span class="font-bold">{{ getTokenDisplayName(tokenStore.currentTokenInfo.name) }}</span>
                             </n-descriptions-item>
                             <n-descriptions-item>
-                                <template #label>链</template>
+                                <template #label>{{ $t('fullTradingHistory.basicInfo.chain') }}</template>
                                 <span class="font-bold">{{ tokenStore.currentTokenInfo.chain }}</span>
                             </n-descriptions-item>
                             <n-descriptions-item>
-                                <template #label>当前价格</template>
+                                <template #label>{{ $t('fullTradingHistory.basicInfo.currentPrice') }}</template>
                                 <span class="font-bold">{{ formatAmountWithDollarDecimal(tokenStore.currentTokenInfo.currentPrice) }}</span>
                             </n-descriptions-item>
                         </n-descriptions>
                     </n-card>
-                    <n-card :bordered="false" title="筛选">
+                    <n-card :bordered="false" :title="$t('fullTradingHistory.filter.title')">
                         <n-form ref="formRef" :model="formValue">
-                            <n-form-item label="排序规则">
+                            <n-form-item :label="$t('fullTradingHistory.filter.sortBy')">
                                 <n-switch :loading="showLoading" v-model:value="sortBy" :checked-value="true" :unchecked-value="false">
-                                    <template #checked>交易金额</template>
-                                    <template #unchecked>交易时间</template>
+                                    <template #checked>{{ $t('fullTradingHistory.filter.amount') }}</template>
+                                    <template #unchecked>{{ $t('fullTradingHistory.filter.date') }}</template>
                                 </n-switch>
                             </n-form-item>
-                            <n-form-item label="交易金额">
+                            <n-form-item :label="$t('fullTradingHistory.filter.amount')">
                                 <n-radio-group v-model:value="tradeVolumeSelected" size="small" name="radioButtonGroup" :disabled="showLoading">
                                     <n-radio-button v-for="item in tradeVolumeSelectList" :key="item.value" :value="item.value" :label="item.label" />
                                 </n-radio-group>
                             </n-form-item>
 
-                            <!-- <n-form-item label="交易账户">
+                            <!-- <n-form-item :label="$t('fullTradingHistory.filter.address')">
                                 <n-input v-model:value="formValue.user.name" placeholder="Input Name" />
                             </n-form-item> -->
                         </n-form>

@@ -6,6 +6,15 @@ import taiyang from '@/assets/images/order/taiyang.png'
 import diqiu from '@/assets/images/order/diqiu.png'
 import tuxing from '@/assets/images/order/tuxing.png'
 import yueqiu from '@/assets/images/order/yueqiu.png'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const openFullHistory = () => {
+    router.push({
+        name: 'fullTradingHistory',
+    })
+}
 </script>
 <template>
     <div>
@@ -18,37 +27,42 @@ import yueqiu from '@/assets/images/order/yueqiu.png'
                     </span>
                 </h2>
                 <div>
-                    <n-space justify="end" size="large">
-                        <n-tooltip trigger="hover">
-                            <template #trigger>
-                                <div class="avatar">
-                                    <div class="w-8 rounded-full">
-                                        <img :src="taiyang" />
+                    <n-space justify="space-between" class="items-center">
+                        <n-space size="large">
+                            <n-tooltip trigger="hover">
+                                <template #trigger>
+                                    <div class="avatar">
+                                        <div class="w-8 rounded-full">
+                                            <img :src="taiyang" />
+                                        </div>
                                     </div>
-                                </div>
-                            </template>
-                            {{ $t('chart.trading.sun.tip') }}
-                        </n-tooltip>
-                        <n-tooltip trigger="hover">
-                            <template #trigger>
-                                <div class="avatar">
-                                    <div class="w-8 rounded-full">
-                                        <img :src="tuxing" />
+                                </template>
+                                {{ $t('chart.trading.sun.tip') }}
+                            </n-tooltip>
+                            <n-tooltip trigger="hover">
+                                <template #trigger>
+                                    <div class="avatar">
+                                        <div class="w-8 rounded-full">
+                                            <img :src="tuxing" />
+                                        </div>
                                     </div>
-                                </div>
-                            </template>
-                            {{ $t('chart.trading.tuxing.tip') }}
-                        </n-tooltip>
-                        <n-tooltip trigger="hover">
-                            <template #trigger>
-                                <div class="avatar">
-                                    <div class="w-8 rounded-full">
-                                        <img :src="yueqiu" />
+                                </template>
+                                {{ $t('chart.trading.tuxing.tip') }}
+                            </n-tooltip>
+                            <n-tooltip trigger="hover">
+                                <template #trigger>
+                                    <div class="avatar">
+                                        <div class="w-8 rounded-full">
+                                            <img :src="yueqiu" />
+                                        </div>
                                     </div>
-                                </div>
-                            </template>
-                            {{ $t('chart.trading.moon.tip') }}
-                        </n-tooltip>
+                                </template>
+                                {{ $t('chart.trading.moon.tip') }}
+                            </n-tooltip>
+                        </n-space>
+                        <button class="btn btn-link" @click="openFullHistory">
+                            {{ $t('tradingHistory.table.fullHistoryBtn') }}
+                        </button>
                     </n-space>
                 </div>
                 <div class="overflow-y-auto">

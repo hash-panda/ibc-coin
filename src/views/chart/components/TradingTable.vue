@@ -110,11 +110,6 @@ const openTx = (tx: string) => {
     // TODO 各个不同的地址对应不同 mintscan 信息
     window.open(`https://www.mintscan.io/${tokenStore.currentTokenInfo.chain}/txs/${tx}`, '_blank')
 }
-const openFullHistory = () => {
-    router.push({
-        name: 'fullTradingHistory',
-    })
-}
 </script>
 <template>
     <div>
@@ -184,9 +179,7 @@ const openFullHistory = () => {
                     </tr>
                 </tbody>
             </table>
-            <button v-if="(data as any)?.length > 0" class="btn btn-block btn-link mt-2" @click="openFullHistory">
-                {{ $t('tradingHistory.table.fullHistoryBtn') }}
-            </button>
+
             <n-empty v-if="(data as any)?.length <= 0" description="." class="h-96 justify-center">
                 <template #icon>
                     <n-icon :component="Delicious" size="38" :depth="3" />

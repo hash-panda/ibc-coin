@@ -1,1 +1,16 @@
-export default {}
+export default {
+    'fullTradingHistory.basicInfo.title': 'Basic Info',
+    'fullTradingHistory.basicInfo.tokenName': 'Token Name',
+    'fullTradingHistory.basicInfo.chain': 'Chain',
+    'fullTradingHistory.basicInfo.currentPrice': 'Current Price',
+    'fullTradingHistory.filter.title': 'Filter Conditions',
+    'fullTradingHistory.filter.sortBy': 'Sort By',
+    'fullTradingHistory.filter.date': 'Trade Date',
+    'fullTradingHistory.filter.amount': 'Trade Amount',
+    'fullTradingHistory.filter.address': 'Trade Address',
+    'fullTradingHistory.table.header.date': 'Trade Date',
+    'fullTradingHistory.table.header.coinPair': 'Coin Pair',
+    'fullTradingHistory.table.header.volume': 'Volume',
+    'fullTradingHistory.table.header.trader': 'Trader',
+    'fullTradingHistory.table.header.txHash': 'Tx Hash',
+}
