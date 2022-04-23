@@ -104,6 +104,7 @@ const { data, reload, run, loading } = useRequest(queryTradingHistory, {
     errorRetryCount: 3,
     pollingInterval: 1000 * 15,
     pollingWhenHidden: false,
+    loadingDelay: 1000,
     manual: true,
     onError: error => {
         console.log('queryTradingHistory (⊙︿⊙) something error', error)
