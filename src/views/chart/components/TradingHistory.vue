@@ -74,6 +74,6 @@ const openFullHistory = () => {
 </template>
 <style scoped>
 .trade-history-height {
-    height: calc(100vh - 7.8rem);
+    height: calc(100vh - 6.8rem);
 }
 </style>

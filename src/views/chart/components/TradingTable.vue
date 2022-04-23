@@ -104,7 +104,7 @@ const { data, reload, run, loading } = useRequest(queryTradingHistory, {
     errorRetryCount: 3,
     pollingInterval: 1000 * 15,
     pollingWhenHidden: false,
-    loadingDelay: 1000,
+    loadingDelay: 1500,
     manual: true,
     onError: error => {
         console.log('queryTradingHistory (⊙︿⊙) something error', error)
@@ -136,53 +136,6 @@ const openAccountProfile = (account: string) => {
 <template>
     <div>
         <n-spin :show="loading">
-            <!-- <table class="table table-compact w-full">
-                <thead>
-                    <tr class="sticky inset-x-0 top-0 z-40">
-                        <th class="normal-case">{{ $t('chart.tradingHistory.table.date') }}</th>
-                        <th class="normal-case">{{ $t('chart.tradingHistory.table.coinPair') }}</th>
-                        <th class="normal-case">{{ $t('chart.tradingHistory.table.volume') }}</th>
-                        <th class="normal-case">{{ $t('chart.tradingHistory.table.tradeInfo') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in (data?.['items'] as any)" :key="item.id">
-                        <th class="text-xs">
-                            <div>{{ dayjs.unix(item.txTimestamp).format('YYYY-MM-DD') }}</div>
-                            <div>{{ dayjs.unix(item.txTimestamp).format('HH:mm:ss') }}</div>
-                        </th>
-                        <td class="text-xs uppercase">
-                            {{ item.tokenNameFrom }}
-                            <span class="text-error">{{ item.amountFrom }}</span>
-                            <br />
-                            {{ item.tokenNameTo }}
-                            <span class="text-success">{{ item.amountTo }}</span>
-                        </td>
-                        <td class="text-xs">
-                            {{ formatAmountWithDollar(item.txTotalVolume, 2) }}
-                        </td>
-                        <td>
-                            <div>
-                                <button @click="openAccountProfile(item.userAddress)" class="btn btn-xs btn-link btn-primary normal-case">
-                                    {{ encodeAddress(item.userAddress) }}
-                                </button>
-                                <span
-                                    class="tooltip tooltip-bottom align-middle tooltip-primary"
-                                    :data-tip="$t('tradingHistory.table.openAddress')"
-                                    @click="openAccount(item.userAddress)"
-                                >
-                                    <n-icon class="hover:text-primary" :component="ArrowOutlineUpRight48Filled" size="10" :depth="2" />
-                                </span>
-                            </div>
-                            <div>
-                                <button @click="openTx(item.txHash)" class="btn btn-link text-base-content normal-case btn-xs">
-                                    Tx: {{ encodeAddress(item.txHash) }}
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
             <n-data-table
                 ref="table"
                 :paginate-single-page="false"
@@ -192,14 +145,9 @@ const openAccountProfile = (account: string) => {
                 :columns="columns"
                 :data="(data?.['items'] as any)"
                 :loading="loading"
-                max-height="500"
-                min-height="500"
+                min-height="100%"
+                max-height="100%"
             />
-            <!-- <n-empty v-if="(data as any)?.length <= 0" description="." class="h-96 justify-center">
-                <template #icon>
-                    <n-icon :component="Delicious" size="38" :depth="3" />
-                </template>
-            </n-empty> -->
         </n-spin>
     </div>
 </template>
