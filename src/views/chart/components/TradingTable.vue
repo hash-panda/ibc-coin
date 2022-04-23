@@ -1,88 +1,117 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { formatAmountWithDollar, encodeAddress } from '@/utils'
-import { ArrowOutlineUpRight48Filled } from '@vicons/fluent'
+import { ref, watch, computed, onMounted, h } from 'vue'
+import { getTokenDisplayName, encodeAddress, formatAmountWithDollarDecimal } from '@/utils'
 import dayjs from 'dayjs'
-import { useLoadMore, useRequest } from 'vue-request'
-import { queryTradingHistory, TradingHistoryRes } from '@/api'
+import { useRequest } from 'vue-request'
+import { queryTradingHistory } from '@/api'
 import { useTokenStore } from '@/store/token'
-import taiyang from '@/assets/images/order/taiyang.png'
-import diqiu from '@/assets/images/order/diqiu.png'
-import tuxing from '@/assets/images/order/tuxing.png'
-import yueqiu from '@/assets/images/order/yueqiu.png'
 import { Delicious } from '@vicons/fa'
-import { useRouter, useRoute } from 'vue-router'
+import { openAccount, openTx } from '@/utils/business'
+import { useI18n } from 'vue-i18n'
+import { NTag } from 'naive-ui'
 
-type TradingHistoryData = {
-    data: TradingHistoryRes[]
-    total: number
+const { t } = useI18n()
+const tokenStore = useTokenStore()
+const showModal = ref(false)
+
+// true - sell ,false - buy
+const isBuyOrSell = (row: any) => {
+    return row.tokenNameFrom?.toUpperCase() === tokenStore.currentTokenInfo.name?.toUpperCase()
 }
 
-const tokenStore = useTokenStore()
-const refreshStatus = ref(false)
-const router = useRouter()
-const showModal = ref(false)
-const showLoading = ref(true)
+const columns = computed(() => {
+    return [
+        {
+            title: '',
+            key: 'buySell',
+            width: 40,
+            render: row => {
+                return h(
+                    NTag,
+                    { size: 'small', type: isBuyOrSell(row) ? 'error' : 'success' },
+                    {
+                        default: () =>
+                            isBuyOrSell(row) ? t('fullTradingHistory.table.header.buySell.sell') : t('fullTradingHistory.table.header.buySell.buy'),
+                    },
+                )
+            },
+        },
+        {
+            title: t('chart.tradingHistory.table.date'),
+            key: 'txTimestamp',
+            width: 100,
+            render: row => {
+                return h('div', { class: 'text-xs' }, [
+                    h('div', {}, { default: () => dayjs.unix(row.txTimestamp).format('YYYY-MM-DD') }),
+                    h('div', {}, { default: () => dayjs.unix(row.txTimestamp).format('HH:mm:ss') }),
+                ])
+            },
+        },
+        {
+            title: t('chart.tradingHistory.table.coinPair'),
+            key: 'tokenNameFrom',
+            render: row => {
+                return h('div', { class: 'text-xs' }, [
+                    h('div', {}, [
+                        h('span', { class: 'mr-1' }, { default: () => getTokenDisplayName(row.tokenNameFrom) }),
+                        h('span', { class: 'font-bold text-error' }, { default: () => row.amountFrom }),
+                    ]),
+                    h('div', {}, [
+                        h('span', { class: 'mr-1' }, { default: () => getTokenDisplayName(row.tokenNameTo) }),
+                        h('span', { class: 'font-bold text-success' }, { default: () => row.amountTo }),
+                    ]),
+                ])
+            },
+        },
+        {
+            title: t('chart.tradingHistory.table.volume'),
+            key: 'txTotalVolume',
+            width: 80,
+            render: row => {
+                return h(
+                    'div',
+                    {
+                        class: isBuyOrSell(row) ? 'font-bold text-error text-xs' : 'font-bold text-success text-xs',
+                    },
 
-// ！！！！不使用 加载更多 这种方式，仅仅展示最近的50条交易数据，其他的跳转页面使用分页查询
-// function queryTradingHistoryService(params: { data?: TradingHistoryData; dataList?: TradingHistoryData['data'] }) {
-//     const p = { page_size: 10, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain }
-//     if (params?.dataList?.length !== undefined) {
-//         p['page'] = params.dataList.length / p.page_size + 1
-//     } else {
-//         p['page'] = 1
-//     }
-//     return queryTradingHistory(p)
-// }
+                    { default: () => formatAmountWithDollarDecimal(row.txTotalVolume) },
+                )
+            },
+        },
+        {
+            title: t('chart.tradingHistory.table.tradeInfo'),
+            key: 'userAddress',
+            render: row => {
+                return h('div', { class: 'text-xs hover:cursor-pointer normal-case', onClick: () => openAccount(row.userAddress) }, [
+                    h(
+                        'div',
+                        { class: 'underline hover:text-primary', onClick: () => openAccount(row.userAddress) },
+                        { default: () => encodeAddress(row.userAddress) },
+                    ),
+                    h(
+                        'div',
+                        { class: 'underline hover:text-primary', onClick: () => openTx(row.txHash) },
+                        { default: () => encodeAddress(row.txHash) },
+                    ),
+                ])
+            },
+        },
+    ]
+})
 
-// const { data, loadingMore, dataList, refreshing, loadMore, refresh } = useLoadMore<
-//     TradingHistoryData,
-//     Parameters<typeof queryTradingHistoryService>,
-//     TradingHistoryData['data']
-// >(queryTradingHistoryService as any, {
-//     listKey: 'data',
-//     errorRetryCount: 5,
-//     pollingInterval: 1000 * 30,
-//     pollingWhenHidden: true,
-//     debounceInterval: 1000,
-//     manual: false,
-//     onBefore: () => {
-//         refreshStatus.value = true
-//     },
-//     onAfter: () => {
-//         setTimeout(() => {
-//             refreshStatus.value = false
-//         }, 1000)
-//     },
-// })
-
-// watch(
-//     () => tokenStore.currentTokenInfo.tokenId,
-//     () => {
-//         refresh()
-//     },
-// )
-
-// const noMore = computed(() => dataList.value.length === data.value?.total)
-
-const { data, reload, run, refresh } = useRequest(queryTradingHistory, {
-    defaultParams: [{ page_size: 50, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain }],
-    errorRetryCount: 5,
+const { data, reload, run, loading } = useRequest(queryTradingHistory, {
+    defaultParams: [{ page: 1, page_size: 50, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain }],
+    errorRetryCount: 3,
     pollingInterval: 1000 * 15,
     pollingWhenHidden: false,
     manual: true,
     onError: error => {
         console.log('queryTradingHistory (⊙︿⊙) something error', error)
-        showLoading.value = false
     },
-    onSuccess: res => {
-        showLoading.value = false
-    },
+    onSuccess: res => {},
 })
 
 const fetchTradingHistory = () => {
-    showLoading.value = true
     run({ page_size: 50, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain })
 }
 
@@ -102,22 +131,11 @@ const openAccountProfile = (account: string) => {
     // TODO 各个不同的账户查询的链接是不同的，现在暂时使用 osmosis
     showModal.value = true
 }
-const openAccount = (account: string) => {
-    // TODO 各个不同的账户查询的链接是不同的，现在暂时使用 osmosis
-    window.open(`https://www.mintscan.io/${tokenStore.currentTokenInfo.chain}/account/${account}`, '_blank')
-}
-const openTx = (tx: string) => {
-    // TODO 各个不同的地址对应不同 mintscan 信息
-    window.open(`https://www.mintscan.io/${tokenStore.currentTokenInfo.chain}/txs/${tx}`, '_blank')
-}
 </script>
 <template>
     <div>
-        <!-- <div class="absolute right-5 top-4 z-50 text-primary-focus text-xs">
-          <button v-show="refreshStatus" class="btn btn-link btn-xs loading normal-case">{{ $t('tradingHistory.table.refresh') }}</button>
-        </div> -->
-        <n-spin :show="showLoading">
-            <table class="table table-compact w-full">
+        <n-spin :show="loading">
+            <!-- <table class="table table-compact w-full">
                 <thead>
                     <tr class="sticky inset-x-0 top-0 z-40">
                         <th class="normal-case">{{ $t('chart.tradingHistory.table.date') }}</th>
@@ -127,7 +145,7 @@ const openTx = (tx: string) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in (data as any)" :key="item.id">
+                    <tr v-for="item in (data?.['items'] as any)" :key="item.id">
                         <th class="text-xs">
                             <div>{{ dayjs.unix(item.txTimestamp).format('YYYY-MM-DD') }}</div>
                             <div>{{ dayjs.unix(item.txTimestamp).format('HH:mm:ss') }}</div>
@@ -140,21 +158,6 @@ const openTx = (tx: string) => {
                             <span class="text-success">{{ item.amountTo }}</span>
                         </td>
                         <td class="text-xs">
-                            <!-- <div class="avatar align-middle">
-                                <div class="w-8 rounded-full">
-                                    <img :src="taiyang" />
-                                </div>
-                            </div>
-                            <div class="avatar align-middle">
-                                <div class="w-8 rounded-full">
-                                    <img :src="tuxing" />
-                                </div>
-                            </div>
-                            <div class="avatar align-middle">
-                                <div class="w-8 rounded-full">
-                                    <img :src="yueqiu" />
-                                </div>
-                            </div> -->
                             {{ formatAmountWithDollar(item.txTotalVolume, 2) }}
                         </td>
                         <td>
@@ -178,17 +181,24 @@ const openTx = (tx: string) => {
                         </td>
                     </tr>
                 </tbody>
-            </table>
-
-            <n-empty v-if="(data as any)?.length <= 0" description="." class="h-96 justify-center">
+            </table> -->
+            <n-data-table
+                ref="table"
+                :paginate-single-page="false"
+                :bordered="false"
+                :bottom-bordered="true"
+                :single-column="false"
+                :columns="columns"
+                :data="(data?.['items'] as any)"
+                :loading="loading"
+                max-height="500"
+                min-height="500"
+            />
+            <!-- <n-empty v-if="(data as any)?.length <= 0" description="." class="h-96 justify-center">
                 <template #icon>
                     <n-icon :component="Delicious" size="38" :depth="3" />
                 </template>
-            </n-empty>
-            <!-- 加载更多的 按钮，暂时不用这种模式 -->
-            <!-- <button class="btn btn-block btn-link mt-2" :class="{ loading: loadingMore }" :disabled="noMore" @click="loadMore">
-                {{ noMore ? $t('tradingHistory.table.noMoreData') : $t('tradingHistory.table.loadMore') }}
-            </button> -->
+            </n-empty> -->
         </n-spin>
     </div>
 </template>

@@ -60,7 +60,7 @@ const openFullHistory = () => {
                                 {{ $t('chart.trading.moon.tip') }}
                             </n-tooltip>
                         </n-space>
-                        <button class="btn btn-link" @click="openFullHistory">
+                        <button class="btn btn-link normal-case" @click="openFullHistory">
                             {{ $t('tradingHistory.table.fullHistoryBtn') }}
                         </button>
                     </n-space>

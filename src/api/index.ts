@@ -191,7 +191,7 @@ export const queryTradingHistory = (requestParams: TradingHistoryReq) => {
                             tokenNameTo: v.token_to.token_name,
                         }
                     })
-                    resolve(result)
+                    resolve({ items: result, total: res.data.total })
                 } else {
                     reject(res)
                 }
