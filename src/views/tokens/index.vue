@@ -3,6 +3,7 @@ import { reactive } from 'vue'
 import CoinPairList from '@/views/tokens/components/CoinPairList.vue'
 import { queryTokenStaticStatusListByChain } from '@/api'
 import { useRequest } from 'vue-request'
+import { getImageSrc } from '@/utils'
 
 const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'crescent' }],
@@ -48,16 +49,19 @@ const tokenList = reactive([
     {
         key: 'Crescent',
         name: 'crescent',
+        icon: 'crescent-logo.svg',
         data: crescentList as any,
     },
     {
         key: 'Osmosis',
         name: 'osmosis',
+        icon: 'osmo-logo.svg',
         data: osmoList as any,
     },
     {
         key: 'JunoSwap',
         name: 'junoswap',
+        icon: 'juno-logo.svg',
         data: junoList as any,
     },
 ])
@@ -67,7 +71,8 @@ const tokenList = reactive([
         <n-tabs type="card" :animated="true" :bar-width="200" display-directive="show">
             <n-tab-pane v-for="item in tokenList" :key="item.key" :name="item.name">
                 <template #tab>
-                    {{ item.key }}
+                    <n-avatar round :size="18" :src="getImageSrc(item.icon)" :style="{ backgroundColor: 'transparent' }" />
+                    <span class="ml-1">{{ item.key }}</span>
                 </template>
                 <CoinPairList key="Crescent" :coin-pair-list="item.data" />
             </n-tab-pane>
