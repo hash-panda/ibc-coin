@@ -27,8 +27,8 @@ const openFullHistory = () => {
                     </span>
                 </h2>
                 <div>
-                    <n-space justify="space-between" class="items-center">
-                        <n-space size="large">
+                    <n-space justify="end" class="items-center">
+                        <!-- <n-space size="large">
                             <n-tooltip trigger="hover">
                                 <template #trigger>
                                     <div class="avatar">
@@ -59,7 +59,7 @@ const openFullHistory = () => {
                                 </template>
                                 {{ $t('chart.trading.moon.tip') }}
                             </n-tooltip>
-                        </n-space>
+                        </n-space> -->
                         <button class="btn btn-link normal-case" @click="openFullHistory">
                             {{ $t('tradingHistory.table.fullHistoryBtn') }}
                         </button>
