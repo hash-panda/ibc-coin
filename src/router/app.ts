@@ -41,6 +41,17 @@ export default [
         },
     },
     {
+        path: '/mntl',
+        name: 'mntl',
+        component: () => import('@/views/chart/index.vue'),
+        meta: {
+            keepAlive: false,
+            customizeTitle: true,
+            tokenId: 'b6313a80-a2a9-4e7c-a1bb-d074d42b31e9',
+            icon: '',
+        },
+    },
+    {
         path: '/subscribe',
         name: 'subscribe',
         component: () => import('@/views/subscribe/index.vue'),

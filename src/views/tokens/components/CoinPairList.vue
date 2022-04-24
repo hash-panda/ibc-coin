@@ -13,7 +13,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
-const pagination = { pageSize: 9 }
+const pagination = { pageSizes: [10, 20, 50, 100], showSizePicker: true }
 const tokenStore = useTokenStore()
 const searchKey = ref<string>('')
 

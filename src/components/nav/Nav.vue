@@ -113,7 +113,7 @@ const openTokensList = () => {
             </ul>
         </div>
         <div class="flex">
-            <button class="mr-5 normal-case" @click="setLocale">{{ locale.label }}</button>
+            <button class="mr-2 md:mr-5 normal-case" @click="setLocale">{{ locale.label }}</button>
             <div class="flex items-center">
                 <n-switch v-model:value="appStore.isDark" :data-set-theme="appStore.currentTheme">
                     <template #checked>

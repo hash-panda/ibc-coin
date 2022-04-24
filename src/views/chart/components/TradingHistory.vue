@@ -18,8 +18,8 @@ const openFullHistory = () => {
 </script>
 <template>
     <div>
-        <div class="card w-full trade-history-height">
-            <div class="card-body gap-4 overflow-y-auto">
+        <div class="card w-full">
+            <div>
                 <h2 class="card-title pr-6 indicator align-middle">
                     {{ $t('chart.tradingHistory.title') }}
                     <span class="tooltip tooltip-right align-middle tooltip-primary" :data-tip="$t('tradingHistory.table.refreshInfo')">
@@ -65,7 +65,7 @@ const openFullHistory = () => {
                         </button>
                     </n-space>
                 </div>
-                <div class="overflow-y-auto">
+                <div class="trade-history-height overflow-y-auto">
                     <TradingTable />
                 </div>
             </div>
@@ -74,6 +74,6 @@ const openFullHistory = () => {
 </template>
 <style scoped>
 .trade-history-height {
-    height: calc(100vh - 6.8rem);
+    height: calc(100vh - 10.8rem);
 }
 </style>

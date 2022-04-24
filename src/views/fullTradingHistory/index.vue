@@ -97,8 +97,9 @@ const isBuyOrSell = (row: any) => {
 const columns = computed(() => {
     return [
         {
-            title: t('fullTradingHistory.table.header.buySell'),
+            title: '',
             key: 'buySell',
+            width: 40,
             render: row => {
                 return h(
                     NTag,
@@ -113,6 +114,7 @@ const columns = computed(() => {
         {
             title: t('fullTradingHistory.table.header.date'),
             key: 'txTimestamp',
+            width: 95,
             render: row => {
                 return h('div', { class: 'text-xs' }, { default: () => dayjs.unix(row.txTimestamp).format('YYYY-MM-DD HH:mm:ss') })
             },
@@ -120,6 +122,7 @@ const columns = computed(() => {
         {
             title: t('fullTradingHistory.table.header.coinPair'),
             key: 'tokenNameFrom',
+            width: 130,
             render: row => {
                 return h('div', { class: 'text-xs' }, [
                     h('div', {}, [
@@ -136,6 +139,7 @@ const columns = computed(() => {
         {
             title: t('fullTradingHistory.table.header.volume'),
             key: 'txTotalVolume',
+            width: 100,
             render: row => {
                 return h(
                     'div',
@@ -150,6 +154,7 @@ const columns = computed(() => {
         {
             title: t('fullTradingHistory.table.header.trader'),
             key: 'userAddress',
+            width: 110,
             render: row => {
                 return h(
                     'div',
@@ -161,6 +166,7 @@ const columns = computed(() => {
         {
             title: t('fullTradingHistory.table.header.txHash'),
             key: 'txHash',
+            width: 110,
             render: row => {
                 return h(
                     'div',

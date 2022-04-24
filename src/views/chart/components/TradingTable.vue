@@ -39,7 +39,7 @@ const columns = computed(() => {
         {
             title: t('chart.tradingHistory.table.date'),
             key: 'txTimestamp',
-            width: 100,
+            width: 90,
             render: row => {
                 return h('div', { class: 'text-xs' }, [
                     h('div', {}, { default: () => dayjs.unix(row.txTimestamp).format('YYYY-MM-DD') }),
@@ -50,6 +50,7 @@ const columns = computed(() => {
         {
             title: t('chart.tradingHistory.table.coinPair'),
             key: 'tokenNameFrom',
+            width: 130,
             render: row => {
                 return h('div', { class: 'text-xs' }, [
                     h('div', {}, [
@@ -66,7 +67,7 @@ const columns = computed(() => {
         {
             title: t('chart.tradingHistory.table.volume'),
             key: 'txTotalVolume',
-            width: 80,
+            width: 90,
             render: row => {
                 return h(
                     'div',
@@ -81,6 +82,7 @@ const columns = computed(() => {
         {
             title: t('chart.tradingHistory.table.tradeInfo'),
             key: 'userAddress',
+            width: 120,
             render: row => {
                 return h('div', { class: 'text-xs hover:cursor-pointer normal-case', onClick: () => openAccount(row.userAddress) }, [
                     h(
@@ -147,6 +149,7 @@ const openAccountProfile = (account: string) => {
                 :loading="loading"
                 min-height="100%"
                 max-height="100%"
+                :scroll-x="470"
             />
         </n-spin>
     </div>
