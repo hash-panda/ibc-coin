@@ -8,5 +8,6 @@ export default {
     'navbar.menu.chart': '图表',
     'navbar.menu.subscribe': '订阅',
     'navbar.menu.about': '关于',
+    'footer.suggestion': '反馈意见',
     ...getLangFiles(zhCNFiles),
 }

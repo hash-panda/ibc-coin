@@ -8,5 +8,6 @@ export default {
     'navbar.menu.chart': 'Chart',
     'navbar.menu.subscribe': 'Subscribe',
     'navbar.menu.about': 'About',
+    'footer.suggestion': 'Feedback',
     ...getLangFiles(enUSFiles),
 }
