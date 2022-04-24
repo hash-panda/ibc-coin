@@ -6,6 +6,10 @@ const openTwitter = () => {
 const openDiscord = () => {
     window.open('https://discord.com/invite/DeFi', '_blank')
 }
+
+const openFeedback = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSe3ALLD5y58bcIYVHi_g4f2MZ5IDMlTtfNfxxgCwEdx7mdgNg/viewform', '_blank')
+}
 </script>
 <template>
     <footer class="body-font border-base-200 border-t mt-5">
@@ -13,7 +17,7 @@ const openDiscord = () => {
             <img src="@/assets/logo.png" width="40" />
             <p class="mt-4 text-sm sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:pl-4">© 2022 IBCCoin.org</p>
             <span class="mt-4 inline-flex justify-center items-center sm:ml-auto sm:mt-0 sm:justify-start">
-                <div class="btn btn-link normal-case">{{ $t('footer.suggestion') }}</div>
+                <div @click="openFeedback" class="btn btn-link normal-case">{{ $t('footer.suggestion') }}</div>
                 <div @click="openTwitter" class="tooltip tooltip-primary ml-3" data-tip="Twitter">
                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="h-8 w-8" viewBox="0 0 24 24">
                         <path

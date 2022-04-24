@@ -95,6 +95,7 @@ const openTokensList = () => {
                 <div class="text-base text-l font-bold text-primary lg:text-2xl">
                     <span>IBC</span>
                     <span class="text-primary-focus">coin.org</span>
+                    <div class="ml-1 badge badge-primary">Beta</div>
                 </div>
             </div>
         </div>
