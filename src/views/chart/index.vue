@@ -24,7 +24,7 @@ watch(
 
 onMounted(() => {
     if (route.meta.tokenId) {
-        tokenStore.setCurrentTokenInfo({ tokenId: route.meta.tokenId as string, chain: 'crescent' })
+        tokenStore.setCurrentTokenInfo({ tokenId: route.meta.tokenId as string, chain: route.meta.chain as string })
     }
 })
 </script>
