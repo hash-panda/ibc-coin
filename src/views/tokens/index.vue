@@ -2,8 +2,11 @@
 import { reactive } from 'vue'
 import CoinPairList from '@/views/tokens/components/CoinPairList.vue'
 import { queryTokenStaticStatusListByChain } from '@/api'
+import { useTokenFavoritesStore } from '@/store/tokenFavorites'
 import { useRequest } from 'vue-request'
 import { getImageSrc } from '@/utils'
+
+const tokenFavoritesStore = useTokenFavoritesStore()
 
 const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'crescent' }],
@@ -63,6 +66,12 @@ const tokenList = reactive([
         name: 'junoswap',
         icon: 'juno-logo.svg',
         data: junoList as any,
+    },
+    {
+        key: 'Favorites',
+        name: 'favorites',
+        icon: 'juno-logo.svg',
+        data: tokenFavoritesStore.favorites as any,
     },
 ])
 </script>
