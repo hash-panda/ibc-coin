@@ -6,10 +6,13 @@ import { Delicious } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'
 import { useI18n } from 'vue-i18n'
+import FavoritesVue from '@/components/favorites/Favorites.vue'
+import { useTokenFavoritesStore } from '@/store/tokenFavorites'
 
 const props = defineProps<{
     coinPairList: CoinPair[]
     showChain: Boolean
+    showFavorite: Boolean
 }>()
 
 const { t } = useI18n()
@@ -17,6 +20,7 @@ const router = useRouter()
 const pagination = { pageSizes: [10, 20, 50, 100], showSizePicker: true }
 const tokenStore = useTokenStore()
 const searchKey = ref<string>('')
+const tokenFavoritesStore = useTokenFavoritesStore()
 
 const renderSorterIcon = (order: string | boolean) => {
     const style = 'transform: translateY(-3px);'
@@ -110,7 +114,7 @@ const columns = computed(() => {
         {
             title: '',
             key: 'options',
-            width: 40,
+            width: 35,
             render(row) {
                 return h(
                     'button',
@@ -126,17 +130,24 @@ const columns = computed(() => {
     const chainColumnInfo: any = {
         title: t('tokens.table.header.chain'),
         key: 'chain',
-        width: 55,
+        width: 60,
         render: row => {
             return h('span', {}, getChainDisplayName(row.chain))
         },
-        renderSorterIcon: ({ order }) => {
-            return renderSorterIcon(order)
-        },
-        sorter: (row1, row2) => row1.chain - row2.chain,
     }
     if (props.showChain) {
         columnsInfo.unshift(chainColumnInfo)
+    }
+    const favoriteColumnInfo: any = {
+        title: '',
+        key: 'favorite',
+        width: 30,
+        render: row => {
+            return h(FavoritesVue, { class: 'w-2', favorite: tokenFavoritesStore.isFavoriteToken(row.tokenId), tokenInfo: row })
+        },
+    }
+    if (props.showFavorite) {
+        columnsInfo.unshift(favoriteColumnInfo)
     }
     return columnsInfo
 })

@@ -33,10 +33,13 @@ const cancel = () => {
 </script>
 <template>
     <div>
-        <span class="tooltip tooltip-right ml-1 align-middle tooltip-primary" :data-tip="$t('favorites.tips')">
-            <n-icon v-if="props.favorite" @click="cancel" :component="Star24Filled" size="24" color="#fceb3c" />
-            <n-icon v-else @click="collect" :component="Star24Regular" size="24" />
-        </span>
+        <n-tooltip trigger="hover">
+            <template #trigger>
+                <n-icon v-if="props.favorite" @click="cancel" :component="Star24Filled" size="20" color="#ffb500" />
+                <n-icon v-else @click="collect" :component="Star24Regular" size="24" />
+            </template>
+            {{ $t('favorites.tips') }}
+        </n-tooltip>
     </div>
 </template>
 <style scoped></style>

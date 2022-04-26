@@ -82,7 +82,7 @@ const tokenList = reactive([
                     <n-avatar round :size="18" :src="getImageSrc(item.icon)" :style="{ backgroundColor: 'transparent' }" />
                     <span class="ml-1">{{ item.name }}</span>
                 </template>
-                <CoinPairList key="Crescent" :coin-pair-list="item.data" :showChain="false" />
+                <CoinPairList key="Crescent" :coin-pair-list="item.data" :showChain="false" :showFavorite="false" />
             </n-tab-pane>
             <!-- 自选 favorites -->
             <n-tab-pane name="favorites">
@@ -90,7 +90,7 @@ const tokenList = reactive([
                     <n-avatar round :size="18" :src="getImageSrc('favorites.png')" :style="{ backgroundColor: 'transparent' }" />
                     <span class="ml-1">{{ $t('tokens.favorites') }}</span>
                 </template>
-                <CoinPairList key="favorites" :coin-pair-list="tokenFavoritesStore.favorites" :showChain="true" />
+                <CoinPairList key="favorites" :coin-pair-list="tokenFavoritesStore.favorites" :showChain="true" :showFavorite="true" />
             </n-tab-pane>
         </n-tabs>
     </div>
