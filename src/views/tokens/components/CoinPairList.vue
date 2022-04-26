@@ -2,17 +2,20 @@
 import { computed, h, ref } from 'vue'
 import { CoinPair } from '@/types/types'
 import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName, getChainDisplayName } from '@/utils'
-import { Delicious } from '@vicons/fa'
+import { KeyboardShiftUppercase24Regular } from '@vicons/fluent'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'
 import { useI18n } from 'vue-i18n'
 import FavoritesVue from '@/components/favorites/Favorites.vue'
 import { useTokenFavoritesStore } from '@/store/tokenFavorites'
+import { NIcon, useMessage } from 'naive-ui'
 
 const props = defineProps<{
     coinPairList: CoinPair[]
     showChain: Boolean
     showFavorite: Boolean
+    defaultVolumeSortDescend: Boolean
+    showTop: Boolean
 }>()
 
 const { t } = useI18n()
@@ -21,6 +24,7 @@ const pagination = { pageSizes: [10, 20, 50, 100], showSizePicker: true }
 const tokenStore = useTokenStore()
 const searchKey = ref<string>('')
 const tokenFavoritesStore = useTokenFavoritesStore()
+const message = useMessage()
 
 const renderSorterIcon = (order: string | boolean) => {
     const style = 'transform: translateY(-3px);'
@@ -87,7 +91,7 @@ const columns = computed(() => {
             render: row => {
                 return h('span', {}, formatAmountWithDollar(row.totalVolume))
             },
-            defaultSortOrder: 'descend',
+            defaultSortOrder: props.defaultVolumeSortDescend ? 'descend' : false,
             renderSorterIcon: ({ order }) => {
                 return renderSorterIcon(order)
             },
@@ -149,6 +153,25 @@ const columns = computed(() => {
     if (props.showFavorite) {
         columnsInfo.unshift(favoriteColumnInfo)
     }
+    const topColumnInfo: any = {
+        title: '',
+        key: 'top',
+        width: 20,
+        render: row => {
+            return h(NIcon, {
+                class: 'hover:text-primary w-2',
+                component: KeyboardShiftUppercase24Regular,
+                size: 20,
+                onClick: () => {
+                    tokenFavoritesStore.onTokenTop(row.tokenId)
+                    // message.success('')
+                },
+            })
+        },
+    }
+    if (props.showTop) {
+        columnsInfo.unshift(topColumnInfo)
+    }
     return columnsInfo
 })
 
@@ -204,7 +227,7 @@ const openChart = (coin: CoinPair) => {
                 :columns="columns"
                 :data="searchedData"
                 :pagination="pagination"
-                :scroll-x="750"
+                :scroll-x="850"
             />
         </n-space>
     </div>

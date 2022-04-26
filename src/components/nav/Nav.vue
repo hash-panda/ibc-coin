@@ -86,7 +86,7 @@ const openTokensList = () => {
                     </li>
                 </ul>
             </div>
-            <div class="flex items-center normal-case ml-0 md:ml-5" @click="openTokensList">
+            <div class="flex items-center hover:cursor-pointer normal-case ml-0 md:ml-5" @click="openTokensList">
                 <div class="avatar mr-1 md:mr-2">
                     <div class="w-8 rounded-full md:w-12">
                         <img src="@/assets/logo.png" />

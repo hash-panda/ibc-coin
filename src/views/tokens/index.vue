@@ -75,14 +75,21 @@ const tokenList = reactive([
 ])
 </script>
 <template>
-    <div class="w-full px-2 sm:px-6 md:px-12 lg:px-36 xl:px-72 mt-4">
+    <div class="w-full px-2 sm:px-6 md:px-12 lg:px-28 xl:px-64 mt-4">
         <n-tabs type="card" :animated="true" :bar-width="200" display-directive="show">
             <n-tab-pane v-for="item in tokenList" :key="item.key" :name="item.name">
                 <template #tab>
                     <n-avatar round :size="18" :src="getImageSrc(item.icon)" :style="{ backgroundColor: 'transparent' }" />
                     <span class="ml-1">{{ item.name }}</span>
                 </template>
-                <CoinPairList key="Crescent" :coin-pair-list="item.data" :showChain="false" :showFavorite="false" />
+                <CoinPairList
+                    key="Crescent"
+                    :coin-pair-list="item.data"
+                    :defaultVolumeSortDescend="true"
+                    :showChain="false"
+                    :showFavorite="false"
+                    :showTop="false"
+                />
             </n-tab-pane>
             <!-- 自选 favorites -->
             <n-tab-pane name="favorites">
@@ -90,7 +97,14 @@ const tokenList = reactive([
                     <n-avatar round :size="18" :src="getImageSrc('favorites.png')" :style="{ backgroundColor: 'transparent' }" />
                     <span class="ml-1">{{ $t('tokens.favorites') }}</span>
                 </template>
-                <CoinPairList key="favorites" :coin-pair-list="tokenFavoritesStore.favorites" :showChain="true" :showFavorite="true" />
+                <CoinPairList
+                    key="favorites"
+                    :coin-pair-list="tokenFavoritesStore.favorites"
+                    :defaultVolumeSortDescend="false"
+                    :showChain="true"
+                    :showFavorite="true"
+                    :showTop="true"
+                />
             </n-tab-pane>
         </n-tabs>
     </div>

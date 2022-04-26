@@ -33,6 +33,15 @@ export const useTokenFavoritesStore = defineStore({
                 }
             })
         },
+        // 置顶
+        onTokenTop(tokenId: string) {
+            const tokensIndex = this.favorites.findIndex(e => e.tokenId === tokenId)
+            if (tokensIndex > 0) {
+                const currentToken = this.favorites[tokensIndex]
+                this.favorites.splice(tokensIndex, 1)
+                this.favorites.unshift(currentToken)
+            }
+        },
         reset() {
             this.$reset()
         },
