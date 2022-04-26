@@ -6,6 +6,7 @@ declare module 'vue' {
     export interface GlobalComponents {
         BenefitsCardBenefitsCard: typeof import('./src/components/benefitsCard/BenefitsCard.vue')['default']
         CoinCardCoinCard: typeof import('./src/components/coinCard/CoinCard.vue')['default']
+        FavoritesFavorites: typeof import('./src/components/favorites/Favorites.vue')['default']
         FooterFooter: typeof import('./src/components/footer/Footer.vue')['default']
         MessageMessage: typeof import('./src/components/message/Message.vue')['default']
         NAnchor: typeof import('naive-ui')['NAnchor']
@@ -17,7 +18,6 @@ declare module 'vue' {
         NDataTable: typeof import('naive-ui')['NDataTable']
         NDescriptions: typeof import('naive-ui')['NDescriptions']
         NDescriptionsItem: typeof import('naive-ui')['NDescriptionsItem']
-        NEmpty: typeof import('naive-ui')['NEmpty']
         NForm: typeof import('naive-ui')['NForm']
         NFormItem: typeof import('naive-ui')['NFormItem']
         NGrid: typeof import('naive-ui')['NGrid']
@@ -36,7 +36,6 @@ declare module 'vue' {
         NSwitch: typeof import('naive-ui')['NSwitch']
         NTabPane: typeof import('naive-ui')['NTabPane']
         NTabs: typeof import('naive-ui')['NTabs']
-        NTooltip: typeof import('naive-ui')['NTooltip']
     }
 }
 

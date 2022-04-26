@@ -24,16 +24,18 @@ watch(
     <div>
         <Nav />
         <div class="min-h-[90vh] p-2 md:p-0">
-            <router-view v-slot="{ Component }">
-                <transition :name="transitionName" mode="out-in">
-                    <keep-alive>
-                        <component :is="Component" v-if="route.meta.keepAlive" :key="route.name" />
-                    </keep-alive>
-                </transition>
-                <transition :name="transitionName" mode="out-in">
-                    <component :is="Component" v-if="!route.meta.keepAlive" :key="route.name" />
-                </transition>
-            </router-view>
+            <n-message-provider>
+                <router-view v-slot="{ Component }">
+                    <transition :name="transitionName" mode="out-in">
+                        <keep-alive>
+                            <component :is="Component" v-if="route.meta.keepAlive" :key="route.name" />
+                        </keep-alive>
+                    </transition>
+                    <transition :name="transitionName" mode="out-in">
+                        <component :is="Component" v-if="!route.meta.keepAlive" :key="route.name" />
+                    </transition>
+                </router-view>
+            </n-message-provider>
         </div>
         <Footer />
     </div>

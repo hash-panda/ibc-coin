@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { watch, onMounted } from 'vue'
+import { watch, onMounted, ref } from 'vue'
 import { ArrowRepeatAll16Regular } from '@vicons/fluent'
 import { CoinPair } from '@/types/types'
 import { useTokenStore } from '@/store/token'
+import { useTokenFavoritesStore } from '@/store/tokenFavorites'
 import { formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useRequest } from 'vue-request'
 import { queryTokenStaticStatusListByChain } from '@/api'
+import Favorites from '@/components/favorites/Favorites.vue'
 
 const tokenStore = useTokenStore()
+const tokenFavoritesStore = useTokenFavoritesStore()
 const router = useRouter()
 
 const { data: coinDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
@@ -51,60 +54,14 @@ const openTokensList = () => {
         <div class="card-body py-2">
             <div class="flex flex-row">
                 <div class="w-full">
-                    <div class="card-title inline-block text-bottom">
+                    <div class="card-title inline-block text-bottom flex items-center">
                         <span class="tx-xl lg:text-3xl tracking-widest text-base-content">
                             {{ getTokenDisplayName(tokenStore.currentTokenInfo?.name) }}
                         </span>
-                        <!-- <span
-                            class="tooltip tooltip-right ml-1 align-middle tooltip-primary"
-                            :data-tip="$t('chart.coinInfo.openCoinPairList')"
-                            @click="openTokensList"
-                        >
-                            <n-icon class="hover:text-primary" :component="ArrowRepeatAll16Regular" size="28" :depth="3" />
-                        </span> -->
-                        <!-- <span
-                            class="tooltip tooltip-bottom ml-2"
-                            :data-tip="$t('chart.coinInfo.openWeb')"
-                            ><n-icon
-                                class="hover:text-primary"
-                                :component="ShareSquare"
-                                size="18"
-                                :depth="3"
-                            />
-                        </span> -->
-                        <!-- <span
-                            class="tooltip tooltip-bottom ml-2"
-                            :data-tip="$t('chart.coinInfo.twitter')"
-                        >
-                            <n-icon
-                                class="hover:text-primary"
-                                :component="Twitter"
-                                size="18"
-                                :depth="3"
-                            />
-                        </span> -->
-                        <!-- <span
-                            class="tooltip tooltip-bottom ml-2"
-                            :data-tip="$t('chart.coinInfo.telegram')"
-                        >
-                            <n-icon
-                                class="hover:text-primary"
-                                :component="TelegramPlane"
-                                size="18"
-                                :depth="3"
-                            />
-                        </span> -->
-                        <!-- <span
-                            class="tooltip tooltip-bottom ml-2"
-                            :data-tip="$t('chart.coinInfo.discord')"
-                        >
-                            <n-icon
-                                class="hover:text-primary"
-                                :component="Discord"
-                                size="18"
-                                :depth="3"
-                            />
-                        </span> -->
+                        <Favorites
+                            :token-info="tokenStore.currentTokenInfo"
+                            :favorite="tokenFavoritesStore.isFavoriteToken(tokenStore.currentTokenInfo?.tokenId)"
+                        />
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
                         <div>

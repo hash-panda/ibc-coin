@@ -10,8 +10,28 @@ export const useTokenFavoritesStore = defineStore({
     },
     getters: {},
     actions: {
-        addTokenFavorites(partial: Partial<CoinPair>) {
-            this.$patch(state => state.favorites.push(partial))
+        isFavoriteToken(tokenId: string) {
+            return this.favorites.findIndex(e => e.tokenId === tokenId) > -1
+        },
+        addTokenToFavorites(partial: Partial<CoinPair>) {
+            if (this.isFavoriteToken(partial.tokenId)) {
+            } else {
+                this.favorites.push(partial)
+            }
+        },
+        removeTokenFromFavorites(tokenId: string) {
+            this.favorites.splice(
+                this.favorites.findIndex(e => e.tokenId === tokenId),
+                1,
+            )
+        },
+        editFavoriteToken(tokens: CoinPair[]) {
+            this.favorites.forEach((v, index) => {
+                const tokensIndex = tokens.findIndex(e => e.tokenId === v.tokenId)
+                if (tokensIndex > -1) {
+                    this.favorites[index] = tokens[tokensIndex]
+                }
+            })
         },
         reset() {
             this.$reset()

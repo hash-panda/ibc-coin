@@ -4,6 +4,7 @@ import numeral from 'numeral'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import tokenDisplayName from '@/const/tokenDisplayName'
+import chainDisplayName from '@/const/chainDisplayName'
 
 export function getActualAmount(amount: string | number, presicion?: number) {
     return accDiv(Number(amount), presicion ?? 1e6)
@@ -127,13 +128,36 @@ export function transformTime(timestamp) {
     return dayjs.utc(timestamp * 1000).format('YYYY/MM/DD HH:mm:ss')
 }
 
+/**
+ * 获取 币 显示名称
+ * @param token
+ * @returns
+ */
 export function getTokenDisplayName(token: string) {
     if (token) {
-        const displayName = tokenDisplayName.find(v => v.key === token)
-        if (displayName) {
-            return displayName.displayNme
+        const displayInfo = tokenDisplayName.find(v => v.key === token)
+        if (displayInfo) {
+            return displayInfo.displayName
         } else {
             return token?.toUpperCase()
+        }
+    } else {
+        return ''
+    }
+}
+
+/**
+ * 获取 chain 显示名称
+ * @param chain
+ * @returns
+ */
+export function getChainDisplayName(chain: string) {
+    if (chain) {
+        const displayInfo = chainDisplayName.find(v => v.key === chain)
+        if (displayInfo) {
+            return displayInfo.displayName
+        } else {
+            return chain?.toUpperCase()
         }
     } else {
         return ''

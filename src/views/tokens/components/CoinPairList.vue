@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, ref } from 'vue'
 import { CoinPair } from '@/types/types'
-import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
+import { getImageSrc, formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName, getChainDisplayName } from '@/utils'
 import { Delicious } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 import { useTokenStore } from '@/store/token'
@@ -9,6 +9,7 @@ import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
     coinPairList: CoinPair[]
+    showChain: Boolean
 }>()
 
 const { t } = useI18n()
@@ -25,7 +26,7 @@ const renderSorterIcon = (order: string | boolean) => {
 }
 
 const columns = computed(() => {
-    return [
+    let columnsInfo = [
         {
             title: t('tokens.table.header.coinPair'),
             key: 'name',
@@ -122,6 +123,22 @@ const columns = computed(() => {
             },
         },
     ]
+    const chainColumnInfo: any = {
+        title: t('tokens.table.header.chain'),
+        key: 'chain',
+        width: 55,
+        render: row => {
+            return h('span', {}, getChainDisplayName(row.chain))
+        },
+        renderSorterIcon: ({ order }) => {
+            return renderSorterIcon(order)
+        },
+        sorter: (row1, row2) => row1.chain - row2.chain,
+    }
+    if (props.showChain) {
+        columnsInfo.unshift(chainColumnInfo)
+    }
+    return columnsInfo
 })
 
 const searchedData = computed(() => {

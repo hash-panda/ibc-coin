@@ -5,8 +5,10 @@ import { queryTokenStaticStatusListByChain } from '@/api'
 import { useTokenFavoritesStore } from '@/store/tokenFavorites'
 import { useRequest } from 'vue-request'
 import { getImageSrc } from '@/utils'
+import { useI18n } from 'vue-i18n'
 
 const tokenFavoritesStore = useTokenFavoritesStore()
+const { t } = useI18n()
 
 const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
     defaultParams: [{ chain: 'crescent' }],
@@ -19,6 +21,7 @@ const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
     },
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+        tokenFavoritesStore.editFavoriteToken(res as any)
     },
 })
 const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -32,6 +35,7 @@ const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
     },
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+        tokenFavoritesStore.editFavoriteToken(res as any)
     },
 })
 const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -45,33 +49,28 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
     },
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+        tokenFavoritesStore.editFavoriteToken(res as any)
     },
 })
 
 const tokenList = reactive([
     {
         key: 'Crescent',
-        name: 'crescent',
+        name: 'Crescent',
         icon: 'crescent-logo.svg',
         data: crescentList as any,
     },
     {
         key: 'Osmosis',
-        name: 'osmosis',
+        name: 'Osmosis',
         icon: 'osmo-logo.svg',
         data: osmoList as any,
     },
     {
-        key: 'JunoSwap',
-        name: 'junoswap',
+        key: 'junoswap',
+        name: 'Junoswap',
         icon: 'juno-logo.svg',
         data: junoList as any,
-    },
-    {
-        key: 'Favorites',
-        name: 'favorites',
-        icon: 'juno-logo.svg',
-        data: tokenFavoritesStore.favorites as any,
     },
 ])
 </script>
@@ -81,9 +80,17 @@ const tokenList = reactive([
             <n-tab-pane v-for="item in tokenList" :key="item.key" :name="item.name">
                 <template #tab>
                     <n-avatar round :size="18" :src="getImageSrc(item.icon)" :style="{ backgroundColor: 'transparent' }" />
-                    <span class="ml-1">{{ item.key }}</span>
+                    <span class="ml-1">{{ item.name }}</span>
                 </template>
-                <CoinPairList key="Crescent" :coin-pair-list="item.data" />
+                <CoinPairList key="Crescent" :coin-pair-list="item.data" :showChain="false" />
+            </n-tab-pane>
+            <!-- 自选 favorites -->
+            <n-tab-pane name="favorites">
+                <template #tab>
+                    <n-avatar round :size="18" :src="getImageSrc('favorites.png')" :style="{ backgroundColor: 'transparent' }" />
+                    <span class="ml-1">{{ $t('tokens.favorites') }}</span>
+                </template>
+                <CoinPairList key="favorites" :coin-pair-list="tokenFavoritesStore.favorites" :showChain="true" />
             </n-tab-pane>
         </n-tabs>
     </div>
