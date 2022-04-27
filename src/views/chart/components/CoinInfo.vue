@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch, onMounted, ref } from 'vue'
-import { ArrowRepeatAll16Regular } from '@vicons/fluent'
+import { InfoCircle } from '@vicons/fa'
 import { CoinPair } from '@/types/types'
 import { useTokenStore } from '@/store/token'
 import { useTokenFavoritesStore } from '@/store/tokenFavorites'
@@ -71,7 +71,15 @@ const openTokensList = () => {
                             </div>
                         </div>
                         <div>
-                            <div class="text-sm lg:text-sm mt-2 opacity-50">{{ $t('chart.coinInfo.volume') }}</div>
+                            <div class="flex items-center text-sm lg:text-sm mt-2 opacity-50">
+                                <span class="mr-1">{{ $t('chart.coinInfo.volume') }}</span>
+                                <n-tooltip trigger="hover">
+                                    <template #trigger>
+                                        <n-icon :component="InfoCircle" size="15" />
+                                    </template>
+                                    {{ $t('chart.coinInfo.volume.tips') }}
+                                </n-tooltip>
+                            </div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
                                 {{ formatAmountWithDollar(tokenStore.currentTokenInfo?.totalVolume) }}
                             </div>

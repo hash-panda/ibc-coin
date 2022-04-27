@@ -22,9 +22,15 @@ const openFullHistory = () => {
             <div>
                 <h2 class="card-title pr-6 indicator align-middle">
                     {{ $t('chart.tradingHistory.title') }}
-                    <span class="tooltip tooltip-right align-middle tooltip-primary" :data-tip="$t('tradingHistory.table.refreshInfo')">
-                        <n-icon class="hover:text-primary" :component="InfoCircle" size="15" :depth="2" />
-                    </span>
+                    <n-tooltip trigger="hover">
+                        <template #trigger>
+                            <n-icon :component="InfoCircle" size="15" />
+                        </template>
+                        {{ $t('tradingHistory.table.refreshInfo') }}
+                    </n-tooltip>
+                    <!-- <span class="tooltip tooltip-right align-middle tooltip-primary" :data-tip="$t('tradingHistory.table.refreshInfo')">
+                        <n-icon  :component="InfoCircle" size="15" :depth="2" />
+                    </span> -->
                 </h2>
                 <div>
                     <n-space justify="end" class="items-center">

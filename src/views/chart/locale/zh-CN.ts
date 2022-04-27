@@ -1,6 +1,7 @@
 export default {
     'chart.coinInfo.marketCap': '市值',
     'chart.coinInfo.volume': '成交量 (24h)',
+    'chart.coinInfo.volume.tips': '全网成交量',
     'chart.coinInfo.price': '价格',
     'chart.coinInfo.change': '涨跌幅 (24h)',
     'chart.coinInfo.openCoinPairList': '打开行情列表',
