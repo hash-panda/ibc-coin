@@ -1,6 +1,7 @@
 export default {
     'chart.coinInfo.marketCap': 'Market Cap',
     'chart.coinInfo.volume': 'Volume (24h)',
+    'chart.coinInfo.volume.tips': 'The whole network trade volume',
     'chart.coinInfo.price': 'Price',
     'chart.coinInfo.change': 'Change (24h)',
     'chart.coinInfo.openCoinPairList': 'open token list',

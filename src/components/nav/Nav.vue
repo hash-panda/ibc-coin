@@ -129,7 +129,7 @@ const openTokensList = () => {
                 </n-switch>
             </div>
 
-            <!-- <a class="btn btn-primary normal-case btn-xs md:btn-md">Connect Wallet</a> -->
+            <!-- <a class="btn btn-primary btn-outline normal-case btn-xs md:btn-md ml-4">Connect Wallet</a> -->
         </div>
     </div>
 </template>
