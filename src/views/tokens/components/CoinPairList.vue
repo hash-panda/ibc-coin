@@ -38,7 +38,7 @@ const columns = computed(() => {
         {
             title: t('tokens.table.header.coinPair'),
             key: 'name',
-            width: 90,
+            width: 100,
             fixed: 'left',
             render: row => {
                 return h(
