@@ -7,6 +7,7 @@ import useLocale from '@/hooks/locale'
 import { useRouter, useRoute } from 'vue-router'
 import { themeChange } from 'theme-change'
 import { Moon, SunnySharp } from '@vicons/ionicons5'
+import { Language } from '@vicons/fa'
 
 const router = useRouter()
 const route = useRoute()
@@ -113,7 +114,12 @@ const openTokensList = () => {
             </ul>
         </div>
         <div class="flex">
-            <button class="mr-2 md:mr-5 normal-case" @click="setLocale">{{ locale.label }}</button>
+            <button class="flex items-center mr-2 md:mr-5 normal-case" @click="setLocale">
+                <n-icon size="28" color="">
+                    <Language />
+                </n-icon>
+                <span class="ml-1">{{ locale.label }}</span>
+            </button>
             <div class="flex items-center">
                 <n-switch v-model:value="appStore.isDark" :data-set-theme="appStore.currentTheme">
                     <template #checked>
