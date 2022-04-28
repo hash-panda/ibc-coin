@@ -52,8 +52,28 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
         tokenFavoritesStore.editFavoriteToken(res as any)
     },
 })
+const { data: evmosList } = useRequest(queryTokenStaticStatusListByChain, {
+    defaultParams: [{ chain: 'evmos' }],
+    errorRetryCount: 5,
+    pollingInterval: 1000 * 15,
+    pollingWhenHidden: false,
+    manual: false,
+    onError: error => {
+        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
+        tokenFavoritesStore.editFavoriteToken(res as any)
+    },
+})
 
 const tokenList = reactive([
+    {
+        key: 'evmos',
+        name: 'evmos',
+        icon: 'evmos-logo.png',
+        data: evmosList as any,
+    },
     {
         key: 'Crescent',
         name: 'Crescent',

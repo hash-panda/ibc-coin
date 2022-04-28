@@ -55,6 +55,18 @@ export default [
         },
     },
     {
+        path: '/evmos',
+        name: 'evmos',
+        component: () => import('@/views/chart/index.vue'),
+        meta: {
+            keepAlive: false,
+            customizeTitle: true,
+            tokenId: '8936c299-d01c-432d-90fa-1ff4222a83e3',
+            chain: 'evmos',
+            icon: '',
+        },
+    },
+    {
         path: '/subscribe',
         name: 'subscribe',
         component: () => import('@/views/subscribe/index.vue'),
