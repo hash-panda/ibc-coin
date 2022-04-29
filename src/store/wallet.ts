@@ -4,13 +4,17 @@ export const useWalletStore = defineStore({
     id: 'wallet',
     state: () => {
         return {
-            address: '',
+            addressInfo: {
+                name: '',
+                address: '',
+            },
         }
     },
     getters: {},
     actions: {
-        setCurrentAddress(address: string) {
-            this.address = address
+        setCurrentAddressInfo(addressInfo: any) {
+            this.addressInfo.name = addressInfo?.name ?? ''
+            this.addressInfo.address = addressInfo?.address ?? ''
         },
         reset() {
             this.$reset()

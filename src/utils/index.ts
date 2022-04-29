@@ -64,7 +64,7 @@ export function encodeAddress(address: string, short: boolean = true) {
     if (short) {
         length = 6
     }
-    if (address && address.trim() && address.length > 20) {
+    if (address && typeof address === 'string' && address.trim() && address.length > 20) {
         return `${address.substring(0, length)}...${address.substring(address.length - 6)}`
     } else {
         return address

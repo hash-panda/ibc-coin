@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useWalletStore } from '@/store/wallet'
 import { getImageSrc, encodeAddress } from '@/utils'
 import { useMessage } from 'naive-ui'
@@ -9,6 +9,10 @@ const showWalletListModal = ref(false)
 const showProfileModal = ref(false)
 const message = useMessage()
 const loading = ref(false)
+
+onMounted(() => {
+    changeWallet()
+})
 
 const walletList = computed(() => {
     return [
@@ -43,6 +47,7 @@ const connectWallet = async () => {
         // Also, it will request user to unlock the wallet if the wallet is locked.
         // If you don't request enabling before usage, there is no guarantee that other methods will work.
         await window.keplr.enable(chainId)
+        const addressInfo: any = await window.keplr.getKey(chainId)
 
         const offlineSigner = window.getOfflineSigner(chainId)
 
@@ -50,14 +55,24 @@ const connectWallet = async () => {
         // It can return the array of address/public key.
         // But, currently, Keplr extension manages only one address/public key pair.
         // XXX: This line is needed to set the sender address for SigningCosmosClient.
-        const offlineSignerAccounts = await offlineSigner.getAccounts()
-        console.log(offlineSignerAccounts)
-        walletStore.setCurrentAddress(offlineSignerAccounts[0].address)
+        // const offlineSignerAccounts = await offlineSigner.getAccounts()
+        console.log(addressInfo)
+        walletStore.setCurrentAddressInfo({ address: addressInfo.bech32Address, name: addressInfo.name })
         // Initialize the gaia api with the offline signer that is injected by Keplr extension.
         // const cosmJS = new SigningCosmosClient('https://rpc-osmosis.blockapsis.com', accounts.value[0].address, offlineSigner)
+
+        // 关闭弹框
+        onWalletListModalClose()
     } catch (e) {
         console.log('eeeeeee', e)
     }
+}
+
+const changeWallet = () => {
+    window.addEventListener('keplr_keystorechange', () => {
+        console.log('Key store in Keplr is changed. You may need to refetch the account info.')
+        connectWallet()
+    })
 }
 
 const onWalletListModalOpen = () => {
@@ -73,13 +88,18 @@ const onProfileModalOpen = () => {
 const onProfileModalClose = () => {
     showProfileModal.value = false
 }
+
+const onDisconnect = () => {
+    walletStore.reset()
+    onProfileModalClose()
+}
 </script>
 <template>
     <div>
-        <div v-if="walletStore.address" @click="onProfileModalOpen" class="btn btn-primary btn-outline normal-case btn-xs md:btn-md ml-4">
-            {{ encodeAddress(walletStore.address) }}
+        <div v-if="walletStore.addressInfo.address" @click="onProfileModalOpen" class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4">
+            {{ walletStore.addressInfo.name }} | {{ encodeAddress(walletStore.addressInfo.address) }}
         </div>
-        <div v-else @click="onWalletListModalOpen" class="btn btn-primary btn-outline normal-case btn-xs md:btn-md ml-4">
+        <div v-else @click="onWalletListModalOpen" class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4">
             {{ $t('wallet.connect.btn') }}
         </div>
         <n-modal v-model:show="showWalletListModal">
@@ -116,7 +136,7 @@ const onProfileModalClose = () => {
         <n-modal v-model:show="showProfileModal">
             <n-card
                 style="width: 600px"
-                :title="$t('wallet.connect.btn')"
+                :title="$t('wallet.profile')"
                 closable
                 @close="onProfileModalClose"
                 :bordered="false"
@@ -124,7 +144,7 @@ const onProfileModalClose = () => {
                 role="dialog"
                 aria-modal="true"
             >
-                hehehehheh
+                <div @click="onDisconnect" class="btn btn-primary">Disconnect</div>
             </n-card>
         </n-modal>
     </div>
