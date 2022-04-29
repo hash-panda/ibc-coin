@@ -22,9 +22,9 @@ watch(
 </script>
 <template>
     <div>
-        <Nav />
-        <div class="min-h-[90vh] p-2 md:p-0">
-            <n-message-provider :duration="1500">
+        <n-message-provider :duration="1500">
+            <Nav />
+            <div class="min-h-[90vh] p-2 md:p-0">
                 <router-view v-slot="{ Component }">
                     <transition :name="transitionName" mode="out-in">
                         <keep-alive>
@@ -35,9 +35,9 @@ watch(
                         <component :is="Component" v-if="!route.meta.keepAlive" :key="route.name" />
                     </transition>
                 </router-view>
-            </n-message-provider>
-        </div>
-        <Footer />
+            </div>
+            <Footer />
+        </n-message-provider>
     </div>
 </template>
 <style>

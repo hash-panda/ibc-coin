@@ -30,7 +30,7 @@ const darkThemeOverrides = {
         tdPaddingMedium: '12px',
         tdColor: 'rgba(23, 18, 18, 1)',
         thColor: 'rgba(20, 16, 16, 1)',
-        borderColor: 'rgba(45, 45, 48, 0.2)',
+        borderColor: 'rgba(45, 45, 48, 0.4)',
         thColorHover: 'rgba(20, 16, 16, 1)',
         tdColorHover: 'rgba(20, 16, 16, 1)',
     },

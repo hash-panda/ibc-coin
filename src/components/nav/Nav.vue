@@ -7,6 +7,7 @@ import useLocale from '@/hooks/locale'
 import { useRouter, useRoute } from 'vue-router'
 import { themeChange } from 'theme-change'
 import { Moon, SunnySharp } from '@vicons/ionicons5'
+import Wallet from '@/components/wallet/Wallet.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -128,8 +129,7 @@ const openTokensList = () => {
                     </template>
                 </n-switch>
             </div>
-
-            <!-- <a class="btn btn-primary btn-outline normal-case btn-xs md:btn-md ml-4">Connect Wallet</a> -->
+            <Wallet />
         </div>
     </div>
 </template>

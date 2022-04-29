@@ -1,5 +1,3 @@
 export default {
-    'favorites.tips': 'Add to Favorites',
-    'favorites.cancel': 'Deleted',
-    'favorites.collect': 'Added to Favorites',
+    'wallet.connect.btn': 'Connect Wallet',
 }

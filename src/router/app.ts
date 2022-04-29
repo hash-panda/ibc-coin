@@ -81,4 +81,13 @@ export default [
             icon: '',
         },
     },
+    {
+        path: '/walletDemo',
+        name: 'walletDemo',
+        component: () => import('@/views/demo/walletDemo.vue'),
+        meta: {
+            keepAlive: false,
+            icon: '',
+        },
+    },
 ]
