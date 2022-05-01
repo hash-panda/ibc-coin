@@ -5,8 +5,8 @@ import { getImageSrc, encodeAddress } from '@/utils'
 import { useMessage } from 'naive-ui'
 import { Copy16Regular, Share20Regular } from '@vicons/fluent'
 import { useClipboard } from '@vueuse/core'
-import WalletConnect from '@walletconnect/client'
-import QRCodeModal from '@walletconnect/qrcode-modal'
+// import WalletConnect from '@walletconnect/client'
+// import QRCodeModal from '@walletconnect/qrcode-modal'
 
 const walletStore = useWalletStore()
 const showWalletListModal = ref(false)
@@ -75,45 +75,38 @@ const createKeplrWallet = async () => {
 }
 
 const createWallectConnect = () => {
-    // Create a connector
-    const connector = new WalletConnect({
-        bridge: 'https://bridge.walletconnect.org', // Required
-        qrcodeModal: QRCodeModal,
-    })
-
-    // Check if connection is already established
-    if (!connector.connected) {
-        // create new session
-        connector.createSession()
-    }
-
-    // Subscribe to connection events
-    connector.on('connect', (error, payload) => {
-        if (error) {
-            throw error
-        }
-        console.log('payload', payload)
-
-        // Get provided accounts and chainId
-        const { accounts, chainId } = payload.params[0]
-    })
-
-    connector.on('session_update', (error, payload) => {
-        if (error) {
-            throw error
-        }
-
-        // Get updated accounts and chainId
-        const { accounts, chainId } = payload.params[0]
-    })
-
-    connector.on('disconnect', (error, payload) => {
-        if (error) {
-            throw error
-        }
-
-        // Delete connector
-    })
+    // // Create a connector
+    // const connector = new WalletConnect({
+    //     bridge: 'https://bridge.walletconnect.org', // Required
+    //     qrcodeModal: QRCodeModal,
+    // })
+    // // Check if connection is already established
+    // if (!connector.connected) {
+    //     // create new session
+    //     connector.createSession()
+    // }
+    // // Subscribe to connection events
+    // connector.on('connect', (error, payload) => {
+    //     if (error) {
+    //         throw error
+    //     }
+    //     console.log('payload', payload)
+    //     // Get provided accounts and chainId
+    //     const { accounts, chainId } = payload.params[0]
+    // })
+    // connector.on('session_update', (error, payload) => {
+    //     if (error) {
+    //         throw error
+    //     }
+    //     // Get updated accounts and chainId
+    //     const { accounts, chainId } = payload.params[0]
+    // })
+    // connector.on('disconnect', (error, payload) => {
+    //     if (error) {
+    //         throw error
+    //     }
+    //     // Delete connector
+    // })
 }
 
 const changeWallet = () => {
