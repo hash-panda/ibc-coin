@@ -40,7 +40,7 @@ const walletList = computed(() => {
 })
 
 const createKeplrWallet = async () => {
-    if (!window.getOfflineSigner || !window.keplr) {
+    if (!window['getOfflineSigner'] || !window['keplr']) {
         message.error('Please install keplr extension')
         return
     }
@@ -52,8 +52,8 @@ const createKeplrWallet = async () => {
         // This method will ask the user whether or not to allow access if they haven't visited this website.
         // Also, it will request user to unlock the wallet if the wallet is locked.
         // If you don't request enabling before usage, there is no guarantee that other methods will work.
-        await window.keplr.enable(chainId)
-        const addressInfo: any = await window.keplr.getKey(chainId)
+        await window['keplr'].enable(chainId)
+        const addressInfo: any = await window['keplr'].getKey(chainId)
 
         // const offlineSigner = window.getOfflineSigner(chainId)
 
