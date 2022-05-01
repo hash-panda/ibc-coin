@@ -1548,14 +1548,6 @@
   dependencies:
     vue-demi "*"
 
-"@walletconnect/browser-crypto@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/@walletconnect/browser-crypto/-/browser-crypto-1.0.0.tgz#047d4490b34fa0e7f7de27ae1a2a5d76bf3ee456"
-  integrity sha512-Lhj00cFQJ8veqoxrroxxqeSIy07PqMhL3eK6wmX8TIhbbru0yOps8jpOHSRtVarWvZRDa5kvZqKjnwQ4Qdqokg==
-  dependencies:
-    "@walletconnect/types" "^1.0.0"
-    "@walletconnect/utils" "^1.0.0"
-
 "@walletconnect/browser-utils@^1.7.8":
   version "1.7.8"
   resolved "https://registry.npmmirror.com/@walletconnect/browser-utils/-/browser-utils-1.7.8.tgz#c9e27f69d838442d69ccf53cb38ffc3c554baee2"
@@ -1567,16 +1559,6 @@
     "@walletconnect/window-metadata" "1.0.0"
     detect-browser "5.2.0"
 
-"@walletconnect/browser@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/@walletconnect/browser/-/browser-1.0.0.tgz#1fb8d40e73869fa83da1a4eeb245e2d0e2c86f1e"
-  integrity sha512-2fxxD4EkzGgPyk695HjfGNEqPLCebgxEQLlnSJeGVJJEhlcTjakqv1eE0u/sJP9aCeqGR8vkovcxfxoPIxMZow==
-  dependencies:
-    "@walletconnect/browser-crypto" "^1.0.0"
-    "@walletconnect/core" "^1.0.0"
-    "@walletconnect/types" "^1.0.0"
-    "@walletconnect/utils" "^1.0.0"
-
 "@walletconnect/client@^1.7.8":
   version "1.7.8"
   resolved "https://registry.npmmirror.com/@walletconnect/client/-/client-1.7.8.tgz#62c2d7114e59495d90772ea8033831ceb29c6a78"
@@ -1587,7 +1569,7 @@
     "@walletconnect/types" "^1.7.8"
     "@walletconnect/utils" "^1.7.8"
 
-"@walletconnect/core@^1.0.0", "@walletconnect/core@^1.7.8":
+"@walletconnect/core@^1.7.8":
   version "1.7.8"
   resolved "https://registry.npmmirror.com/@walletconnect/core/-/core-1.7.8.tgz#97c52ea7d00126863cd37bf19bd3e87d4f30de1e"
   integrity sha512-9xcQ0YNf9JUFb0YOX1Mpy4Yojt+6w2yQz/0aIEyj2X/s9D71NW0fTYsMcdhkLOI7mn2cqVbx2t1lRvdgqsbrSQ==
@@ -1649,24 +1631,6 @@
   resolved "https://registry.npmmirror.com/@walletconnect/mobile-registry/-/mobile-registry-1.4.0.tgz#502cf8ab87330841d794819081e748ebdef7aee5"
   integrity sha512-ZtKRio4uCZ1JUF7LIdecmZt7FOLnX72RPSY7aUVu7mj7CSfxDwUn6gBuK6WGtH+NZCldBqDl5DenI5fFSvkKYw==
 
-"@walletconnect/node-crypto@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/@walletconnect/node-crypto/-/node-crypto-1.0.0.tgz#890f11292d12c62b44d2a6f4c9bdeb97f1b7a2fd"
-  integrity sha512-0Umq6k3aw5AtnOnyAlQITZgSrPsiUVOh5oLy5wxzKXSMlWSzvtx2/9dzV1AROFXYIfhp2HKXblyxb5e4PFvVcA==
-  dependencies:
-    "@walletconnect/types" "^1.0.0"
-    "@walletconnect/utils" "^1.0.0"
-
-"@walletconnect/node@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/@walletconnect/node/-/node-1.0.0.tgz#6b981210b1af5cf84b091b66e8bee06b350cd854"
-  integrity sha512-yk5HGMWnysgqp0ePPuTrIbGB85V2Uhikh/+belffQfp03VYPQJnJj/x117KjMnAZXmzQD5lLl5bkvoy1CTKrJQ==
-  dependencies:
-    "@walletconnect/core" "^1.0.0"
-    "@walletconnect/node-crypto" "^1.0.0"
-    "@walletconnect/types" "^1.0.0"
-    "@walletconnect/utils" "^1.0.0"
-
 "@walletconnect/qrcode-modal@^1.7.8":
   version "1.7.8"
   resolved "https://registry.npmmirror.com/@walletconnect/qrcode-modal/-/qrcode-modal-1.7.8.tgz#52b3d15922f3e371ddc92fd0f49f93ff40241365"
@@ -1702,12 +1666,12 @@
     "@walletconnect/utils" "^1.7.8"
     ws "7.5.3"
 
-"@walletconnect/types@^1.0.0", "@walletconnect/types@^1.7.8":
+"@walletconnect/types@^1.7.8":
   version "1.7.8"
   resolved "https://registry.npmmirror.com/@walletconnect/types/-/types-1.7.8.tgz#ec397e6fbdc8147bccc17029edfeb41c50a5ca09"
   integrity sha512-0oSZhKIrtXRJVP1jQ0EDTRtotQY6kggGjDcmm/LLQBKnOZXdPeo0sPkV/7DjT5plT3O7Cjc6JvuXt9WOY0hlCA==
 
-"@walletconnect/utils@^1.0.0", "@walletconnect/utils@^1.7.8":
+"@walletconnect/utils@^1.7.8":
   version "1.7.8"
   resolved "https://registry.npmmirror.com/@walletconnect/utils/-/utils-1.7.8.tgz#f94572bca5eb6b5f81daf8a35268f249f9c6b1ec"
   integrity sha512-DSpfH6Do0TQmdrgzu+SyjVhupVjN0WEMvNWGK9K4VlSmLFpCWfme7qxzrvuxBZ47gDqs1kGWvjyJmviWqvOnAg==
@@ -6433,11 +6397,6 @@ ws@^7:
   version "7.5.7"
   resolved "https://registry.npmmirror.com/ws/-/ws-7.5.7.tgz#9e0ac77ee50af70d58326ecff7e85eb3fa375e67"
   integrity sha512-KMvVuFzpKBuiIXW3E4u3mySRO2/mCHSyZDJQM5NQ9Q9KHWHWh0NHgfbRMLLrceUK5qAL4ytALJbpRMjixFZh8A==
-
-ws@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.npmmirror.com/ws/-/ws-8.5.0.tgz#bfb4be96600757fe5382de12c670dab984a1ed4f"
-  integrity sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==
 
 xstream@^11.14.0:
   version "11.14.0"
