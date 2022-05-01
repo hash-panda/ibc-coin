@@ -3,12 +3,16 @@ import { ref, computed, onMounted } from 'vue'
 import { useWalletStore } from '@/store/wallet'
 import { getImageSrc, encodeAddress } from '@/utils'
 import { useMessage } from 'naive-ui'
+import { Copy16Regular, Share20Regular } from '@vicons/fluent'
+import { useClipboard } from '@vueuse/core'
+import WalletConnect from '@walletconnect/client'
+import QRCodeModal from '@walletconnect/qrcode-modal'
 
 const walletStore = useWalletStore()
 const showWalletListModal = ref(false)
 const showProfileModal = ref(false)
 const message = useMessage()
-const loading = ref(false)
+const { copy } = useClipboard()
 
 onMounted(() => {
     changeWallet()
@@ -21,19 +25,21 @@ const walletList = computed(() => {
             description: 'Keplr Browser Extension',
             icon: 'keplr.png',
             onClick: (): void => {
-                connectWallet()
+                createKeplrWallet()
             },
         },
         {
             name: 'WalletConnect',
             description: 'Keplr Mobile',
             icon: 'wallet-connect.png',
-            onClick: (): void => {},
+            onClick: (): void => {
+                createWallectConnect()
+            },
         },
     ]
 })
 
-const connectWallet = async () => {
+const createKeplrWallet = async () => {
     if (!window.getOfflineSigner || !window.keplr) {
         message.error('Please install keplr extension')
         return
@@ -49,7 +55,7 @@ const connectWallet = async () => {
         await window.keplr.enable(chainId)
         const addressInfo: any = await window.keplr.getKey(chainId)
 
-        const offlineSigner = window.getOfflineSigner(chainId)
+        // const offlineSigner = window.getOfflineSigner(chainId)
 
         // You can get the address/public keys by `getAccounts` method.
         // It can return the array of address/public key.
@@ -68,10 +74,52 @@ const connectWallet = async () => {
     }
 }
 
+const createWallectConnect = () => {
+    // Create a connector
+    const connector = new WalletConnect({
+        bridge: 'https://bridge.walletconnect.org', // Required
+        qrcodeModal: QRCodeModal,
+    })
+
+    // Check if connection is already established
+    if (!connector.connected) {
+        // create new session
+        connector.createSession()
+    }
+
+    // Subscribe to connection events
+    connector.on('connect', (error, payload) => {
+        if (error) {
+            throw error
+        }
+        console.log('payload', payload)
+
+        // Get provided accounts and chainId
+        const { accounts, chainId } = payload.params[0]
+    })
+
+    connector.on('session_update', (error, payload) => {
+        if (error) {
+            throw error
+        }
+
+        // Get updated accounts and chainId
+        const { accounts, chainId } = payload.params[0]
+    })
+
+    connector.on('disconnect', (error, payload) => {
+        if (error) {
+            throw error
+        }
+
+        // Delete connector
+    })
+}
+
 const changeWallet = () => {
     window.addEventListener('keplr_keystorechange', () => {
         console.log('Key store in Keplr is changed. You may need to refetch the account info.')
-        connectWallet()
+        createKeplrWallet()
     })
 }
 
@@ -92,6 +140,13 @@ const onProfileModalClose = () => {
 const onDisconnect = () => {
     walletStore.reset()
     onProfileModalClose()
+}
+
+const openKeplrWallet = () => {
+    window.open('https://wallet.keplr.app/#/dashboard', '_blank')
+}
+const openMintscan = () => {
+    window.open(`https://www.mintscan.io/cosmos/account/${walletStore.addressInfo.address}`, '_blank')
 }
 </script>
 <template>
@@ -135,16 +190,59 @@ const onDisconnect = () => {
         </n-modal>
         <n-modal v-model:show="showProfileModal">
             <n-card
-                style="width: 600px"
-                :title="$t('wallet.profile')"
+                class="w-[24rem] md:w-[30rem]"
                 closable
                 @close="onProfileModalClose"
+                :title="$t('wallet.profile')"
                 :bordered="false"
                 size="huge"
                 role="dialog"
                 aria-modal="true"
             >
-                <div @click="onDisconnect" class="btn btn-primary">Disconnect</div>
+                <n-space vertical :size="20">
+                    <div class="flex items-center rounded-lg space-x-3 p-3 bg-base-200">
+                        <div class="avatar">
+                            <div class="mask mask-squircle w-12 h-12">
+                                <img :src="getImageSrc('logo.png')" alt="IBCcoin" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-bold">{{ walletStore.addressInfo.name }}</div>
+                            <div class="opacity-50">
+                                {{ encodeAddress(walletStore.addressInfo.address, false) }}
+                                <n-popover placement="bottom" trigger="click">
+                                    <template #trigger>
+                                        <n-icon
+                                            @click="copy(walletStore.addressInfo.address)"
+                                            size="15"
+                                            class="hover:text-primary hover:cursor-pointer"
+                                        >
+                                            <Copy16Regular />
+                                        </n-icon>
+                                    </template>
+                                    <span>{{ $t('wallet.copied') }}</span>
+                                </n-popover>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-lg font-bold">{{ $t('wallet.viewOn') }}</div>
+                    <n-space>
+                        <div @click="openKeplrWallet" class="btn btn-primary btn-outline btn-sm normal-case">
+                            Keplr Wallet
+                            <n-icon class="ml-2" size="18">
+                                <Share20Regular />
+                            </n-icon>
+                        </div>
+                        <div @click="openMintscan" class="btn btn-primary btn-outline btn-sm normal-case">
+                            mintscan.io
+                            <n-icon class="ml-2" size="18">
+                                <Share20Regular />
+                            </n-icon>
+                        </div>
+                    </n-space>
+
+                    <div @click="onDisconnect" class="btn btn-primary btn-block normal-case">{{ $t('wallet.disconnect') }}</div>
+                </n-space>
             </n-card>
         </n-modal>
     </div>

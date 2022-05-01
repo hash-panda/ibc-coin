@@ -16,6 +16,10 @@
         "@cosmjs/stargate": "^0.28.4",
         "@vicons/ionicons5": "^0.12.0",
         "@vueuse/core": "^8.2.6",
+        "@walletconnect/browser": "^1.0.0",
+        "@walletconnect/client": "^1.7.8",
+        "@walletconnect/node": "^1.0.0",
+        "@walletconnect/qrcode-modal": "^1.7.8",
         "axios": "^0.25.0",
         "dayjs": "^1.11.0",
         "lightweight-charts": "^3.8.0",
@@ -60,7 +64,8 @@
         "unplugin-vue-components": "^0.18.0",
         "vfonts": "^0.0.3",
         "vite": "^2.7.2",
-        "vue-tsc": "^0.29.8"
+        "vue-tsc": "^0.29.8",
+        "ws": "^8.5.0"
     },
     "lint-staged": {
         "*.{vue,js,jsx,ts,tsx}": [
