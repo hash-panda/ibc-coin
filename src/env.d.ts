@@ -1,6 +1,5 @@
-import { Window as KeplrWindow } from '@keplr-wallet/types'
-
 /// <reference types="vite/client" />
+import { Window as KeplrWindow } from '@keplr-wallet/types'
 
 declare module '*.vue' {
     import { DefineComponent } from 'vue'
