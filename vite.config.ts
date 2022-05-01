@@ -15,9 +15,9 @@ export default defineConfig({
             directoryAsNamespace: true,
         }),
     ],
-    define: {
-        global: {},
-    },
+    // define: {
+    //     global: {},
+    // },
     resolve: {
         alias: {
             '@': resolve(__dirname, 'src'),
