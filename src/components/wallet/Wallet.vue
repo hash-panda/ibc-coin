@@ -28,14 +28,14 @@ const walletList = computed(() => {
                 createKeplrWallet()
             },
         },
-        {
-            name: 'WalletConnect',
-            description: 'Keplr Mobile',
-            icon: 'wallet-connect.png',
-            onClick: (): void => {
-                createWallectConnect()
-            },
-        },
+        // {
+        //     name: 'WalletConnect',
+        //     description: 'Keplr Mobile',
+        //     icon: 'wallet-connect.png',
+        //     onClick: (): void => {
+        //         createWallectConnect()
+        //     },
+        // },
     ]
 })
 
