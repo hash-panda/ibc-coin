@@ -48,6 +48,7 @@ export default defineConfig({
         },
         commonjsOptions: {
             transformMixedEsModules: true,
+            exclude: ['node_modules/naive-ui/**', 'node_modules/lodash-es/**', 'node_modules/@types/lodash-es/**'],
         },
         minify: 'terser',
         terserOptions: {
