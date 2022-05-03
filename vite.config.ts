@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+import nodePolyfills from 'rollup-plugin-polyfill-node'
 import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
@@ -41,6 +43,12 @@ export default defineConfig({
         },
     },
     build: {
+        rollupOptions: {
+            plugins: [nodePolyfills()],
+        },
+        commonjsOptions: {
+            transformMixedEsModules: true,
+        },
         minify: 'terser',
         terserOptions: {
             compress: {
@@ -48,6 +56,20 @@ export default defineConfig({
                 drop_console: true,
                 drop_debugger: true,
             },
+        },
+    },
+    optimizeDeps: {
+        esbuildOptions: {
+            // Node.js global to browser globalThis
+            define: {
+                global: 'globalThis',
+            },
+            // Enable esbuild polyfill plugins
+            plugins: [
+                NodeGlobalsPolyfillPlugin({
+                    buffer: true,
+                }),
+            ],
         },
     },
 })
