@@ -1,4 +1,5 @@
 export default {
+    'chart.coinInfo.chain': '链',
     'chart.coinInfo.marketCap': '市值',
     'chart.coinInfo.volume': '成交量 (24h)',
     'chart.coinInfo.volume.tips': '全网成交量',
@@ -21,6 +22,8 @@ export default {
     'tradingHistory.table.refresh': '刷新中',
     'tradingHistory.table.refreshInfo': '每15秒刷新一次',
     'tradingHistory.table.fullHistoryBtn': '全部交易记录',
+    'fullTradingHistory.table.length.preText': '最新 ',
+    'fullTradingHistory.table.length.lastText': ' 条记录',
     'chart.tradingHistory.btn.trader': '交易人',
     'chart.tradingHistory.btn.tx': '记录',
 

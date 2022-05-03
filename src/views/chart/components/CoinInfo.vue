@@ -29,7 +29,18 @@ const { data: coinDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatu
 })
 
 const fetchTokenInfo = () => {
-    runTokenInfo({ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] })
+    let requestParams = {}
+    if (tokenStore.currentTokenInfo.tokenId) {
+        requestParams['token_ids'] = [tokenStore.currentTokenInfo.tokenId]
+    } else if (tokenStore.currentTokenInfo.name) {
+        requestParams['token_names'] = [tokenStore.currentTokenInfo.name]
+    }
+    if (tokenStore.currentTokenInfo.chain) {
+        requestParams['chain'] = tokenStore.currentTokenInfo.chain
+    }
+    if (tokenStore.currentTokenInfo.tokenId || tokenStore.currentTokenInfo.name) {
+        runTokenInfo(requestParams)
+    }
 }
 
 onMounted(() => {
@@ -63,7 +74,7 @@ const openTokensList = () => {
                             :favorite="tokenFavoritesStore.isFavoriteToken(tokenStore.currentTokenInfo?.tokenId)"
                         />
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
+                    <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-4 gap-2">
                         <div>
                             <div class="text-sm lg:text-sm mt-2 opacity-50">{{ $t('chart.coinInfo.marketCap') }}</div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
@@ -82,6 +93,12 @@ const openTokensList = () => {
                             </div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
                                 {{ formatAmountWithDollar(tokenStore.currentTokenInfo?.totalVolume) }}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-sm lg:text-sm mt-2 opacity-50">{{ $t('chart.coinInfo.chain') }}</div>
+                            <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
+                                {{ tokenStore.currentTokenInfo?.chain }}
                             </div>
                         </div>
                         <div class="flex mt-2">

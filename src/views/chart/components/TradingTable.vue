@@ -115,11 +115,13 @@ const { data, reload, run, loading } = useRequest(queryTradingHistory, {
 })
 
 const fetchTradingHistory = () => {
-    run({ page_size: 50, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain })
+    if (tokenStore.currentTokenInfo.tokenId) {
+        run({ page_size: 50, token_id: tokenStore.currentTokenInfo.tokenId, chain: tokenStore.currentTokenInfo.chain })
+    }
 }
 
 onMounted(() => {
-    fetchTradingHistory()
+    // fetchTradingHistory()
 })
 
 watch(
@@ -151,6 +153,9 @@ const openAccountProfile = (account: string) => {
                 max-height="100%"
                 :scroll-x="470"
             />
+            <div v-if="data?.['items']?.length > 0" class="text-center opacity-50 my-4">
+                {{ $t('fullTradingHistory.table.length.preText') }}{{ data?.['items']?.length }}{{ $t('fullTradingHistory.table.length.lastText') }}
+            </div>
         </n-spin>
     </div>
 </template>

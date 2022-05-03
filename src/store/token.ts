@@ -7,8 +7,8 @@ export const useTokenStore = defineStore({
         return {
             currentTokenInfo: {
                 // tokenId: 'e6aadc3a-f6f5-42fc-b3aa-6ae2a65206e7',
-                tokenId: '05b99cdd-b9b7-44cc-aeed-ed035afeac3d',
-                chain: 'osmosis',
+                tokenId: '',
+                chain: '',
                 name: '-',
                 currentPrice: '-',
                 marketCap: '-',

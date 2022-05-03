@@ -8,6 +8,17 @@ import { useTitle } from '@vueuse/core'
 import { getTokenDisplayName } from '@/utils'
 import { useRouter, useRoute } from 'vue-router'
 
+const props = defineProps({
+    chain: {
+        type: String,
+        default: 'osmosis',
+    },
+    token: {
+        type: String,
+        default: 'atom',
+    },
+})
+
 const tokenStore = useTokenStore()
 const router = useRouter()
 const route = useRoute()
@@ -23,6 +34,9 @@ watch(
 )
 
 onMounted(() => {
+    if (props.token && props.chain) {
+        tokenStore.setCurrentTokenInfo({ name: props.token as string, chain: props.chain as string })
+    }
     if (route.meta.tokenId) {
         tokenStore.setCurrentTokenInfo({ tokenId: route.meta.tokenId as string, chain: route.meta.chain as string })
     }

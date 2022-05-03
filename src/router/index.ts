@@ -5,10 +5,6 @@ import { useTitle } from '@vueuse/core'
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
-        redirect: 'tokens',
-    },
-    {
         name: 'root',
         path: '/',
         component: PageLayout,
@@ -43,8 +39,9 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/:pathMatch(.*)*',
-        name: '404',
-        component: () => import('@/views/404/404.vue'),
+        redirect: '/',
+        // name: '404',
+        // component: () => import('@/views/404/404.vue'),
     },
 ]
 const router = createRouter({

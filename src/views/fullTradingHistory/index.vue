@@ -6,10 +6,21 @@ import { useTokenStore } from '@/store/token'
 import { useI18n } from 'vue-i18n'
 import dayjs from 'dayjs'
 import { useRequest, usePagination } from 'vue-request'
-import { queryTradingHistory } from '@/api'
+import { queryTradingHistory, queryTokenStaticStatusListByChain } from '@/api'
 import { CloseCircleOutline } from '@vicons/ionicons5'
 import { openAccount, openTx } from '@/utils/business'
 import { NTag } from 'naive-ui'
+
+const props = defineProps({
+    chain: {
+        type: String,
+        default: 'osmosis',
+    },
+    token: {
+        type: String,
+        default: 'atom',
+    },
+})
 
 const { t } = useI18n()
 const router = useRouter()
@@ -23,6 +34,33 @@ const formValue = ref({
         name: '',
     },
 })
+
+const { data: coinDetail, run: runTokenInfo } = useRequest(queryTokenStaticStatusListByChain, {
+    // defaultParams: [{ chain: tokenStore.currentTokenInfo.chain, token_ids: [tokenStore.currentTokenInfo.tokenId] }],
+    errorRetryCount: 5,
+    manual: true,
+    onError: error => {
+        console.log('queryTokenStaticStatusListByChain (⊙︿⊙) something error', error)
+    },
+    onSuccess: res => {
+        tokenStore.setCurrentTokenInfo(res?.[0])
+        fetchTradingHistory()
+    },
+})
+
+const fetchTokenInfo = () => {
+    let requestParams = {}
+    console.log('props', props)
+    if (props.token) {
+        requestParams['token_names'] = [props.token]
+    }
+    if (props.chain) {
+        requestParams['chain'] = props.chain
+    }
+    if (props.token && props.chain) {
+        runTokenInfo(requestParams)
+    }
+}
 
 const tradeVolumeSelectList = computed(() => {
     return [
@@ -86,7 +124,7 @@ const fetchTradingHistory = () => {
 const tradingHistoryList = computed(() => data.value?.['items'] || [])
 
 onMounted(() => {
-    fetchTradingHistory()
+    fetchTokenInfo()
 })
 
 // true - sell ,false - buy

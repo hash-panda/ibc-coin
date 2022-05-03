@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted } from 'vue'
 import { useMenuStore } from '@/store/menu'
+import { useTokenStore } from '@/store/token'
 import { useAppStore } from '@/store/app'
 import { LOCALE_OPTIONS } from '@/locales'
 import useLocale from '@/hooks/locale'
@@ -12,6 +13,7 @@ import { Language } from '@vicons/fa'
 const router = useRouter()
 const route = useRoute()
 const menuStore = useMenuStore()
+const tokenStore = useTokenStore()
 const appStore = useAppStore()
 const { changeLocale } = useLocale()
 const selectedKey = ref<string[]>([])
@@ -42,9 +44,19 @@ watch(
 )
 
 const changeMenu = (menuId: string) => {
-    router.push({
-        name: menuId,
-    })
+    if (menuId === 'chart') {
+        router.push({
+            name: menuId,
+            params: {
+                chain: tokenStore.currentTokenInfo.chain || 'osmosis',
+                token: tokenStore.currentTokenInfo.name || 'atom',
+            },
+        })
+    } else {
+        router.push({
+            name: menuId,
+        })
+    }
 }
 
 const setLocale = () => {

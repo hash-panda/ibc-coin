@@ -77,6 +77,7 @@ export const queryTokenListByChain = (chain: string) => {
 interface TokenStaticStatusReq {
     token_ids?: string[]
     chain?: string
+    token_names?: string[]
 }
 
 // 查询币信息列表（包括市值、币价等）
