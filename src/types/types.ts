@@ -1,5 +1,5 @@
 export interface CoinPair {
-    tokenId?: string
+    tokenId: string
     name?: string
     denom?: string
     coinPair?: string

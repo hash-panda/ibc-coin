@@ -7,24 +7,28 @@ export const useTopHotStore = defineStore({
         return {
             topTokens: [
                 {
+                    tokenId: 'evmos',
                     chain: 'evmos',
                     name: 'evmos',
                     currentPrice: '-',
                     dailyPriceChangeInPercentage: '-',
                 },
                 {
+                    tokenId: 'cre',
                     chain: 'crescent',
                     name: 'cre',
                     currentPrice: '-',
                     dailyPriceChangeInPercentage: '-',
                 },
                 {
+                    tokenId: 'mntl',
                     chain: 'osmosis',
                     name: 'mntl',
                     currentPrice: '-',
                     dailyPriceChangeInPercentage: '-',
                 },
                 {
+                    tokenId: 'juno',
                     chain: 'osmosis',
                     name: 'juno',
                     currentPrice: '-',
