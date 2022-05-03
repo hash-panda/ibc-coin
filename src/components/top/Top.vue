@@ -35,7 +35,7 @@ const openChart = (coin: CoinPair) => {
                 <div>
                     <div class="font-bold link link-hover text-primary uppercase" @click="openChart(item)">{{ getTokenDisplayName(item.name) }}</div>
                     <div class="text-[0.5rem] uppercase">
-                        <span class="opacity-50 mr-2">{{ formatAmountWithDollarDecimal(item.currentPrice) }}</span>
+                        <span class="mr-2">{{ formatAmountWithDollarDecimal(item.currentPrice) }}</span>
                         <br class="md:hidden" />
                         <span :class="item.dailyPriceChangeInPercentage > 0 ? 'font-bold text-success' : 'font-bold text-error'">
                             {{
