@@ -4,7 +4,7 @@ import { InfoCircle } from '@vicons/fa'
 import { CoinPair } from '@/types/types'
 import { useTokenStore } from '@/store/token'
 import { useTokenFavoritesStore } from '@/store/tokenFavorites'
-import { formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName } from '@/utils'
+import { formatAmountWithDollar, formatAmountWithDollarDecimal, getTokenDisplayName, getChainDisplayName } from '@/utils'
 import { useRouter } from 'vue-router'
 import { useRequest } from 'vue-request'
 import { queryTokenStaticStatusListByChain } from '@/api'
@@ -98,7 +98,7 @@ const openTokensList = () => {
                         <div>
                             <div class="text-sm lg:text-sm mt-2 opacity-50">{{ $t('chart.coinInfo.chain') }}</div>
                             <div class="text-base-content text-sm md:text-base xl:text-lg tracking-widest">
-                                {{ tokenStore.currentTokenInfo?.chain }}
+                                {{ getChainDisplayName(tokenStore.currentTokenInfo?.chain) }}
                             </div>
                         </div>
                         <div class="flex mt-2">
