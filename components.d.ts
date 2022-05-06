@@ -39,8 +39,8 @@ declare module 'vue' {
         NTabPane: typeof import('naive-ui')['NTabPane']
         NTabs: typeof import('naive-ui')['NTabs']
         NTooltip: typeof import('naive-ui')['NTooltip']
-        WalletWallet: typeof import('./src/components/wallet/Wallet.vue')['default']
         TopTop: typeof import('./src/components/top/Top.vue')['default']
+        WalletWallet: typeof import('./src/components/wallet/Wallet.vue')['default']
     }
 }
 
