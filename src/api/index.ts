@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { DISPLAY_COIN_LIST } from '@/const/displayCoinList'
+import txAction from '@/const/txAction'
 import { getActualAmount, getFixedAmount, timeToLocal, getTokenDisplayName } from '@/utils'
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
@@ -193,6 +194,107 @@ export const queryTradingHistory = (requestParams: TradingHistoryReq) => {
                         }
                     })
                     resolve({ items: result, total: res.data.total })
+                } else {
+                    reject(res)
+                }
+            })
+            .catch(error => {
+                reject(error)
+            })
+    })
+}
+
+interface TxReq {
+    address: string
+    action: string
+}
+
+// 查询 cosmos network Tx 信息
+export const queryCosmosTxs = (txReq: TxReq) => {
+    const specialAction = [txAction.MultiSend, txAction.Receive]
+    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    if (specialAction.includes(txReq.action)) {
+        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    }
+    return new Promise((resolve, reject) => {
+        axios
+            .post('/backend/cosmosNetwork/cosmos/tx/v1beta1/txs', requestParams)
+            .then((res: any) => {
+                console.log('queryCosmosTxs', res)
+                if (res.code === 0) {
+                    resolve({})
+                } else {
+                    reject(res)
+                }
+            })
+            .catch(error => {
+                reject(error)
+            })
+    })
+}
+
+// 查询 osmosis Tx 信息
+export const queryOsmosisTxs = (txReq: TxReq) => {
+    const specialAction = [txAction.MultiSend, txAction.Receive]
+    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    if (specialAction.includes(txReq.action)) {
+        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    }
+    return new Promise((resolve, reject) => {
+        axios
+            .post('/backend/cosmosNetwork/cosmos/tx/v1beta1/txs', requestParams)
+            .then((res: any) => {
+                console.log('queryOsmosisTxs', res)
+                if (res.code === 0) {
+                    resolve({})
+                } else {
+                    reject(res)
+                }
+            })
+            .catch(error => {
+                reject(error)
+            })
+    })
+}
+
+// 查询 Evmos Tx 信息
+export const queryEvmosTxs = (txReq: TxReq) => {
+    const specialAction = [txAction.MultiSend, txAction.Receive]
+    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    if (specialAction.includes(txReq.action)) {
+        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    }
+    return new Promise((resolve, reject) => {
+        axios
+            .post('/backend/cosmosNetwork/cosmos/tx/v1beta1/txs', requestParams)
+            .then((res: any) => {
+                console.log('queryOsmosisTxs', res)
+                if (res.code === 0) {
+                    resolve({})
+                } else {
+                    reject(res)
+                }
+            })
+            .catch(error => {
+                reject(error)
+            })
+    })
+}
+
+// 查询 Juno Tx 信息
+export const queryJunoTxs = (txReq: TxReq) => {
+    const specialAction = [txAction.MultiSend, txAction.Receive]
+    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    if (specialAction.includes(txReq.action)) {
+        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    }
+    return new Promise((resolve, reject) => {
+        axios
+            .post('/backend/juno/cosmos/tx/v1beta1/txs', requestParams)
+            .then((res: any) => {
+                console.log('queryOsmosisTxs', res)
+                if (res.code === 0) {
+                    resolve({})
                 } else {
                     reject(res)
                 }

@@ -44,6 +44,26 @@ export default defineConfig(({ command, mode }) => {
                     changeOrigin: true,
                     rewrite: path => path.replace(/^\/backend\/ibccoin/, ''),
                 },
+                '/backend/cosmosNetwork': {
+                    target: 'https://api.cosmos.network',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/backend\/cosmosNetwork/, ''),
+                },
+                '/backend/juno': {
+                    target: 'https://lcd-juno.itastakers.com',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/backend\/juno/, ''),
+                },
+                '/backend/osmosis': {
+                    target: '',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/backend\/osmosis/, ''),
+                },
+                '/backend/evmos': {
+                    target: '',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/backend\/evmos/, ''),
+                },
             },
         },
         build: {

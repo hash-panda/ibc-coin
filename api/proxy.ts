@@ -13,6 +13,19 @@ module.exports = (req, res) => {
     if (req.url.startsWith('/backend/ibccoin')) {
         target = 'http://135.181.25.194:7777'
     }
+    if (req.url.startsWith('/backend/cosmosNetwork')) {
+        target = 'https://api.cosmos.network'
+    }
+    if (req.url.startsWith('/backend/juno')) {
+        target = 'https://lcd-juno.itastakers.com'
+    }
+    if (req.url.startsWith('/backend/osmosis')) {
+        target = ''
+    }
+    if (req.url.startsWith('/backend/evmos')) {
+        target = ''
+    }
+
     // 创建代理对象并转发请求
     createProxyMiddleware({
         target,
@@ -22,6 +35,10 @@ module.exports = (req, res) => {
             // 例如 /backend/user/login 将被转发到 http://backend-api.com/user/login
             '^/backend/cosmostation': '/',
             '^/backend/ibccoin': '/',
+            '^/backend/cosmosNetwork': '/',
+            '^/backend/juno': '/',
+            '^/backend/osmosis': '/',
+            '^/backend/evmos': '/',
         },
     })(req, res)
 }
