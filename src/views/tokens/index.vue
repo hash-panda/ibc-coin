@@ -3,11 +3,14 @@ import { reactive } from 'vue'
 import CoinPairList from '@/views/tokens/components/CoinPairList.vue'
 import { queryTokenStaticStatusListByChain } from '@/api'
 import { useTokenFavoritesStore } from '@/store/tokenFavorites'
+import { useTopHotStore } from '@/store/topHot'
 import { useRequest } from 'vue-request'
 import { getImageSrc } from '@/utils'
 import { useI18n } from 'vue-i18n'
+import Top from '@/components/top/Top.vue'
 
 const tokenFavoritesStore = useTokenFavoritesStore()
+const topHotStore = useTopHotStore()
 const { t } = useI18n()
 
 const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -22,6 +25,7 @@ const { data: crescentList } = useRequest(queryTokenStaticStatusListByChain, {
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
         tokenFavoritesStore.editFavoriteToken(res as any)
+        topHotStore.updateTopHot(res as any)
     },
 })
 const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -36,6 +40,7 @@ const { data: osmoList } = useRequest(queryTokenStaticStatusListByChain, {
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
         tokenFavoritesStore.editFavoriteToken(res as any)
+        topHotStore.updateTopHot(res as any)
     },
 })
 const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -50,6 +55,7 @@ const { data: junoList } = useRequest(queryTokenStaticStatusListByChain, {
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
         tokenFavoritesStore.editFavoriteToken(res as any)
+        topHotStore.updateTopHot(res as any)
     },
 })
 const { data: evmosList } = useRequest(queryTokenStaticStatusListByChain, {
@@ -64,6 +70,7 @@ const { data: evmosList } = useRequest(queryTokenStaticStatusListByChain, {
     onSuccess: res => {
         console.log('queryTokenStaticStatusListByChain ✿✿ヽ(°▽°)ノ✿ success', res)
         tokenFavoritesStore.editFavoriteToken(res as any)
+        topHotStore.updateTopHot(res as any)
     },
 })
 
@@ -96,6 +103,7 @@ const tokenList = reactive([
 </script>
 <template>
     <div class="w-full px-2 sm:px-6 md:px-12 lg:px-28 xl:px-64 mt-4">
+        <Top />
         <n-tabs type="card" :animated="true" :bar-width="200" display-directive="show">
             <n-tab-pane v-for="item in tokenList" :key="item.key" :name="item.name">
                 <template #tab>

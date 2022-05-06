@@ -1,4 +1,5 @@
 export default {
+    'chart.coinInfo.chain': 'Chain',
     'chart.coinInfo.marketCap': 'Market Cap',
     'chart.coinInfo.volume': 'Volume (24h)',
     'chart.coinInfo.volume.tips': 'The whole network trade volume',
@@ -21,6 +22,8 @@ export default {
     'tradingHistory.table.refresh': 'refreshing',
     'tradingHistory.table.refreshInfo': 'Refresh data at 15-second intervals',
     'tradingHistory.table.fullHistoryBtn': 'Full Trading History',
+    'fullTradingHistory.table.length.preText': 'Latest ',
+    'fullTradingHistory.table.length.lastText': ' records',
     'chart.tradingHistory.btn.trader': 'Trader',
     'chart.tradingHistory.btn.tx': 'Tx',
 

@@ -202,6 +202,10 @@ const openChart = (coin: CoinPair) => {
     tokenStore.setCurrentTokenInfo(coin)
     router.push({
         name: 'chart',
+        params: {
+            chain: coin.chain,
+            token: coin.name,
+        },
     })
 }
 </script>

@@ -7,18 +7,24 @@ import diqiu from '@/assets/images/order/diqiu.png'
 import tuxing from '@/assets/images/order/tuxing.png'
 import yueqiu from '@/assets/images/order/yueqiu.png'
 import { useRouter } from 'vue-router'
+import { useTokenStore } from '@/store/token'
 
 const router = useRouter()
+const tokenStore = useTokenStore()
 
 const openFullHistory = () => {
     router.push({
         name: 'fullTradingHistory',
+        params: {
+            token: tokenStore.currentTokenInfo.name,
+            chain: tokenStore.currentTokenInfo.chain,
+        },
     })
 }
 </script>
 <template>
     <div>
-        <div class="card w-full">
+        <div class="card w-full sm:mt-8">
             <div>
                 <h2 class="card-title pr-6 indicator align-middle">
                     {{ $t('chart.tradingHistory.title') }}
@@ -80,6 +86,6 @@ const openFullHistory = () => {
 </template>
 <style scoped>
 .trade-history-height {
-    height: calc(100vh - 10.8rem);
+    height: calc(100vh - 14.8rem);
 }
 </style>

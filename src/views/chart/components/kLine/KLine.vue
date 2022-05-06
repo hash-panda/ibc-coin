@@ -220,8 +220,10 @@ const { run: updateKLineRun } = useRequest(queryKLine, {
 })
 
 const fetchKLine = (endTime?: number) => {
-    const requestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
-    createKLineRun(requestParams)
+    if (tokenStore.currentTokenInfo.tokenId) {
+        const requestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
+        createKLineRun(requestParams)
+    }
 }
 const updateKLine = (endTime?: number) => {
     let requestParams: KLineRequestParams = { token_id: tokenStore.currentTokenInfo.tokenId, k_line_interval: timeSelect.value }
