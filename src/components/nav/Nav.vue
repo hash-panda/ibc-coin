@@ -95,12 +95,14 @@ const openTokensList = () => {
                                 {{ $t('navbar.menu.chart') }}
                             </a>
                         </li>
-                        <!-- <li @click="changeMenu('subscribe')">
-                        <a :class="selectedKey.includes('subscribe') ? 'active  bg-primary px-16 py-3' : 'px-16 py-3'">{{ $t('navbar.menu.subscribe') }}</a>
-                    </li> -->
                         <li class="mt-5" @click="changeMenu('about')">
                             <a :class="selectedKey.includes('about') ? 'active  bg-primary px-16 py-3' : 'px-16 py-3'">
                                 {{ $t('navbar.menu.about') }}
+                            </a>
+                        </li>
+                        <li class="mt-5" @click="changeMenu('profile')">
+                            <a :class="selectedKey.includes('profile') ? 'active  bg-primary px-16 py-3' : 'px-16 py-3'">
+                                {{ $t('navbar.menu.profile') }}
                             </a>
                         </li>
                     </ul>
@@ -128,6 +130,9 @@ const openTokensList = () => {
                     </li>
                     <li @click="changeMenu('about')" class="mr-2">
                         <a :class="selectedKey.includes('about') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.about') }}</a>
+                    </li>
+                    <li @click="changeMenu('profile')" class="mr-2">
+                        <a :class="selectedKey.includes('profile') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.profile') }}</a>
                     </li>
                 </ul>
             </div>

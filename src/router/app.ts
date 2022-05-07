@@ -88,6 +88,15 @@ export default [
         },
     },
     {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/views/profile/index.vue'),
+        meta: {
+            keepAlive: true,
+            icon: '',
+        },
+    },
+    {
         path: '/history',
         name: 'history',
         component: () => import('@/views/fullTradingHistory/index.vue'),

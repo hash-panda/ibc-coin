@@ -207,28 +207,29 @@ export const queryTradingHistory = (requestParams: TradingHistoryReq) => {
 interface TxReq {
     address: string
     action: string
+    limit: number
+    offset: number
 }
 
 // 查询 cosmos network Tx 信息
 export const queryCosmosTxs = (txReq: TxReq) => {
     const specialAction = [txAction.MultiSend, txAction.Receive]
-    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
     if (specialAction.includes(txReq.action)) {
-        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
     }
     return new Promise((resolve, reject) => {
         axios
-            .post('/backend/cosmosNetwork/cosmos/tx/v1beta1/txs', requestParams)
+            .get(`/backend/cosmosNetwork/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
-                console.log('queryCosmosTxs', res)
-                if (res.code === 0) {
-                    resolve({})
+                if (res) {
+                    resolve({ items: res.txs, pagination: res.pagination })
                 } else {
-                    reject(res)
+                    reject({ items: [], pagination: { total: 0, next_key: null } })
                 }
             })
             .catch(error => {
-                reject(error)
+                reject({ items: [], pagination: { total: 0, next_key: null } })
             })
     })
 }
@@ -242,11 +243,10 @@ export const queryOsmosisTxs = (txReq: TxReq) => {
     }
     return new Promise((resolve, reject) => {
         axios
-            .post('/backend/cosmosNetwork/cosmos/tx/v1beta1/txs', requestParams)
+            .get(`/backend/cosmosNetwork/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
-                console.log('queryOsmosisTxs', res)
-                if (res.code === 0) {
-                    resolve({})
+                if (res) {
+                    resolve(res)
                 } else {
                     reject(res)
                 }
@@ -266,11 +266,11 @@ export const queryEvmosTxs = (txReq: TxReq) => {
     }
     return new Promise((resolve, reject) => {
         axios
-            .post('/backend/cosmosNetwork/cosmos/tx/v1beta1/txs', requestParams)
+            .get(`/backend/cosmosNetwork/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
                 console.log('queryOsmosisTxs', res)
-                if (res.code === 0) {
-                    resolve({})
+                if (res) {
+                    resolve(res)
                 } else {
                     reject(res)
                 }
@@ -290,11 +290,11 @@ export const queryJunoTxs = (txReq: TxReq) => {
     }
     return new Promise((resolve, reject) => {
         axios
-            .post('/backend/juno/cosmos/tx/v1beta1/txs', requestParams)
+            .get(`/backend/juno/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
                 console.log('queryOsmosisTxs', res)
-                if (res.code === 0) {
-                    resolve({})
+                if (res) {
+                    resolve(res)
                 } else {
                     reject(res)
                 }
