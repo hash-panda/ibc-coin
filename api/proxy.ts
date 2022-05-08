@@ -20,10 +20,16 @@ module.exports = (req, res) => {
         target = 'https://lcd-juno.itastakers.com'
     }
     if (req.url.startsWith('/backend/osmosis')) {
-        target = ''
+        target = 'https://proxy.atomscan.com'
     }
     if (req.url.startsWith('/backend/evmos')) {
-        target = ''
+        target = 'https://rest.bd.evmos.org:1317'
+    }
+    if (req.url.startsWith('/backend/assetmantle')) {
+        target = 'https://rest.assetmantle.one'
+    }
+    if (req.url.startsWith('/backend/crescent')) {
+        target = 'https://api.crescent.pupmos.network'
     }
 
     // 创建代理对象并转发请求
@@ -39,6 +45,8 @@ module.exports = (req, res) => {
             '^/backend/juno': '/',
             '^/backend/osmosis': '/',
             '^/backend/evmos': '/',
+            '^/backend/assetmantle': '/',
+            '^/backend/crescent': '/',
         },
     })(req, res)
 }

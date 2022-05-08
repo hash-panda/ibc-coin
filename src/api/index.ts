@@ -2,6 +2,7 @@ import axios from 'axios'
 import { DISPLAY_COIN_LIST } from '@/const/displayCoinList'
 import txAction from '@/const/txAction'
 import { getActualAmount, getFixedAmount, timeToLocal, getTokenDisplayName } from '@/utils'
+import { ReturnDownBack } from '@vicons/ionicons5'
 
 // 从 https://www.mintscan.io/cosmos 获取 atom 价格信息
 export const getAtomPriceApi = () => {
@@ -206,24 +207,23 @@ export const queryTradingHistory = (requestParams: TradingHistoryReq) => {
 
 interface TxReq {
     address: string
-    action: string
+    action: any
     limit: number
     offset: number
 }
 
 // 查询 cosmos network Tx 信息
 export const queryCosmosTxs = (txReq: TxReq) => {
-    const specialAction = [txAction.MultiSend, txAction.Receive]
-    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
-    if (specialAction.includes(txReq.action)) {
-        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    if (txReq.action.isReceiver) {
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
     }
     return new Promise((resolve, reject) => {
         axios
             .get(`/backend/cosmosNetwork/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
                 if (res) {
-                    resolve({ items: res.txs, pagination: res.pagination })
+                    resolve({ items: res.tx_responses, pagination: res.pagination })
                 } else {
                     reject({ items: [], pagination: { total: 0, next_key: null } })
                 }
@@ -236,71 +236,126 @@ export const queryCosmosTxs = (txReq: TxReq) => {
 
 // 查询 osmosis Tx 信息
 export const queryOsmosisTxs = (txReq: TxReq) => {
-    const specialAction = [txAction.MultiSend, txAction.Receive]
-    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
-    if (specialAction.includes(txReq.action)) {
-        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    if (txReq.action.isReceiver) {
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
     }
     return new Promise((resolve, reject) => {
         axios
-            .get(`/backend/cosmosNetwork/cosmos/tx/v1beta1/txs?${requestParams}`)
+            .get(`/backend/osmosis/osmo-lcd/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
                 if (res) {
-                    resolve(res)
+                    resolve({ items: res.tx_responses, pagination: res.pagination })
                 } else {
-                    reject(res)
+                    reject({ items: [], pagination: { total: 0, next_key: null } })
                 }
             })
             .catch(error => {
-                reject(error)
+                reject({ items: [], pagination: { total: 0, next_key: null } })
             })
     })
 }
 
 // 查询 Evmos Tx 信息
 export const queryEvmosTxs = (txReq: TxReq) => {
-    const specialAction = [txAction.MultiSend, txAction.Receive]
-    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
-    if (specialAction.includes(txReq.action)) {
-        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    if (txReq.action.isReceiver) {
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
     }
     return new Promise((resolve, reject) => {
         axios
-            .get(`/backend/cosmosNetwork/cosmos/tx/v1beta1/txs?${requestParams}`)
+            .get(`/backend/evmos/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
-                console.log('queryOsmosisTxs', res)
                 if (res) {
-                    resolve(res)
+                    resolve({ items: res.tx_responses, pagination: res.pagination })
                 } else {
-                    reject(res)
+                    reject({ items: [], pagination: { total: 0, next_key: null } })
                 }
             })
             .catch(error => {
-                reject(error)
+                reject({ items: [], pagination: { total: 0, next_key: null } })
             })
     })
 }
 
 // 查询 Juno Tx 信息
 export const queryJunoTxs = (txReq: TxReq) => {
-    const specialAction = [txAction.MultiSend, txAction.Receive]
-    let requestParams = `events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
-    if (specialAction.includes(txReq.action)) {
-        requestParams = `events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action}'`
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    if (txReq.action.isReceiver) {
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
     }
     return new Promise((resolve, reject) => {
         axios
             .get(`/backend/juno/cosmos/tx/v1beta1/txs?${requestParams}`)
             .then((res: any) => {
-                console.log('queryOsmosisTxs', res)
                 if (res) {
-                    resolve(res)
+                    resolve({ items: res.tx_responses, pagination: res.pagination })
                 } else {
-                    reject(res)
+                    reject({ items: [], pagination: { total: 0, next_key: null } })
                 }
             })
             .catch(error => {
-                reject(error)
+                reject({ items: [], pagination: { total: 0, next_key: null } })
             })
     })
+}
+
+// 查询 assetmantle Tx 信息
+export const queryAssetMantleTxs = (txReq: TxReq) => {
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    if (txReq.action.isReceiver) {
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    }
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/backend/assetmantle/cosmos/tx/v1beta1/txs?${requestParams}`)
+            .then((res: any) => {
+                if (res) {
+                    resolve({ items: res.tx_responses, pagination: res.pagination })
+                } else {
+                    reject({ items: [], pagination: { total: 0, next_key: null } })
+                }
+            })
+            .catch(error => {
+                reject({ items: [], pagination: { total: 0, next_key: null } })
+            })
+    })
+}
+
+// 查询 crescent Tx 信息
+export const queryCrescentTxs = (txReq: TxReq) => {
+    let requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=message.sender%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    if (txReq.action.isReceiver) {
+        requestParams = `pagination.limit=${txReq.limit}&pagination.offset=${txReq.offset}&orderBy=ORDER_BY_DESC&events=transfer.recipient%3D'${txReq.address}'&events=message.action%3D'%2F${txReq.action.action}'`
+    }
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/backend/crescent/cosmos/tx/v1beta1/txs?${requestParams}`)
+            .then((res: any) => {
+                if (res) {
+                    resolve({ items: res.tx_responses, pagination: res.pagination })
+                } else {
+                    reject({ items: [], pagination: { total: 0, next_key: null } })
+                }
+            })
+            .catch(error => {
+                reject({ items: [], pagination: { total: 0, next_key: null } })
+            })
+    })
+}
+
+export const queryTxs = (txReq: TxReq, chain: string) => {
+    if (chain === 'crescent') {
+        return queryCrescentTxs(txReq)
+    } else if (chain === 'osmosis') {
+        return queryOsmosisTxs(txReq)
+    } else if (chain === 'cosmos') {
+        return queryCosmosTxs(txReq)
+    } else if (chain === 'asset-mantle') {
+        return queryAssetMantleTxs(txReq)
+    } else if (chain === 'juno') {
+        return queryJunoTxs(txReq)
+    } else if (chain === 'evmos') {
+        return queryEvmosTxs(txReq)
+    }
 }

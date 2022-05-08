@@ -163,3 +163,35 @@ export function getChainDisplayName(chain: string) {
         return ''
     }
 }
+
+/**
+ * 获取链类型
+ */
+export function getChainTypeByAddress(address?: string | null) {
+    if (address) {
+        if (address.startsWith('cosmos')) {
+            return 'cosmos'
+        } else if (address.startsWith('osmo')) {
+            return 'osmosis'
+        } else if (address.startsWith('mantle')) {
+            return 'asset-mantle'
+        } else if (address.startsWith('juno')) {
+            return 'juno'
+        } else if (address.startsWith('evmos')) {
+            return 'evmos'
+        } else if (address.startsWith('cre')) {
+            return 'crescent'
+        } else {
+            return ''
+        }
+    } else {
+        return ''
+    }
+}
+
+export function getVoteOption(option: string) {
+    if (option) {
+        return option.substring('VOTE_OPTION_'.length)
+    }
+    return ''
+}

@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { useRequest, usePagination } from 'vue-request'
 import { queryTradingHistory, queryTokenStaticStatusListByChain } from '@/api'
 import { CloseCircleOutline } from '@vicons/ionicons5'
-import { openAccount, openTx } from '@/utils/business'
+import businessCommon from '@/utils/business'
 import { NTag } from 'naive-ui'
 
 const props = defineProps({
@@ -24,6 +24,7 @@ const props = defineProps({
 
 const { t } = useI18n()
 const router = useRouter()
+const { openAccount, openTx } = businessCommon()
 const tokenStore = useTokenStore()
 const tradeVolumeSelected = ref('medium')
 const sortBy = ref<boolean>(false)

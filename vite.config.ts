@@ -55,14 +55,24 @@ export default defineConfig(({ command, mode }) => {
                     rewrite: path => path.replace(/^\/backend\/juno/, ''),
                 },
                 '/backend/osmosis': {
-                    target: '',
+                    target: 'https://proxy.atomscan.com',
                     changeOrigin: true,
                     rewrite: path => path.replace(/^\/backend\/osmosis/, ''),
                 },
                 '/backend/evmos': {
-                    target: '',
+                    target: 'https://rest.bd.evmos.org:1317',
                     changeOrigin: true,
                     rewrite: path => path.replace(/^\/backend\/evmos/, ''),
+                },
+                '/backend/assetmantle': {
+                    target: 'https://rest.assetmantle.one',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/backend\/assetmantle/, ''),
+                },
+                '/backend/crescent': {
+                    target: 'https://api.crescent.pupmos.network',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/backend\/crescent/, ''),
                 },
             },
         },

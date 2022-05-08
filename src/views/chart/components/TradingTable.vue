@@ -6,13 +6,14 @@ import { useRequest } from 'vue-request'
 import { queryTradingHistory } from '@/api'
 import { useTokenStore } from '@/store/token'
 import { Delicious } from '@vicons/fa'
-import { openAccount, openTx } from '@/utils/business'
+import businessCommon from '@/utils/business'
 import { useI18n } from 'vue-i18n'
 import { NTag } from 'naive-ui'
 
 const { t } = useI18n()
 const tokenStore = useTokenStore()
 const showModal = ref(false)
+const { openAccount, openTx } = businessCommon()
 
 // true - sell ,false - buy
 const isBuyOrSell = (row: any) => {
