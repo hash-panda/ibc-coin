@@ -10,11 +10,13 @@ import { themeChange } from 'theme-change'
 import { Moon, SunnySharp } from '@vicons/ionicons5'
 import Wallet from '@/components/wallet/Wallet.vue'
 import { Language } from '@vicons/fa'
+import { useWalletStore } from '@/store/wallet'
 
 const router = useRouter()
 const route = useRoute()
 const menuStore = useMenuStore()
 const tokenStore = useTokenStore()
+const walletStore = useWalletStore()
 const appStore = useAppStore()
 const { changeLocale } = useLocale()
 const selectedKey = ref<string[]>([])
@@ -100,11 +102,11 @@ const openTokensList = () => {
                                 {{ $t('navbar.menu.about') }}
                             </a>
                         </li>
-                        <!-- <li class="mt-5" @click="changeMenu('profile')">
+                        <li class="mt-5" @click="changeMenu('profile')">
                             <a :class="selectedKey.includes('profile') ? 'active  bg-primary px-16 py-3' : 'px-16 py-3'">
                                 {{ $t('navbar.menu.profile') }}
                             </a>
-                        </li> -->
+                        </li>
                     </ul>
                 </div>
                 <div class="flex items-center hover:cursor-pointer normal-case ml-0 md:ml-5" @click="openTokensList">
@@ -131,9 +133,9 @@ const openTokensList = () => {
                     <li @click="changeMenu('about')" class="mr-2">
                         <a :class="selectedKey.includes('about') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.about') }}</a>
                     </li>
-                    <!-- <li @click="changeMenu('profile')" class="mr-2">
+                    <li @click="changeMenu('profile')" class="mr-2">
                         <a :class="selectedKey.includes('profile') ? 'active  bg-primary' : ''">{{ $t('navbar.menu.profile') }}</a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
             <div class="flex">

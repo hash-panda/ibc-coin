@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, reactive } from 'vue'
 import { useWalletStore } from '@/store/wallet'
 import { getImageSrc, encodeAddress } from '@/utils'
 import { useMessage } from 'naive-ui'
@@ -28,14 +28,14 @@ const walletList = computed(() => {
                 createKeplrWallet()
             },
         },
-        {
-            name: 'WalletConnect',
-            description: 'Keplr Mobile',
-            icon: 'wallet-connect.png',
-            onClick: (): void => {
-                createWallectConnect()
-            },
-        },
+        // {
+        //     name: 'WalletConnect',
+        //     description: 'Keplr Mobile',
+        //     icon: 'wallet-connect.png',
+        //     onClick: (): void => {
+        //         createWallectConnect()
+        //     },
+        // },
     ]
 })
 
@@ -44,34 +44,48 @@ const createKeplrWallet = async () => {
         message.error('Please install keplr extension')
         return
     }
-    try {
-        const chainId = 'cosmoshub-4'
-        // const chainIds = ['cosmoshub-4', 'osmosis-1']
 
-        // You should request Keplr to enable the wallet.
-        // This method will ask the user whether or not to allow access if they haven't visited this website.
-        // Also, it will request user to unlock the wallet if the wallet is locked.
-        // If you don't request enabling before usage, there is no guarantee that other methods will work.
-        await window['keplr'].enable(chainId)
-        const addressInfo: any = await window['keplr'].getKey(chainId)
+    for (let index = 0; index < walletStore.chainWallet.length; index++) {
+        const chainId = walletStore.chainWallet[index].chainId
 
-        // const offlineSigner = window.getOfflineSigner(chainId)
+        try {
+            // You should request Keplr to enable the wallet.
+            // This method will ask the user whether or not to allow access if they haven't visited this website.
+            // Also, it will request user to unlock the wallet if the wallet is locked.
+            // If you don't request enabling before usage, there is no guarantee that other methods will work.
+            await window['keplr'].enable(chainId)
+            const addressInfo: any = await window['keplr'].getKey(chainId)
 
-        // You can get the address/public keys by `getAccounts` method.
-        // It can return the array of address/public key.
-        // But, currently, Keplr extension manages only one address/public key pair.
-        // XXX: This line is needed to set the sender address for SigningCosmosClient.
-        // const offlineSignerAccounts = await offlineSigner.getAccounts()
-        console.log(addressInfo)
-        walletStore.setCurrentAddressInfo({ address: addressInfo.bech32Address, name: addressInfo.name })
-        // Initialize the gaia api with the offline signer that is injected by Keplr extension.
-        // const cosmJS = new SigningCosmosClient('https://rpc-osmosis.blockapsis.com', accounts.value[0].address, offlineSigner)
+            // const offlineSigner = window.getOfflineSigner(chainId)
 
-        // 关闭弹框
-        onWalletListModalClose()
-    } catch (e) {
-        console.log('eeeeeee', e)
+            // You can get the address/public keys by `getAccounts` method.
+            // It can return the array of address/public key.
+            // But, currently, Keplr extension manages only one address/public key pair.
+            // XXX: This line is needed to set the sender address for SigningCosmosClient.
+            // const offlineSignerAccounts = await offlineSigner.getAccounts()
+            console.log(addressInfo)
+            // walletStore.setCurrentAddressInfo({ address: addressInfo.bech32Address, name: addressInfo.name })
+            walletStore.setChainInfo({ address: addressInfo.bech32Address, name: addressInfo.name }, walletStore.chainWallet[index].chainName)
+            if (index === 0) {
+                walletStore.setCurrentSelectedWallet({
+                    address: addressInfo.bech32Address,
+                    name: addressInfo.name,
+                    chainId: chainId,
+                    chainName: walletStore.chainWallet[index].chainName,
+                })
+            }
+            // Initialize the gaia api with the offline signer that is injected by Keplr extension.
+            // const cosmJS = new SigningCosmosClient('https://rpc-osmosis.blockapsis.com', accounts.value[0].address, offlineSigner)
+        } catch (e) {
+            console.log('eeeeeee', e)
+            if (e?.message) {
+                message.error(e?.message)
+            }
+        }
     }
+
+    // 关闭弹框
+    onWalletListModalClose()
 }
 
 const createWallectConnect = () => {
@@ -139,13 +153,17 @@ const openKeplrWallet = () => {
     window.open('https://wallet.keplr.app/#/dashboard', '_blank')
 }
 const openMintscan = () => {
-    window.open(`https://www.mintscan.io/cosmos/account/${walletStore.addressInfo.address}`, '_blank')
+    window.open(`https://www.mintscan.io/cosmos/account/${walletStore.chainInfo.cosmos.address}`, '_blank')
 }
 </script>
 <template>
     <div>
-        <div v-if="walletStore.addressInfo.address" @click="onProfileModalOpen" class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4">
-            {{ walletStore.addressInfo.name }} | {{ encodeAddress(walletStore.addressInfo.address) }}
+        <div
+            v-if="walletStore.chainInfo.cosmos.address"
+            @click="onProfileModalOpen"
+            class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4"
+        >
+            {{ walletStore.chainInfo.cosmos.name }} | {{ encodeAddress(walletStore.chainInfo.cosmos.address) }}
         </div>
         <div v-else @click="onWalletListModalOpen" class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4">
             {{ $t('wallet.connect.btn') }}
@@ -200,13 +218,13 @@ const openMintscan = () => {
                             </div>
                         </div>
                         <div>
-                            <div class="font-bold">{{ walletStore.addressInfo.name }}</div>
+                            <div class="font-bold">{{ walletStore.chainInfo.cosmos.name }}</div>
                             <div class="opacity-50">
-                                {{ encodeAddress(walletStore.addressInfo.address, false) }}
+                                {{ encodeAddress(walletStore.chainInfo.cosmos.address, false) }}
                                 <n-popover placement="bottom" trigger="click">
                                     <template #trigger>
                                         <n-icon
-                                            @click="copy(walletStore.addressInfo.address)"
+                                            @click="copy(walletStore.chainInfo.cosmos.address)"
                                             size="15"
                                             class="hover:text-primary hover:cursor-pointer"
                                         >

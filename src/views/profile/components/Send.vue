@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, h, reactive } from 'vue'
+import { computed, onMounted, ref, h, watch } from 'vue'
 import txAction from '@/const/txAction'
 import { useRequest } from 'vue-request'
 import { queryTxs } from '@/api'
@@ -28,6 +28,15 @@ const currentPage = ref(1)
 onMounted(() => {
     fetchCosmosTxs()
 })
+
+watch(
+    () => props.address,
+    () => {
+        if (props.address) {
+            fetchCosmosTxs()
+        }
+    },
+)
 
 const columns = computed(() => {
     return [
@@ -196,7 +205,13 @@ const fetchCosmosTxs = () => {
         address: props.address,
         ...paginationInfo.value,
     }
-    run(requestParams, getChainTypeByAddress(props.address))
+    try {
+        if (props.address) {
+            run(requestParams, getChainTypeByAddress(props.address))
+        }
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 const onCurrentPage = value => {
