@@ -85,6 +85,10 @@ const columns = computed(() => {
         {
             title: t('account.header.amount'),
             key: 'amount',
+            width: 180,
+            ellipsis: {
+                tooltip: true,
+            },
             render: row => {
                 return h('div', {}, [
                     h(
