@@ -4,6 +4,14 @@ export default [
         displayName: 'bCRE',
     },
     {
+        key: 'ubcre',
+        displayName: 'bCRE',
+    },
+    {
+        key: 'ucre',
+        displayName: 'CRE',
+    },
+    {
         key: 'uatom',
         displayName: 'ATOM',
     },
@@ -18,5 +26,9 @@ export default [
     {
         key: 'uevmos',
         displayName: 'EVMOS',
+    },
+    {
+        key: 'umntl',
+        displayName: 'MNTL',
     },
 ]
