@@ -4,12 +4,14 @@ import { RadioGroup, RadioGroupLabel, RadioGroupDescription, RadioGroupOption } 
 import { encodeAddress } from '@/utils'
 import { useWalletStore } from '@/store/wallet'
 import { useMessage } from 'naive-ui'
+import useKeplrWallet from '@/utils/wallet'
 
 const props = defineProps({
     walletInfo: {
         type: Array,
     },
 })
+const { convertCosmosAddress } = useKeplrWallet()
 const message = useMessage()
 const walletStore = useWalletStore()
 const selected = ref(props.walletInfo?.[0])
@@ -46,6 +48,15 @@ const createKeplrWallet = async (wallet: any) => {
         console.log(addressInfo)
         // walletStore.setCurrentAddressInfo({ address: addressInfo.bech32Address, name: addressInfo.name })
         walletStore.setChainInfo({ address: addressInfo.bech32Address, name: addressInfo.name }, wallet?.chainName)
+
+        // 根据 cosmos 来转换其他地址
+        if (wallet?.chainName === 'cosmos') {
+            walletStore.chainInfoArray.forEach(v => {
+                const convertAddress = convertCosmosAddress(addressInfo.bech32Address, v.prefix)
+                walletStore.setChainInfo({ address: convertAddress, name: addressInfo.name }, v.chainName)
+            })
+        }
+
         // Initialize the gaia api with the offline signer that is injected by Keplr extension.
         // const cosmJS = new SigningCosmosClient('https://rpc-osmosis.blockapsis.com', accounts.value[0].address, offlineSigner)
     } catch (e) {
@@ -83,7 +94,14 @@ const createKeplrWallet = async (wallet: any) => {
                                             {{ wallet.chainName }}
                                             <span>
                                                 <div v-if="wallet.address" class="badge badge-success badge-sm">{{ $t('wallet.radio.connect') }}</div>
-                                                <div v-else @click="createKeplrWallet(wallet)" class="badge badge-error badge-sm">
+                                                <div
+                                                    v-else-if="wallet.needConnect"
+                                                    @click="createKeplrWallet(wallet)"
+                                                    class="badge badge-error badge-sm"
+                                                >
+                                                    {{ $t('wallet.radio.notconnect.toConnect') }}
+                                                </div>
+                                                <div v-else class="badge badge-error badge-sm">
                                                     {{ $t('wallet.radio.notconnect') }}
                                                 </div>
                                             </span>

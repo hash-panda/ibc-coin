@@ -7,7 +7,9 @@ import { Copy16Regular, Share20Regular } from '@vicons/fluent'
 import { useClipboard } from '@vueuse/core'
 import WalletConnect from '@walletconnect/client'
 import QRCodeModal from '@walletconnect/qrcode-modal'
+import useKeplrWallet from '@/utils/wallet'
 
+const { convertCosmosAddress } = useKeplrWallet()
 const walletStore = useWalletStore()
 const showWalletListModal = ref(false)
 const showProfileModal = ref(false)
@@ -45,8 +47,8 @@ const createKeplrWallet = async () => {
         return
     }
 
-    for (let index = 0; index < walletStore.chainWallet.length; index++) {
-        const chainId = walletStore.chainWallet[index].chainId
+    for (let index = 0; index < walletStore.connectChainInfoArray.length; index++) {
+        const chainId = walletStore.connectChainInfoArray[index].chainId
 
         try {
             // You should request Keplr to enable the wallet.
@@ -65,15 +67,24 @@ const createKeplrWallet = async () => {
             // const offlineSignerAccounts = await offlineSigner.getAccounts()
             console.log(addressInfo)
             // walletStore.setCurrentAddressInfo({ address: addressInfo.bech32Address, name: addressInfo.name })
-            walletStore.setChainInfo({ address: addressInfo.bech32Address, name: addressInfo.name }, walletStore.chainWallet[index].chainName)
+            walletStore.setChainInfo(
+                { address: addressInfo.bech32Address, name: addressInfo.name },
+                walletStore.connectChainInfoArray[index].chainName,
+            )
             if (index === 0) {
                 walletStore.setCurrentSelectedWallet({
                     address: addressInfo.bech32Address,
                     name: addressInfo.name,
                     chainId: chainId,
-                    chainName: walletStore.chainWallet[index].chainName,
+                    chainName: walletStore.connectChainInfoArray[index].chainName,
+                })
+                // 根据 cosmos 来转换其他地址
+                walletStore.chainInfoArray.forEach(v => {
+                    const convertAddress = convertCosmosAddress(addressInfo.bech32Address, v.prefix)
+                    walletStore.setChainInfo({ address: convertAddress, name: addressInfo.name }, v.chainName)
                 })
             }
+
             // Initialize the gaia api with the offline signer that is injected by Keplr extension.
             // const cosmJS = new SigningCosmosClient('https://rpc-osmosis.blockapsis.com', accounts.value[0].address, offlineSigner)
         } catch (e) {
@@ -153,17 +164,17 @@ const openKeplrWallet = () => {
     window.open('https://wallet.keplr.app/#/dashboard', '_blank')
 }
 const openMintscan = () => {
-    window.open(`https://www.mintscan.io/cosmos/account/${walletStore.chainInfo.cosmos.address}`, '_blank')
+    window.open(`https://www.mintscan.io/cosmos/account/${walletStore.connectChainInfo.cosmos.address}`, '_blank')
 }
 </script>
 <template>
     <div>
         <div
-            v-if="walletStore.chainInfo.cosmos.address"
+            v-if="walletStore.connectChainInfo.cosmos.address"
             @click="onProfileModalOpen"
             class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4"
         >
-            {{ walletStore.chainInfo.cosmos.name }} | {{ encodeAddress(walletStore.chainInfo.cosmos.address) }}
+            {{ walletStore.connectChainInfo.cosmos.name }} | {{ encodeAddress(walletStore.connectChainInfo.cosmos.address) }}
         </div>
         <div v-else @click="onWalletListModalOpen" class="btn btn-primary btn-outline normal-case btn-xs sm:btn-md ml-4">
             {{ $t('wallet.connect.btn') }}
@@ -218,13 +229,13 @@ const openMintscan = () => {
                             </div>
                         </div>
                         <div>
-                            <div class="font-bold">{{ walletStore.chainInfo.cosmos.name }}</div>
+                            <div class="font-bold">{{ walletStore.connectChainInfo.cosmos.name }}</div>
                             <div class="opacity-50">
-                                {{ encodeAddress(walletStore.chainInfo.cosmos.address, false) }}
+                                {{ encodeAddress(walletStore.connectChainInfo.cosmos.address, false) }}
                                 <n-popover placement="bottom" trigger="click">
                                     <template #trigger>
                                         <n-icon
-                                            @click="copy(walletStore.chainInfo.cosmos.address)"
+                                            @click="copy(walletStore.connectChainInfo.cosmos.address)"
                                             size="15"
                                             class="hover:text-primary hover:cursor-pointer"
                                         >

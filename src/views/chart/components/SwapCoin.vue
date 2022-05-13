@@ -27,7 +27,7 @@ const value = ref(0)
                     <div class="h-62">
                         <div class="flex justify-between items-center mb-1">
                             <span class="mr-4">Price:</span>
-                            <span class="text-primary-content text-base tracking-widest">26.66 UST</span>
+                            <span class="text-primary-content text-base tracking-widest">26.66 USDC</span>
                         </div>
                         <div class="flex justify-between items-center mb-1">
                             <span class="mr-4">Min received:</span>

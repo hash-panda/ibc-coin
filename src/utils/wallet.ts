@@ -1,5 +1,6 @@
 import { useMessage } from 'naive-ui'
 import { useWalletStore } from '@/store/wallet'
+import converter from 'convert-bech32-address'
 
 export default function useKeplrWallet() {
     const message = useMessage()
@@ -42,7 +43,12 @@ export default function useKeplrWallet() {
             }
         }
     }
+
+    const convertCosmosAddress = (address: string, prefix: string) => {
+        return converter.lookup(address, prefix)
+    }
     return {
         createKeplrWallet,
+        convertCosmosAddress,
     }
 }

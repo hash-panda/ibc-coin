@@ -2463,6 +2463,11 @@ conventional-commits-parser@^3.2.2:
     split2 "^3.0.0"
     through2 "^4.0.0"
 
+convert-bech32-address@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmmirror.com/convert-bech32-address/-/convert-bech32-address-1.0.4.tgz#291162fb4849e1eab8440d07622f525e911f5374"
+  integrity sha512-8W3XHBgQeKnmdi59U7byrJnHiEhXI7Zz4FcnxkHSAXZtaHraMMQfxO8M3VL4Kk1oT5CcM9Uz7ec1OC8Y/pbd5Q==
+
 convert-source-map@^1.7.0:
   version "1.8.0"
   resolved "https://registry.npmmirror.com/convert-source-map/-/convert-source-map-1.8.0.tgz"

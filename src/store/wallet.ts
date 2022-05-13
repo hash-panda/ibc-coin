@@ -10,34 +10,46 @@ export const useWalletStore = defineStore({
                 name: '',
                 address: '',
             },
-            chainInfo: {
+            // 需要钱包授权的链
+            connectChainInfo: {
                 cosmos: {
                     chainId: 'cosmoshub-4',
+                    prefix: 'cosmos',
                     name: '',
                     address: '',
+                    needConnect: true,
                 },
+                evmos: {
+                    chainId: 'evmos_9001-2',
+                    prefix: 'evmos',
+                    name: '',
+                    address: '',
+                    needConnect: true,
+                },
+            },
+            // 可以通过 cosmos 钱包 bech32 转换的
+            chainInfo: {
                 osmosis: {
                     chainId: 'osmosis-1',
+                    prefix: 'osmo',
                     name: '',
                     address: '',
                 },
                 juno: {
                     chainId: 'juno-1',
+                    prefix: 'juno',
                     name: '',
                     address: '',
                 },
                 crescent: {
                     chainId: 'crescent-1',
+                    prefix: 'cre',
                     name: '',
                     address: '',
                 },
                 assetMantle: {
                     chainId: 'mantle-1',
-                    name: '',
-                    address: '',
-                },
-                evmos: {
-                    chainId: 'evmos_9001-2',
+                    prefix: 'mantle',
                     name: '',
                     address: '',
                 },
@@ -47,6 +59,12 @@ export const useWalletStore = defineStore({
     getters: {
         chainWallet: state => {
             let result = []
+            for (const [key, value] of Object.entries(state.connectChainInfo)) {
+                result.push({
+                    chainName: key,
+                    ...value,
+                })
+            }
             for (const [key, value] of Object.entries(state.chainInfo)) {
                 result.push({
                     chainName: key,
@@ -55,11 +73,38 @@ export const useWalletStore = defineStore({
             }
             return result
         },
+        chainInfoArray: state => {
+            let result = []
+            for (const [key, value] of Object.entries(state.chainInfo)) {
+                result.push({
+                    chainName: key,
+                    ...value,
+                })
+            }
+
+            return result
+        },
+        connectChainInfoArray: state => {
+            let result = []
+            for (const [key, value] of Object.entries(state.connectChainInfo)) {
+                result.push({
+                    chainName: key,
+                    ...value,
+                })
+            }
+
+            return result
+        },
     },
     actions: {
         setChainInfo(chainInfo: any, chain: string) {
-            this.chainInfo[chain].name = chainInfo?.name ?? ''
-            this.chainInfo[chain].address = chainInfo?.address ?? ''
+            if (chain && this.chainInfo[chain]) {
+                this.chainInfo[chain].name = chainInfo?.name ?? ''
+                this.chainInfo[chain].address = chainInfo?.address ?? ''
+            } else {
+                this.connectChainInfo[chain].name = chainInfo?.name ?? ''
+                this.connectChainInfo[chain].address = chainInfo?.address ?? ''
+            }
         },
         setCurrentSelectedWallet(wallet: any) {
             this.currentSelectedWallet.name = wallet?.name ?? ''
@@ -75,9 +120,14 @@ export const useWalletStore = defineStore({
         enabled: true,
         strategies: [
             {
-                key: 'ibcCoin_wallet_address',
+                key: 'ibcCoin_wallet_chainInfo',
                 storage: localStorage,
                 paths: ['chainInfo'],
+            },
+            {
+                key: 'ibcCoin_wallet_connectChainInfo',
+                storage: localStorage,
+                paths: ['connectChainInfo'],
             },
         ],
     },

@@ -20,6 +20,7 @@
         "@walletconnect/client": "^1.7.8",
         "@walletconnect/qrcode-modal": "^1.7.8",
         "axios": "^0.25.0",
+        "convert-bech32-address": "^1.0.4",
         "dayjs": "^1.11.0",
         "lightweight-charts": "^3.8.0",
         "numeral": "^2.0.6",
